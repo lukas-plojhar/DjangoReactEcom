@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ProductConfigrest_framework(AppConfig):
+class ProductConfig(AppConfig):
     name = 'product'
