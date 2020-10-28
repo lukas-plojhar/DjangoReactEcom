@@ -126,9 +126,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Rest framework global configuration
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES':[
-        'rest_framework.renderers.JSONRenderer'
-    ]
-}
+# # Rest framework global configuration
+# # Striktne vynucuje JSON
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES':[
+#         'rest_framework.renderers.JSONRenderer'
+#     ]
+# }
