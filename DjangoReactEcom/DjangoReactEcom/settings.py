@@ -39,14 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My applications
-    'product.apps.ProductConfig',
-    'frontend',
+    'product',
 
     # 3rd party applications
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # new
+    'django.middleware.common.CommonMiddleware', # new
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,6 +59,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DjangoReactEcom.urls'
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+]
 
 TEMPLATES = [
     {
@@ -126,10 +133,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# # Rest framework global configuration
-# # Striktne vynucuje JSON
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES':[
-#         'rest_framework.renderers.JSONRenderer'
-#     ]
-# }
+# new
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
