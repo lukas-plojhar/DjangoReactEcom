@@ -4,8 +4,16 @@ from .serializers import ProductSerializer
 
 
 class ProductList(generics.ListCreateAPIView):
+    """
+    Returns all products
+    """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    def get_queryset(self):
-        return Product.objects.filter(id=self.kwargs.get('id'))
+class ProductDetail(generics.RetrieveAPIView):
+    """
+    Return a specific product by ID
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
