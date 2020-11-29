@@ -28,27 +28,27 @@ class CartDetail(APIView):
     Returns a detailed view on a cart model
     """
 
-    def get_object(self, pk):
+    def get_object(self, hash):
         try:
-            return Cart.objects.get(pk=pk)
+            return Cart.objects.get(hash=hash)
         except Cart.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        cart = self.get_object(pk)
+    def get(self, request, hash, format=None):
+        cart = self.get_object(hash)
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        cart = self.get_object(pk)
+    def put(self, request, hash, format=None):
+        cart = self.get_object(hash)
         serializer = CartSerializer(cart, request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        cart = self.get_object(pk)
+    def delete(self, request, hash, format=None):
+        cart = self.get_object(hash)
         cart.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

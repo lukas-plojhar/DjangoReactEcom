@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.CartList.as_view()),
-    path('<int:pk>/', views.CartDetail.as_view()),
+    path('<hash>/', views.CartDetail.as_view()),
 ]

@@ -4,7 +4,7 @@ from djrichtextfield.models import RichTextField
 class Product(models.Model):
     name = models.CharField(max_length=255)
     main_image = models.ImageField(upload_to='images/products/', null=True, blank=True, default=None)
-    gallery_images = models.ImageField(upload_to='images/products/', null=True, blank=True, default=None)
+    # gallery_images = models.ImageField(upload_to='images/products/', null=True, blank=True, default=None)
     google_remarketing_image = models.ImageField(upload_to='images/products/', null=True, blank=True, default=None)
     facebook_remarketing_image = models.ImageField(upload_to='images/products/', null=True, blank=True, default=None)
     headline = models.CharField(max_length=255, null=True, blank=True)
@@ -14,3 +14,5 @@ class Product(models.Model):
     # product_components = RichTextField(null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.name}'

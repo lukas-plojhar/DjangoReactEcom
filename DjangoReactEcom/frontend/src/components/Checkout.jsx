@@ -2,57 +2,56 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import OrderForm from './checkout/OrderForm';
 import Cookies from "universal-cookie";
+import CartForm from "./checkout/CartForm";
 
 class Checkout extends Component {
-    state = {
-        cookieName: 'teethycz-hash',
-        cartId: '',
-        formData: {
-            first_name: '',
-            last_name:'',
-            email: '',
-            phone: '',
-            postcode:'',
+    constructor(props) {
+        super(props);
+        this.state = {
+            cookieName: 'teethycz-hash',
+            hash: '',
+            formData: []
         }
     }
 
-    constructor() {
-        super();
+    componentDidMount() {
+        this.setState({hash: this.getCartHash()});
+        this.setState({formData: this.getFormData(this.state.hash)});
     }
 
-    getFormData(cartId){
-        axios.get('http://localhost:8000/cart/1')
-            .then(function(response){
-                //console.log(response.data);
+    componentWillUnmount() {
+        console.log('component will unmount, gotta save')
+    }
+
+    // Get form data from API by hash
+    getFormData(hash) {
+        hash = "5ms06t8vf4v";
+        axios.get('http://localhost:8000/cart/' + hash)
+            .then(function (response) {
+                console.log(response.data)
                 return response.data;
             })
-
     }
 
-    // Fetches a cart id from cookies or generates a new one
-    getCartId() {
+    // Fetch cart id from cookie
+    getCartHash() {
         let cookies = new Cookies();
-        let cartId = cookies.get(this.state.cookieName);
+        let cartHash = cookies.get(this.state.cookieName);
 
-        if (!cartId) {
+        if (!cartHash) {
             cookies.set(this.state.cookieName, Math.random().toString(36).slice(2));
         }
         return cookies.get(this.state.cookieName);
     }
 
-    componentDidMount() {
-        this.setState({cartId: this.getCartId()});
-        this.setState({formData: this.getFormData(this.state.cartId)});
-    }
-
-
     render() {
         console.log(this.state.formData)
         return (
             <React.Fragment>
-                <h1>{this.state.cookieName}</h1>
-                <h1>{this.state.cartId}</h1>
+                <p>Cookie name: {this.state.cookieName}</p>
+                <p>Hash: {this.state.hash}</p>
                 <OrderForm/>
+                <CartForm/>
             </React.Fragment>);
     }
 }
