@@ -1,43 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
+import OrderFormField from "./OrderFormField";
 
-class OrderForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: ''
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+const OrderForm = (
+    {
+        first_name,
+        last_name,
+        email,
+        phone,
+        address,
+        city,
+        postcode,
+        handleChange
+    }) => {
+    return (
+        <React.Fragment>
+            <h3>OrderForm</h3>
+            <form>
+                <OrderFormField handleChange={handleChange} fieldLabel="Jmeno" fieldName="first_name" fieldValue={first_name}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="Prijmeni" fieldName="last_name" fieldValue={last_name}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="Email" fieldName="email" fieldValue={email}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="Telefon" fieldName="phone" fieldValue={phone}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="Adresa" fieldName="address" fieldValue={address}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="Mesto" fieldName="city" fieldValue={city}/>
+                <OrderFormField handleChange={handleChange} fieldLabel="PSC" fieldName="postcode" fieldValue={postcode}/>
 
-    }
 
-    handleChange(event) {
-        this.setState({
-            value: event.target.value
-        })
-        console.log(event.target.value)
-    }
-
-    handleSubmit(event) {
-        alert(this.state.value);
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <h3>Order Form</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Jmeno:
-                    </label>
-                    <input type="text" onChange={this.handleChange} value={this.state.value}/>
-                    <button className="btn btn-primary" type="submit">
-                        Objednej
-                    </button>
-                </form>
-            </React.Fragment>
-        )
-    }
+            </form>
+        </React.Fragment>
+    )
 }
 
 export default OrderForm;

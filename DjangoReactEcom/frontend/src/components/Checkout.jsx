@@ -1,36 +1,30 @@
 import React, {Component} from 'react';
-import axios from 'axios'
-import OrderForm from './checkout/OrderForm';
 import Cookies from "universal-cookie";
 import CartForm from "./checkout/CartForm";
+import OrderForm from './checkout/OrderForm';
+import ServicesForm from './checkout/ServicesForm';
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
             cookieName: 'teethycz-hash',
-            hash: '',
-            formData: []
-        }
+            formData: {}
+        };
+        this.getCartHash = this.getCartHash.bind(this);
+        this.handleCustomerChange = this.handleCustomerChange.bind(this);
     }
 
     componentDidMount() {
-        this.setState({hash: this.getCartHash()});
-        this.setState({formData: this.getFormData(this.state.hash)});
-    }
+        var hash = this.getCartHash();
 
-    componentWillUnmount() {
-        console.log('component will unmount, gotta save')
-    }
-
-    // Get form data from API by hash
-    getFormData(hash) {
-        hash = "5ms06t8vf4v";
-        axios.get('http://localhost:8000/cart/' + hash)
-            .then(function (response) {
-                console.log(response.data)
-                return response.data;
-            })
+        fetch('http://localhost:8000/cart/' + hash)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    formData: data
+                })
+            });
     }
 
     // Fetch cart id from cookie
@@ -44,15 +38,40 @@ class Checkout extends Component {
         return cookies.get(this.state.cookieName);
     }
 
+    // Handles changes in OrderForm
+    handleCustomerChange(event) {
+        var data = this.state.formData;
+        data.customer[event.target.name] = event.target.value;
+        this.setState({formData: data})
+    }
+
     render() {
-        console.log(this.state.formData)
-        return (
-            <React.Fragment>
-                <p>Cookie name: {this.state.cookieName}</p>
-                <p>Hash: {this.state.hash}</p>
-                <OrderForm/>
-                <CartForm/>
-            </React.Fragment>);
+        var customer = this.state.formData.customer;
+        if (customer) {
+            return (
+                <React.Fragment>
+                    <div className="row">
+                        <div className="col-12">
+                            <CartForm/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-6">
+                            <OrderForm {...customer} handleChange={this.handleCustomerChange}/>
+                        </div>
+                        <div className="col-6">
+                            <ServicesForm/>
+                        </div>
+                    </div>
+
+                    <p>Cookie name: {this.state.cookieName}</p>
+                    <p>Hash: {this.state.formData.hash}</p>
+
+
+                </React.Fragment>);
+        }
+
+        return (<React.Fragment></React.Fragment>)
     }
 }
 

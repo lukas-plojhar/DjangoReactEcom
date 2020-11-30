@@ -26,6 +26,7 @@ class Cart(models.Model):
     shipping = models.CharField(max_length=1, choices=ShippingOptions.choices, default=ShippingOptions.CESKA_POSTA)
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
     discount = models.ForeignKey('discount', on_delete=models.PROTECT, null=True)
+    # additional_services = xxx
 
     def __str__(self):
         return f'Cart {self.hash}: customer {self.customer}'
