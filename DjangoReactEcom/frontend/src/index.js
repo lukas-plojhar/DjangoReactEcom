@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // CSS imports
-import '../src/static/css/style.css'
+import './static/css/style.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(

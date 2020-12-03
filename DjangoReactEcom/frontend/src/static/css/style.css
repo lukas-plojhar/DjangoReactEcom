@@ -1,8 +1,31 @@
+/*General CSS*/
+body, p, h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto Condensed";
+    font-size: 15px;
+    font-weight: 300 !important;
+}
+
+h1 {font-size: 26px !important;}
+
+h2 {font-size: 18px !important;}
+
+h3 {font-size: 15px !important;}
+
+.bold {font-weight: 600 !important;}
+
+.highlight {
+    text-decoration: underline;
+    text-decoration-color: #32bef0;
+    text-decoration-thickness: 2px;
+}
+
+
+/*Homepage CSS*/
 .ohyb {
-  background-image: url("../img/ohyb.jpg");
-  background-color: black;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding-top: 200px;
+    background-image: url("../img/ohyb.jpg");
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 200px;
 }

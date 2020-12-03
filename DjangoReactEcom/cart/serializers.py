@@ -11,9 +11,11 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class DiscountSerializer(serializers.ModelSerializer):
+    absolute_amount = serializers.SerializerMethodField()
+
     class Meta:
         model = Discount
-        fields = ('code', 'amount')
+        fields = ('code', 'amount', 'absolute_amount')
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -26,8 +28,8 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer()
-    discount = DiscountSerializer()
     cart_items = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
 
     class Meta:
         model = Cart
@@ -49,3 +51,7 @@ class CartSerializer(serializers.ModelSerializer):
             CartItem.objects.filter(cart_id=self.instance.id),
             many=True)
         return serializer.data
+
+    def get_total(self, obj):
+
+        return 1000

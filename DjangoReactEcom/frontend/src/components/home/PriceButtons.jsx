@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const VariationButton = ({id, handleClick, children}) => {
+const VariationButton = ({className, id, handleClick, children}) => {
     return (
         <button key={id}
                 value={id}
                 onClick={(e) => handleClick(e.target.value)}
-                className="btn btn-secondary"
+                className={"btn " + className}
                 >
                 {children}
         </button>
@@ -21,7 +21,9 @@ const PriceButtons = ({data, handleClick, selectedProductId}) => {
             {data.map(variation => 
                 <VariationButton id={variation.product_id} 
                                 key={variation.product_id}
-                                handleClick={handleClick}>
+                                handleClick={handleClick}
+                                 className={variation.product_id == selectedProductId ? 'btn-primary' : 'btn-secondary btn-outline'}
+                >
                                     {variation.label}
                                 </VariationButton>
             )}

@@ -23,8 +23,6 @@ const OrderForm = (
                 <OrderFormField handleChange={handleChange} fieldLabel="Adresa" fieldName="address" fieldValue={address}/>
                 <OrderFormField handleChange={handleChange} fieldLabel="Mesto" fieldName="city" fieldValue={city}/>
                 <OrderFormField handleChange={handleChange} fieldLabel="PSC" fieldName="postcode" fieldValue={postcode}/>
-
-
             </form>
         </React.Fragment>
     )

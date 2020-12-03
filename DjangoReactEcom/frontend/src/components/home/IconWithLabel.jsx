@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 
-const IconWithLabel = ({src, title, children}) => {
+const IconWithLabel = ({img, title, children}) => {
     return(
-        <div className="card">
-            <img src="{src}" alt="" className="card-img-top"/>
-            <div className="card-body">
-                <h3 className="card-title text-center">{title}</h3>
-                <p className="card-text text-center">{children}</p>
-            </div>
+        <div className="col-12 text-center">
+            <img src="{img}" alt=""/>
+                <h2 className="bold">{title}</h2>
+                <p>{children}</p>
         </div>
     );
 }
