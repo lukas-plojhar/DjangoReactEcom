@@ -21,15 +21,13 @@ class Cart(models.Model):
         COD = '1', 'Na dobirku'
         CC = '2', 'Platba kartou'
 
-    hash = models.CharField(max_length=11, null=False, default='TEST')
-    customer = models.ForeignKey('customer', on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey('customer', on_delete=models.CASCADE, null=True, blank=True)
     shipping = models.CharField(max_length=1, choices=ShippingOptions.choices, default=ShippingOptions.CESKA_POSTA)
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
-    discount = models.ForeignKey('discount', on_delete=models.PROTECT, null=True)
-    # additional_services = xxx
+    discount = models.ForeignKey('discount', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
-        return f'Cart {self.hash}: customer {self.customer}'
+        return f'Cart from customer {self.customer}'
 
 
 class Customer(models.Model):

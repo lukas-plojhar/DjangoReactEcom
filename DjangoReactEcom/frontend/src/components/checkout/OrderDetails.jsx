@@ -5,12 +5,12 @@ const OrderDetails = ({products, total, handleClick}) => {
         <React.Fragment>
             <div className="row">
                 <div className="col-12 order-details">
-                    {products.map((product) => (
+                    {products !== undefined && products.length > 0 && products.map((product) => (
                         <p>
-                            {product.product_id.name} - {product.product_id.sale_price}
+                            {product.product.name} - {product.product.salePrice}
                         </p>
                     ))}
-                    <p className={'total'}>{ total },-</p>
+                    <p className={'total'}>{total}</p>
                     <button className="btn btn-primary order-button" onClick={handleClick}>Objednej</button>
                 </div>
             </div>

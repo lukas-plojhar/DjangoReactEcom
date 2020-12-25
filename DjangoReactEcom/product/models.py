@@ -1,5 +1,4 @@
 from django.db import models
-from djrichtextfield.models import RichTextField
 
 class Product(models.Model):
     name = models.CharField(max_length=255)

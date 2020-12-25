@@ -6,26 +6,31 @@ const CartForm = ({products, handleClick}) => {
             <thead>
             <tr>
                 <th scope="col"></th>
-                <th scope="col">Nazev</th>
-                <th scope="col">Mnozstvi</th>
+                <th scope="col">Název</th>
+                <th scope="col">Množství</th>
                 <th scope="col">Cena</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             {
-                products.map((product) => (
-                    <tr>
-                        <th scope="row"><img src={product.product_id.mainImage} alt=""/></th>
-                        <td>{product.product_id.name}</td>
-                        <td>{product.quantity}</td>
-                        <td>{product.product_id.sale_price}</td>
+                products !== undefined && products.length > 0 && products.map((item, index) => (
+                    <tr key={index}>
+                        <td><img src={item.product.featuredImage} className={'img-fluid'}/></td>
+                        <td>{item.product.name}</td>
+                        <td>{item.quantity}</td>
                         <td>
-                            <button className="btn btn-secondary btn-outline" value={product.product_id.name} onClick={handleClick}>remove</button></td>
+                            {item.product.regularPrice}<br/>
+                            {item.product.salePrice}
+                        </td>
+                        <td>
+                            <button className="btn btn-secondary btn-outline" value={index}
+                                    onClick={handleClick}>X
+                            </button>
+                        </td>
                     </tr>
                 ))
             }
-
             </tbody>
         </table>
     )

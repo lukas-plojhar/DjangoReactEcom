@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-Base_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     # 3rd party applications
     'rest_framework',
     'corsheaders',
-    'djrichtextfield',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +78,8 @@ WSGI_APPLICATION = 'DjangoReactEcom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -123,19 +123,6 @@ STATIC_URL = '/static/'
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
-
-# Rich Text Field
-# https://pypi.org/project/django-richtextfield/
-# DJRICHTEXTFIELD_CONFIG = {
-#     'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
-#     'init_template': 'djrichtextfield/init/tinymce.js',
-#     'settings': {
-#         'menubar': False,
-#         'plugins': 'link image',
-#         'toolbar': 'bold italic | link image | removeformat',
-#         'width': 700
-#     }
-# }
 
 # new
 REST_FRAMEWORK = {

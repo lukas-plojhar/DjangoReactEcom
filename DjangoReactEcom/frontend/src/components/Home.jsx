@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+
 
 import Footer from './common/Footer';
 import CenteredFullRow from './common/CenteredFullRow';
 import IconWithLabel from './home/IconWithLabel';
-import PriceButtons from './home/PriceButtons';
+import VariationButtonGroup from './home/VariationButtonGroup';
 
 import image from '../static/img/krabicka_side.png';
 
@@ -112,9 +112,9 @@ class Home extends Component {
                         <small>+ doprava pouze za 69,-</small>
                         <small>Do tří dnů u vás!</small>
                         <div className="text-center">
-                            <PriceButtons data={this.state.product_variations}
-                                          selectedProductId={this.state.selected_product_id}
-                                          handleClick={this.handleProductVariationChange}/>
+                            <VariationButtonGroup data={this.state.product_variations}
+                                                  selectedProductId={this.state.selected_product_id}
+                                                  handleClick={this.handleProductVariationChange}/>
                         </div>
                     </div>
                     <div className="col-12 text-center">
