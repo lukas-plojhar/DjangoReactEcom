@@ -28,7 +28,7 @@ class CartList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# GET /cart/<hash>/detail
+# GET /cart/<pk>/detail
 class CartDetailAPIView(generics.RetrieveAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer

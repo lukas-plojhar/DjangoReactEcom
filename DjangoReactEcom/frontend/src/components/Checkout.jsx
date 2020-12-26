@@ -4,30 +4,12 @@ import OrderForm from './checkout/OrderForm';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import UpsellForm from "./checkout/UpsellForm";
+import Joi from 'joi-browser';
 import axios from "axios";
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
-        this.state = JSON.parse(localStorage.getItem('teethycz')) === null ?
-            {
-                "customer": {
-                    "firstName": "",
-                    "lastName": "",
-                    "email": "",
-                    "phone": "",
-                    "address": "",
-                    "city": "",
-                    "postcode": ""
-                },
-                "items": [],
-                "shipping": 1,
-                "payment": 1,
-                "total": 0
-            }
-            :
-            JSON.parse(localStorage.getItem('teethycz'));
-        ;
 
         this.handleCustomerChange = this.handleCustomerChange.bind(this);
         this.handlePaymentChange = this.handlePaymentChange.bind(this);
@@ -36,44 +18,90 @@ class Checkout extends Component {
         this.handleItemRemoveButtonClick = this.handleItemRemoveButtonClick.bind(this);
     }
 
+    state = JSON.parse(localStorage.getItem('teethycz')) === null ?
+        {
+            "customer": {
+                "firstName": "",
+                "lastName": "",
+                "email": "",
+                "phone": "",
+                "address": "",
+                "city": "",
+                "postcode": ""
+            },
+            "items": [],
+            "shipping": 1,
+            "payment": 1,
+            "errors": {}
+        }
+        :
+        JSON.parse(localStorage.getItem('teethycz'));
+    ;
+
+    schema = {
+        firstName: Joi.string().required().label("User name"),
+        lastName: Joi.string().required(),
+        email: Joi.string().email({minDomainAtoms: 2}).required(),
+        phone: Joi.string().min(9).required(),
+        address: Joi.string().required(),
+        city: Joi.string().required(),
+        postcode: Joi.number().min(5).required(),
+
+    };
+
+
+    validate() {
+        const options = {abortEarly: false};
+        const {error} = Joi.validate(this.state.customer, this.schema, options);
+        if (!error) return null;
+        const errors = {};
+        for (let item of error.details)
+            errors[item.path[0]] = item.message;
+        return errors;
+    }
+
+    validateProperty(name, value){
+        const object = {[name]: value};
+        const schema = {[name]: this.schema[name]};
+        const {error} = Joi.validate(object, schema);
+        console.log(error);
+        return error ? error.details[0].message : null;
+    };
+
     async componentDidMount() {
         let items = this.state.items;
-        let total = 0;
-        let productId = this.props.location.state !== undefined ? this.props.location.state.productId.productId : false;
-
+        const productId = this.props.location.state !== undefined ? this.props.location.state.productId.productId : false;
         // Updating items in cart
         if (productId) {
-            const newItem = await axios.get(`http://localhost:8000/product/${productId}/detail`).then(response => response.data);
-            const isInCart = items.filter(item => item.product.name === newItem.name);
-            if (isInCart.length !== 0) {
+            const newProduct = await axios.get(`http://localhost:8000/product/${productId}/detail`).then(response => response.data);
+            const duplicates = items.filter(item => item.product.id === newProduct.id);
+            if (duplicates.length > 0) {
                 items.forEach(item => {
-                    if (item.product.name === newItem.name) {
+                    if (item.product.id === newProduct.id) {
                         item.quantity++;
                     }
                 })
             } else {
                 items.push({
-                    'product': newItem,
+                    // 'product': {'id': newProduct.id},
+                    'product': newProduct,
                     'quantity': 1
                 });
             }
         }
 
-        // Updating total
-        items.forEach(item => {
-            total += item.product.salePrice * item.quantity;
-        });
-
         // Saving the data
-        this.setState({items, total});
+        this.setState({items});
     }
 
     componentDidUpdate() {
+        // nutno updatovat provozni variables jako total, discount, etc.
         console.log('component updated');
         localStorage.setItem('teethycz', JSON.stringify(this.state));
     }
 
     handleCustomerChange(e) {
+        this.validateProperty(e.target.name, e.target.value);
         let customer = this.state.customer;
         customer[e.target.name] = e.target.value;
         this.setState({customer});
@@ -92,15 +120,30 @@ class Checkout extends Component {
     }
 
     handleOrderButtonClick(e) {
-        console.log('validate form');
+        const errors = this.validate();
+        if (errors) {
+            this.setState({errors});
+            console.log(this.state.errors);
+        }
+        return null;
+
         const url = `http://localhost:8000/order/create/`;
-        const data = JSON.stringify(this.state);
-        const config = {};
-        // alert(JSON.stringify(this.state));
+        const config = {
+            'headers': {
+                'Content-Type': 'application/json',
+            }
+        };
+        const data = JSON.stringify({
+            "customer": this.state.customer,
+            "items": this.state.items,
+            "shipping": this.state.shipping,
+            "payment": this.state.payment,
+
+        });
+
         axios.post(url, data, config).then(response => {
             alert(response.data);
         });
-
     }
 
     handleItemRemoveButtonClick(e) {
@@ -138,6 +181,7 @@ class Checkout extends Component {
                     <div className="col-6">
                         <OrderForm
                             {...state.customer}
+                            errors = {this.state.errors}
                             handleChange={this.handleCustomerChange}
                         />
                     </div>
@@ -151,7 +195,7 @@ class Checkout extends Component {
                         <hr/>
                         <OrderDetails
                             products={state.items}
-                            total={state.total}
+                            isFormValid={this.validate()}
                             handleClick={this.handleOrderButtonClick}
                         />
                     </div>

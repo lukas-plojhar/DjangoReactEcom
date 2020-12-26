@@ -3,6 +3,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_RE
 from rest_framework.response import Response
 from cart.serializers import CartSerializer
 from cart.models import Cart
+import json
 
 
 # POST /order/create
@@ -12,8 +13,15 @@ class CreateAPIView(views.APIView):
     """
 
     def post(self, request):
-        print(request.data)
-        return Response(status=HTTP_200_OK)
+        serializer = CartSerializer(data=json.loads(request.body))
+        if serializer.is_valid():
+            serializer.save()
+
+        print(serializer.errors)
+
+
+        return Response('saved', status=HTTP_200_OK)
+
 
     # def post(self, request, format=None):
     #     carts = Cart.objects.all()

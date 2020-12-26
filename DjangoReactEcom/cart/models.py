@@ -2,12 +2,9 @@ from django.db import models
 
 
 class CartItem(models.Model):
-    cart_id = models.ForeignKey('cart', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('product.product', on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField(default=1, null=False)
+    product = models.ForeignKey('product.product', on_delete=models.PROTECT, null=True)
+    quantity = models.PositiveIntegerField()
 
-    def __str__(self):
-        return f'Product {self.product_id.name} x {self.quantity}'
 
 class Cart(models.Model):
     """
@@ -22,9 +19,10 @@ class Cart(models.Model):
         CC = '2', 'Platba kartou'
 
     customer = models.ForeignKey('customer', on_delete=models.CASCADE, null=True, blank=True)
+    items = models.ManyToManyField('cartitem', blank=True)
+    discount = models.ForeignKey('discount', on_delete=models.PROTECT, null=True, blank=True)
     shipping = models.CharField(max_length=1, choices=ShippingOptions.choices, default=ShippingOptions.CESKA_POSTA)
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
-    discount = models.ForeignKey('discount', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
         return f'Cart from customer {self.customer}'
