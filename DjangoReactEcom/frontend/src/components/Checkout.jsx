@@ -9,10 +9,6 @@ import axios from "axios";
 class Checkout extends Component {
     constructor(props) {
         super(props);
-        this.handlePaymentChange = this.handlePaymentChange.bind(this);
-        this.handleShippingChange = this.handleShippingChange.bind(this);
-        this.handleOrderButtonClick = this.handleOrderButtonClick.bind(this);
-        this.handleItemRemoveButtonClick = this.handleItemRemoveButtonClick.bind(this);
     }
 
     state = {
@@ -65,56 +61,21 @@ class Checkout extends Component {
     }
 
     componentDidUpdate() {
-        // nutno updatovat provozni variables jako total, discount, etc.
+        console.log('checkout.jsx: component did update');
         localStorage.setItem('teethycz', JSON.stringify(this.state.data));
     }
 
-    handleShippingChange(e) {
+    handleFormChange(e) {
+        // console.log('order form change');
+        const { customer } = this.state.data;
+        // console.log(data);
+    }
+
+    handleOrderChange({shipping, payment}) {
         const {data} = this.state;
-        data.shipping = e.target.value;
-        this.setState({data});
-    }
-
-    handlePaymentChange(e) {
-        const {data} = this.state;
-        data.payment = e.target.value;
-        this.setState({data});
-    }
-
-    handleOrderButtonClick(e) {
-        alert('ORDER SENT');
-        return;
-
-        const url = `http://localhost:8000/order/create/`;
-        const config = {
-            'headers': {
-                'Content-Type': 'application/json',
-            }
-        };
-        const data = JSON.stringify({
-            "customer": this.state.customer,
-            "items": this.state.items,
-            "shipping": this.state.shipping,
-            "payment": this.state.payment,
-
-        });
-
-        axios.post(url, data, config).then(response => {
-            alert(response.data);
-        });
-    }
-
-    handleItemRemoveButtonClick(e) {
-        let {items, total} = this.state.data;
-
-        // Processing changes
-        items.splice(e.target.value, 1);
-        if (items) items.forEach(item => total += parseInt(item.product.salePrice));
-
-        // Saving data
-        const {data} = this.statel
-        data.items = items;
-        data.total = total;
+        data.shipping = shipping;
+        data.payment = payment;
+        console.log(data);
         this.setState({data});
     }
 
@@ -138,6 +99,7 @@ class Checkout extends Component {
                 <div className="row">
                     <div className="col-6">
                         <OrderForm
+                            onChange={(e) => this.handleFormChange(e)}
                             customer={data.customer}
                         />
                     </div>
@@ -145,8 +107,7 @@ class Checkout extends Component {
                         <ServicesForm
                             shipping={data.shipping}
                             payment={data.payment}
-                            handlePaymentChange={this.handlePaymentChange}
-                            handleShippingChange={this.handleShippingChange}
+                            handleChange={(e) => this.handleOrderChange(e)}
                         />
                         <hr/>
                         <OrderDetails

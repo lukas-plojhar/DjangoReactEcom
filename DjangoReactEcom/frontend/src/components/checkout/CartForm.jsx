@@ -1,6 +1,21 @@
 import React from 'react';
 
 const CartForm = ({products, handleClick}) => {
+
+    function handleItemRemoveButtonClick(e) {
+        let {items, total} = this.state.data;
+
+        // Processing changes
+        items.splice(e.target.value, 1);
+        if (items) items.forEach(item => total += parseInt(item.product.salePrice));
+
+        // Saving data
+        const {data} = this.statel
+        data.items = items;
+        data.total = total;
+        this.setState({data});
+    }
+
     return (
         <table className="table">
             <thead>
