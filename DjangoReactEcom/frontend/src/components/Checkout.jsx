@@ -4,72 +4,41 @@ import OrderForm from './checkout/OrderForm';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import UpsellForm from "./checkout/UpsellForm";
-import Joi from 'joi-browser';
 import axios from "axios";
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
-
-        this.handleCustomerChange = this.handleCustomerChange.bind(this);
         this.handlePaymentChange = this.handlePaymentChange.bind(this);
         this.handleShippingChange = this.handleShippingChange.bind(this);
         this.handleOrderButtonClick = this.handleOrderButtonClick.bind(this);
         this.handleItemRemoveButtonClick = this.handleItemRemoveButtonClick.bind(this);
     }
 
-    state = JSON.parse(localStorage.getItem('teethycz')) === null ?
-        {
-            "customer": {
-                "firstName": "",
-                "lastName": "",
-                "email": "",
-                "phone": "",
-                "address": "",
-                "city": "",
-                "postcode": ""
-            },
-            "items": [],
-            "shipping": 1,
-            "payment": 1,
-            "errors": {}
-        }
-        :
-        JSON.parse(localStorage.getItem('teethycz'));
-    ;
-
-    schema = {
-        firstName: Joi.string().required().label("User name"),
-        lastName: Joi.string().required(),
-        email: Joi.string().email({minDomainAtoms: 2}).required(),
-        phone: Joi.string().min(9).required(),
-        address: Joi.string().required(),
-        city: Joi.string().required(),
-        postcode: Joi.number().min(5).required(),
-
-    };
-
-
-    validate() {
-        const options = {abortEarly: false};
-        const {error} = Joi.validate(this.state.customer, this.schema, options);
-        if (!error) return null;
-        const errors = {};
-        for (let item of error.details)
-            errors[item.path[0]] = item.message;
-        return errors;
+    state = {
+        data: JSON.parse(localStorage.getItem('teethycz')) === null ?
+            {
+                "customer": {
+                    "firstName": "",
+                    "lastName": "",
+                    "email": "",
+                    "phone": "",
+                    "address": "",
+                    "city": "",
+                    "postcode": ""
+                },
+                "items": [],
+                "shipping": "1",
+                "payment": "1",
+                "errors": {}
+            }
+            :
+            JSON.parse(localStorage.getItem('teethycz')),
+        other: {}
     }
 
-    validateProperty(name, value){
-        const object = {[name]: value};
-        const schema = {[name]: this.schema[name]};
-        const {error} = Joi.validate(object, schema);
-        console.log(error);
-        return error ? error.details[0].message : null;
-    };
-
     async componentDidMount() {
-        let items = this.state.items;
+        let {items} = this.state.data;
         const productId = this.props.location.state !== undefined ? this.props.location.state.productId.productId : false;
         // Updating items in cart
         if (productId) {
@@ -83,7 +52,6 @@ class Checkout extends Component {
                 })
             } else {
                 items.push({
-                    // 'product': {'id': newProduct.id},
                     'product': newProduct,
                     'quantity': 1
                 });
@@ -91,41 +59,31 @@ class Checkout extends Component {
         }
 
         // Saving the data
-        this.setState({items});
+        const {data} = this.state;
+        data.items = items;
+        this.setState({data});
     }
 
     componentDidUpdate() {
         // nutno updatovat provozni variables jako total, discount, etc.
-        console.log('component updated');
-        localStorage.setItem('teethycz', JSON.stringify(this.state));
-    }
-
-    handleCustomerChange(e) {
-        this.validateProperty(e.target.name, e.target.value);
-        let customer = this.state.customer;
-        customer[e.target.name] = e.target.value;
-        this.setState({customer});
+        localStorage.setItem('teethycz', JSON.stringify(this.state.data));
     }
 
     handleShippingChange(e) {
-        let shipping = this.state.shipping;
-        shipping = e.target.value;
-        this.setState({shipping});
+        const {data} = this.state;
+        data.shipping = e.target.value;
+        this.setState({data});
     }
 
     handlePaymentChange(e) {
-        let payment = this.state.payment;
-        payment = e.target.value;
-        this.setState({payment});
+        const {data} = this.state;
+        data.payment = e.target.value;
+        this.setState({data});
     }
 
     handleOrderButtonClick(e) {
-        const errors = this.validate();
-        if (errors) {
-            this.setState({errors});
-            console.log(this.state.errors);
-        }
-        return null;
+        alert('ORDER SENT');
+        return;
 
         const url = `http://localhost:8000/order/create/`;
         const config = {
@@ -147,55 +105,52 @@ class Checkout extends Component {
     }
 
     handleItemRemoveButtonClick(e) {
-        let items = this.state.items;
-        let total = 0;
+        let {items, total} = this.state.data;
 
         // Processing changes
         items.splice(e.target.value, 1);
         if (items) items.forEach(item => total += parseInt(item.product.salePrice));
 
         // Saving data
-        this.setState({items, total});
+        const {data} = this.statel
+        data.items = items;
+        data.total = total;
+        this.setState({data});
     }
 
     // Component rendering
     render() {
-        let state = this.state;
+        const {data} = this.state;
 
-        return state.items === undefined || state.items.length == 0 ? <p>Vas kosik je prazdny</p> : (
+        return data.items === undefined || data.items.length == 0 ? <p>Vas kosik je prazdny</p> : (
             <React.Fragment>
                 <div className="row">
                     <div className="col-12">
                         <CartForm
-                            products={state.items}
+                            products={data.items}
                             handleClick={this.handleItemRemoveButtonClick}
                         />
                     </div>
                     <div className="col-12">
-                        <UpsellForm
-                            handleClick={this.handleUpsellButtonClick}
-                        />
+                        <p>upsell form</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-6">
                         <OrderForm
-                            {...state.customer}
-                            errors = {this.state.errors}
-                            handleChange={this.handleCustomerChange}
+                            customer={data.customer}
                         />
                     </div>
                     <div className="col-6">
                         <ServicesForm
-                            shipping={state.shipping}
-                            payment={state.payment}
+                            shipping={data.shipping}
+                            payment={data.payment}
                             handlePaymentChange={this.handlePaymentChange}
                             handleShippingChange={this.handleShippingChange}
                         />
                         <hr/>
                         <OrderDetails
-                            products={state.items}
-                            isFormValid={this.validate()}
+                            products={data.items}
                             handleClick={this.handleOrderButtonClick}
                         />
                     </div>
