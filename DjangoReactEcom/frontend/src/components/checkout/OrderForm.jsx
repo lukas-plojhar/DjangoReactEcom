@@ -1,13 +1,10 @@
 import React from 'react';
 import Form, {Input} from "../common/Form";
+import {Redirect} from "react-router-dom";
 import Joi from "joi-browser";
 import axios from "axios";
 
 class OrderForm extends Form {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         data: this.props.customer,
         errors: {}
@@ -33,27 +30,20 @@ class OrderForm extends Form {
         postcode: Joi.number().min(5).required().label(this.locale.postcode),
     };
 
-    componentDidUpdate() {
-        console.log('orderform: updated');
-        // console.log(this.props.onChange(this.state.data));
-    }
-
     validate = () => {
         const options = {abortEarly: false};
-        const { error } = Joi.validate(this.state.data, this.schema, options);
+        const {error} = Joi.validate(this.state.data, this.schema, options);
         const errors = {};
 
-        for (let item of error.details) {errors[item.path[0]] = item.message}
+        // No errors
+        if (!error) return;
 
-        this.setState({errors});
+        // Errors found
+        for (let item of error.details) {
+            errors[item.path[0]] = item.message
+        }
+        return errors;
     }
-
-    handleClick = e => {
-        e.preventDefault();
-        console.log(this.state.data);
-        this.validate();
-    }
-
 
     validateProperty = (e) => {
         const errors = this.state.errors;
@@ -69,31 +59,15 @@ class OrderForm extends Form {
         data[e.target.name] = e.target.value;
         this.setState({data});
         this.validateProperty(e);
+        this.props.handleStateChange(this.state.data);
     }
 
-    handleOrderButtonClick(e) {
-        alert('ORDER SENT');
-        return;
-
-        const url = `http://localhost:8000/order/create/`;
-        const config = {
-            'headers': {
-                'Content-Type': 'application/json',
-            }
-        };
-        const data = JSON.stringify({
-            "customer": this.state.customer,
-            "items": this.state.items,
-            "shipping": this.state.shipping,
-            "payment": this.state.payment,
-
-        });
-
-        axios.post(url, data, config).then(response => {
-            alert(response.data);
-        });
+    handleOrder = e => {
+        e.preventDefault();
+        const errors = this.validate();
+        if (!errors) this.props.handleOrder();
+        else this.setState({errors});
     }
-
 
     render() {
         const {data, errors} = this.state;
@@ -157,7 +131,9 @@ class OrderForm extends Form {
                         error={errors.postcode}
                     />
 
-                    <button disabled={Object.keys(errors).length} className="btn btn-primary" onClick={this.handleClick}>validate</button>
+                    <button disabled={Object.keys(errors).length} className="btn btn-primary"
+                            onClick={this.handleOrder}>validate
+                    </button>
                 </form>
             </React.Fragment>
         )

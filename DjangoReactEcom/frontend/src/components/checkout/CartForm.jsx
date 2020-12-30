@@ -1,19 +1,13 @@
 import React from 'react';
 
-const CartForm = ({products, handleClick}) => {
+const CartForm = ({items, handleStateChange}) => {
 
-    function handleItemRemoveButtonClick(e) {
-        let {items, total} = this.state.data;
-
-        // Processing changes
-        items.splice(e.target.value, 1);
-        if (items) items.forEach(item => total += parseInt(item.product.salePrice));
-
-        // Saving data
-        const {data} = this.statel
-        data.items = items;
-        data.total = total;
-        this.setState({data});
+    const handleClick = (e) => {
+        const action = e.target.name;
+        if (action === "remove") {
+            items.splice(e.target.value,1);
+            return handleStateChange(items);
+        }
     }
 
     return (
@@ -29,9 +23,9 @@ const CartForm = ({products, handleClick}) => {
             </thead>
             <tbody>
             {
-                products !== undefined && products.length > 0 && products.map((item, index) => (
+                items !== undefined && items.length > 0 && items.map((item, index) => (
                     <tr key={index}>
-                        <td><img src={item.product.featuredImage} className={'img-fluid'}/></td>
+                        <td><img src={item.product.featuredImage} className={'img-fluid'} alt={""}/></td>
                         <td>{item.product.name}</td>
                         <td>{item.quantity}</td>
                         <td>
@@ -39,8 +33,8 @@ const CartForm = ({products, handleClick}) => {
                             {item.product.salePrice}
                         </td>
                         <td>
-                            <button className="btn btn-secondary btn-outline" value={index}
-                                    onClick={handleClick}>X
+                            <button className="btn btn-secondary btn-outline" name="remove" value={index}
+                                    onClick={e => handleClick(e)}>X
                             </button>
                         </td>
                     </tr>

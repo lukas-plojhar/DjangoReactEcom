@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Joi from "joi-browser";
 
 export const Input = ({name, label, value, onChange, error}) => {
     return (

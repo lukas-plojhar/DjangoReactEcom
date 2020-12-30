@@ -13,7 +13,7 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            selected_product_id: 1,
+            selected: 1,
             product_variations: [
                 {
                     product_id: 1,
@@ -37,16 +37,12 @@ class Home extends Component {
         }
     }
 
-    handleProductVariationChange = (product_id) => {
-        const state = this.state;
-        state.selected_product_id = product_id;
-        this.setState({state});
+    handleProductVariationChange = (id) => {
+        this.setState({selected: id});
     }
 
     render() {
-
-        console.log(image)
-
+        const {selected, product_variations} = this.state;
         return (
             <React.Fragment>
                 <div className="row col-12 text-center above_overlay">
@@ -107,13 +103,13 @@ class Home extends Component {
                         <small className='text-justify'>Sada obsahuje: náustek se 16 diodami z lékařského silikonu, tři
                             bělicí pera o objemu 2 ml, adaptér pro Android a iPhone (microUSB, USB-C, Apple Lightning),
                             stupnice pro kontrolu bělosti, návod k použití v češtině</small>
-                        <h1>{this.state.product_variations[this.state.selected_product_id - 1].regular_price},-</h1>
-                        <h1>{this.state.product_variations[this.state.selected_product_id - 1].sale_price},-</h1>
+                        <h1>{product_variations[selected - 1].regular_price},-</h1>
+                        <h1>{product_variations[selected - 1].sale_price},-</h1>
                         <small>+ doprava pouze za 69,-</small>
                         <small>Do tří dnů u vás!</small>
                         <div className="text-center">
-                            <VariationButtonGroup data={this.state.product_variations}
-                                                  selectedProductId={this.state.selected_product_id}
+                            <VariationButtonGroup data={product_variations}
+                                                  selected={selected}
                                                   handleClick={this.handleProductVariationChange}/>
                         </div>
                     </div>

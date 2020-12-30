@@ -39,8 +39,8 @@ class CartSerializer(serializers.Serializer):
     customer = CustomerSerializer()
     items = CartItemSerializer(many=True)
     # discount = serializers.IntegerField(source='discount.id')
-    shipping = serializers.ChoiceField(choices=Cart.ShippingOptions, default=1)
-    payment = serializers.ChoiceField(choices=Cart.PaymentOptions, default=1)
+    shipping = serializers.ChoiceField(choices=Cart.ShippingOptions.choices, default=1)
+    payment = serializers.ChoiceField(choices=Cart.PaymentOptions.choices, default=1)
 
     def create(self, validated_data):
         customer_data = validated_data.pop('customer')

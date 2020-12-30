@@ -1,21 +1,21 @@
 import React from "react";
 
-const OrderDetails = ({products, handleClick, isFormValid}) => {
+const OrderDetails = ({items, handleClick, isFormValid}) => {
 
-    function getTotal(products) {
-        return "something";
+    const total = () => {
+        console.log('test');
     }
 
     return (
         <React.Fragment>
             <div className="row">
                 <div className="col-12 order-details">
-                    {products !== undefined && products.length > 0 && products.map((item) => (
-                        <p>
+                    {items !== undefined && items.length > 0 && items.map((item, index) => (
+                        <p key={index}>
                             {item.product.name} - {item.product.salePrice} x {item.quantity}
                         </p>
                     ))}
-                    <p className={'total'}>Celkem: {getTotal()}</p>
+                    <p className={'total'}>Celkem: {total}</p>
                     <button className="btn btn-primary order-button"
                             disabled={isFormValid}
                             onClick={handleClick}>Objednej

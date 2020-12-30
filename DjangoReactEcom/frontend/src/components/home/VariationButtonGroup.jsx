@@ -1,34 +1,25 @@
 import React from 'react';
 import AddToCartButton from "./AddToCartButton";
 
-const VariationButton = ({className, id, handleClick, children}) => {
-    return (
-        <button key={id}
-                value={id}
-                onClick={(e) => handleClick(e.target.value)}
-                className={"btn " + className}
-        >
-            {children}
-        </button>
-    )
-}
-
-const VariationButtonGroup = ({data, handleClick, selectedProductId}) => {
-
+const VariationButtonGroup = ({data, selected, handleClick}) => {
     return (
         <React.Fragment>
             <div className="btn-group btn-group-lg" role="group">
-                {data.map(variation =>
-                    <VariationButton
-                        id={variation.product_id}
-                        key={variation.product_id}
-                        handleClick={handleClick}
-                        className={variation.product_id == selectedProductId ? 'btn-primary' : 'btn-secondary btn-outline'}>
-                        {variation.label}
-                    </VariationButton>
+                {data.map((item, index) => {
+                        const {product_id, label} = item;
+                        return (
+                            <button
+                                key={product_id}
+                                value={product_id}
+                                onClick={(e)=>handleClick(e.target.value)}
+                                className={`btn ${product_id == selected ? "btn-primary" : "btn-secondary btn-outline"}`}>
+                                {label}
+                            </button>
+                        )
+                    }
                 )}
             </div>
-            <AddToCartButton productId={selectedProductId}/>
+            <AddToCartButton productId={selected}/>
         </React.Fragment>
     )
 }

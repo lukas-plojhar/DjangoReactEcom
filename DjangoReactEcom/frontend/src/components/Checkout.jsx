@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import CartForm from "./checkout/CartForm";
 import OrderForm from './checkout/OrderForm';
+import {Redirect} from 'react-router-dom';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
-import UpsellForm from "./checkout/UpsellForm";
 import axios from "axios";
 
 class Checkout extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         data: JSON.parse(localStorage.getItem('teethycz')) === null ?
             {
@@ -61,35 +57,70 @@ class Checkout extends Component {
     }
 
     componentDidUpdate() {
-        console.log('checkout.jsx: component did update');
         localStorage.setItem('teethycz', JSON.stringify(this.state.data));
     }
 
-    handleFormChange(e) {
-        // console.log('order form change');
-        const { customer } = this.state.data;
-        // console.log(data);
+    handleOrderStateChange(e) {
+        const {data} = this.state;
+        data[Object.keys(e)] = e[Object.keys(e)];
+        this.setState({data});
     }
 
-    handleOrderChange({shipping, payment}) {
+    handleCustomerStateChange(e) {
         const {data} = this.state;
-        data.shipping = shipping;
-        data.payment = payment;
-        console.log(data);
+        data.customer = e;
         this.setState({data});
+    }
+
+    handleCartStateChange(e) {
+        const {data} = this.state;
+        data.items = e;
+        this.setState({data});
+    }
+
+    handleNewOrder(e) {
+        const {customer, items, shipping, payment} = this.state.data;
+        const url = `http://localhost:8000/order/create/`;
+        const config = {
+            'headers': {
+                'Content-Type': 'application/json',
+            }
+        };
+        const data = JSON.stringify({
+            "customer": customer,
+            "items": items,
+            "shipping": shipping,
+            "payment": payment
+        });
+
+        axios.post(url, data, config)
+            .then(response => {
+                console.log(response)
+                if (response.status == "200") {
+                    localStorage.removeItem('teethycz');
+                    return <Redirect push to='/'/>
+                };
+            })
+            .catch(error => console.log(error));
+
+        /*Debug section*/
+        // console.log(customer);
+        // console.log(items);
+        // console.log(shipping);
+        // console.log(payment);
     }
 
     // Component rendering
     render() {
         const {data} = this.state;
 
-        return data.items === undefined || data.items.length == 0 ? <p>Vas kosik je prazdny</p> : (
+        return data.items === undefined || data.items.length === 0 ? <p>Vas kosik je prazdny</p> : (
             <React.Fragment>
                 <div className="row">
                     <div className="col-12">
                         <CartForm
-                            products={data.items}
-                            handleClick={this.handleItemRemoveButtonClick}
+                            items={data.items}
+                            handleStateChange={(e) => this.handleCartStateChange(e)}
                         />
                     </div>
                     <div className="col-12">
@@ -99,20 +130,22 @@ class Checkout extends Component {
                 <div className="row">
                     <div className="col-6">
                         <OrderForm
-                            onChange={(e) => this.handleFormChange(e)}
                             customer={data.customer}
+                            handleStateChange={(e) => this.handleCustomerStateChange(e)}
+                            handleOrder={(e) => this.handleNewOrder(e)}
                         />
                     </div>
                     <div className="col-6">
                         <ServicesForm
                             shipping={data.shipping}
                             payment={data.payment}
-                            handleChange={(e) => this.handleOrderChange(e)}
+                            handleStateChange={(e) => this.handleOrderStateChange(e)}
                         />
                         <hr/>
                         <OrderDetails
-                            products={data.items}
+                            items={data.items}
                             handleClick={this.handleOrderButtonClick}
+
                         />
                     </div>
                 </div>
