@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # My applications
     'product.apps.ProductConfig',
     'cart.apps.CartConfig',
+    'order.apps.OrderConfig',
 
     # 3rd party applications
     'rest_framework',

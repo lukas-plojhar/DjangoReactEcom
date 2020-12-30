@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import CartForm from "./checkout/CartForm";
 import OrderForm from './checkout/OrderForm';
-import {Redirect} from 'react-router-dom';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import axios from "axios";
@@ -95,19 +95,18 @@ class Checkout extends Component {
 
         axios.post(url, data, config)
             .then(response => {
-                console.log(response)
-                if (response.status == "200") {
+                console.log(response);
+                const {status, data} = response;
+                if (status === 201) {
                     localStorage.removeItem('teethycz');
-                    return <Redirect push to='/'/>
+                    // console.log('valid rdy 4 redirect');
+                    this.props.history.push({
+                        pathname:`/order`,
+                        state: {data}
+                    });
                 };
             })
             .catch(error => console.log(error));
-
-        /*Debug section*/
-        // console.log(customer);
-        // console.log(items);
-        // console.log(shipping);
-        // console.log(payment);
     }
 
     // Component rendering
@@ -153,4 +152,4 @@ class Checkout extends Component {
     }
 }
 
-export default Checkout;
+export default withRouter(Checkout);

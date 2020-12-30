@@ -1,10 +1,8 @@
 from django.db import models
 
-
 class CartItem(models.Model):
     product = models.ForeignKey('product.product', on_delete=models.PROTECT, null=True)
     quantity = models.PositiveIntegerField()
-
 
 class Cart(models.Model):
     """
@@ -26,7 +24,7 @@ class Cart(models.Model):
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
 
     def __str__(self):
-        return f'Cart from customer {self.customer}'
+        return f'#{self.id}: {self.customer}'
 
 
 class Customer(models.Model):
@@ -39,7 +37,7 @@ class Customer(models.Model):
     postcode = models.CharField(max_length=255)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}: {self.email}'
+        return f'{self.first_name} {self.last_name} (ID:{self.id})'
 
 
 class Discount(models.Model):
@@ -52,4 +50,4 @@ class Discount(models.Model):
     counter = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'{self.name} (code: {self.code}%)'
+        return f'#{self.id}: {self.name} (kod: {self.code}, sleva: {self.amount}%, vyuzito: {self.counter}x)'

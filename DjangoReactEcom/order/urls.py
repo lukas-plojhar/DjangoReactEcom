@@ -3,7 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    path('create/', views.CreateAPIView.as_view(), name='create_order'),
+    path('create/', views.OrderCreateAPIView.as_view(), name='create_order'),
+    path('<int:pk>/detail/', views.OrderDetailAPIView.as_view(), name='detail_order'),
 ]
 
 # class ProductManageView(BaseManageView):

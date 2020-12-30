@@ -4,11 +4,9 @@ import Checkout from './components/Checkout';
 import Navbar from './components/common/Navbar';
 import Home from './components/Home';
 import Product from './components/product/Product';
+import Order from './components/Order';
 
 class App extends Component {
-
-
-
     render() {
         return (
             <React.Fragment>
@@ -17,6 +15,7 @@ class App extends Component {
                     <Switch>
                         <Route path='/product/:id' component={Product}/>
                         <Route path='/checkout' component={Checkout}/>
+                        <Route path='/order' component={Order}/>
                         <Route path='not-found' component={() => <h1>Not Found</h1>}/>
                         <Route path='/' component={Home}/>
                         <Redirect to='not-found'/>
@@ -29,7 +28,6 @@ class App extends Component {
 }
 
 export default App;
-
 
 
 // <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">

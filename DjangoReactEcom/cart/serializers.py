@@ -10,7 +10,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        exclude = ('first_name', 'last_name', 'id')
+        exclude = ('first_name', 'last_name')
 
     def create(self, validated_data):
         return Customer.objects.create(**validated_data)
@@ -23,6 +23,7 @@ class DiscountSerializer(serializers.Serializer):
 
 class ProductSerializer(serializers.Serializer):
     id = serializers.IntegerField()
+    name = serializers.CharField()
 
 
 class CartItemSerializer(serializers.Serializer):

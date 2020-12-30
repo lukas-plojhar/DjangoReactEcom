@@ -1,34 +1,30 @@
-from rest_framework import views
+from rest_framework import views, generics
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.response import Response
 from cart.serializers import CartSerializer
-from cart.models import Cart
+from .models import Order
+from .serializers import OrderSerializer
 import json
 
 
 # POST /order/create
-class CreateAPIView(views.APIView):
-    """
-    Creates a new order
-    """
-
+class OrderCreateAPIView(views.APIView):
     def post(self, request):
-        serializer = CartSerializer(data=json.loads(request.body))
-        if serializer.is_valid():
-            serializer.save()
+        cart_serializer = CartSerializer(data=json.loads(request.body))
 
-        print(serializer.errors)
+        if cart_serializer.is_valid():
+            cart = cart_serializer.save()
+
+        order = Order(
+            cart=cart,
+            customer=cart.customer,
+        )
+        order.save()
+
+        return Response(order.id, status=HTTP_201_CREATED)
 
 
-        return Response('saved', status=HTTP_200_OK)
-
-
-    # def post(self, request, format=None):
-    #     carts = Cart.objects.all()
-    #     serializer = CartSerializer(carts, data=request.data)
-    #     if serializer.is_valid():
-    #         print(serializer.data)
-    #
-    #         return Response(status=HTTP_200_OK)
-    #
-    #     return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+# GET /order/{id}/detail
+class OrderDetailAPIView(generics.RetrieveAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer

@@ -9,7 +9,7 @@ const VariationButtonGroup = ({data, selected, handleClick}) => {
                         const {product_id, label} = item;
                         return (
                             <button
-                                key={product_id}
+                                key={index}
                                 value={product_id}
                                 onClick={(e)=>handleClick(e.target.value)}
                                 className={`btn ${product_id == selected ? "btn-primary" : "btn-secondary btn-outline"}`}>
