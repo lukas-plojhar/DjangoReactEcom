@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
+import Loading from "./common/Loading";
 import CartForm from "./checkout/CartForm";
 import OrderForm from './checkout/OrderForm';
 import ServicesForm from './checkout/ServicesForm';
@@ -81,30 +82,29 @@ class Checkout extends Component {
     handleNewOrder(e) {
         const {customer, items, shipping, payment} = this.state.data;
         const url = `http://localhost:8000/order/create/`;
-        const config = {
-            'headers': {
-                'Content-Type': 'application/json',
-            }
-        };
         const data = JSON.stringify({
             "customer": customer,
             "items": items,
             "shipping": shipping,
             "payment": payment
         });
+        const config = {
+            'headers': {
+                'Content-Type': 'application/json',
+            }
+        };
 
         axios.post(url, data, config)
             .then(response => {
-                console.log(response);
                 const {status, data} = response;
                 if (status === 201) {
                     localStorage.removeItem('teethycz');
-                    // console.log('valid rdy 4 redirect');
                     this.props.history.push({
-                        pathname:`/order`,
+                        pathname: `/order`,
                         state: {data}
                     });
-                };
+                }
+                ;
             })
             .catch(error => console.log(error));
     }
@@ -113,10 +113,11 @@ class Checkout extends Component {
     render() {
         const {data} = this.state;
 
-        return data.items === undefined || data.items.length === 0 ? <p>Vas kosik je prazdny</p> : (
-            <React.Fragment>
+        if (data.items === undefined || data.items.length === 0) return <Loading/>
+        return (
+            <div className="container">
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12" id="cart-form">
                         <CartForm
                             items={data.items}
                             handleStateChange={(e) => this.handleCartStateChange(e)}
@@ -127,28 +128,32 @@ class Checkout extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-12 col-md-6" id="order-form">
                         <OrderForm
                             customer={data.customer}
                             handleStateChange={(e) => this.handleCustomerStateChange(e)}
                             handleOrder={(e) => this.handleNewOrder(e)}
                         />
                     </div>
-                    <div className="col-6">
+                    <div className="col-12 col-md-6" id="order-details">
+                        <h3 className="checkout-title">Vase objednavka</h3>
+                        <OrderDetails
+                            items={data.items}
+                            handleClick={this.handleOrderButtonClick}
+
+                        />
+                        <h3>Doruceni a platba</h3>
                         <ServicesForm
                             shipping={data.shipping}
                             payment={data.payment}
                             handleStateChange={(e) => this.handleOrderStateChange(e)}
                         />
                         <hr/>
-                        <OrderDetails
-                            items={data.items}
-                            handleClick={this.handleOrderButtonClick}
 
-                        />
                     </div>
                 </div>
-            </React.Fragment>);
+            </div>
+        );
     }
 }
 

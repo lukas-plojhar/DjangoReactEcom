@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('create/', views.OrderCreateAPIView.as_view(), name='create_order'),
+    path('all/', views.OrderListAPIView.as_view(), name='list_order'),
     path('<int:pk>/detail/', views.OrderDetailAPIView.as_view(), name='detail_order'),
 ]
 

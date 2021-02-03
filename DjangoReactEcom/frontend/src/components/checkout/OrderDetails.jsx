@@ -16,10 +16,6 @@ const OrderDetails = ({items, handleClick, isFormValid}) => {
                         </p>
                     ))}
                     <p className={'total'}>Celkem: {total}</p>
-                    <button className="btn btn-primary order-button"
-                            disabled={isFormValid}
-                            onClick={handleClick}>Objednej
-                    </button>
                 </div>
             </div>
         </React.Fragment>

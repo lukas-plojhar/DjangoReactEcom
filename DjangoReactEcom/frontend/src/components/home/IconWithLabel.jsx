@@ -1,11 +1,11 @@
 import React from 'react';
 
-const IconWithLabel = ({img, title, children}) => {
+const IconWithLabel = ({source, title, children}) => {
     return(
-        <div className="col-12 text-center">
-            <img src="{img}" alt=""/>
-                <h2 className="bold">{title}</h2>
-                <p>{children}</p>
+        <div className="col-12 col-sm-4 text-center">
+            <img src={source} alt={title}/>
+                <p className="font-weight-bold bigger mt-3">{title}</p>
+                <p className="text-justify">{children}</p>
         </div>
     );
 }

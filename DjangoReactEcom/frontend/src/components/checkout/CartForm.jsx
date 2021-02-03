@@ -5,7 +5,7 @@ const CartForm = ({items, handleStateChange}) => {
     const handleClick = (e) => {
         const action = e.target.name;
         if (action === "remove") {
-            items.splice(e.target.value,1);
+            items.splice(e.target.value, 1);
             return handleStateChange(items);
         }
     }
@@ -25,7 +25,7 @@ const CartForm = ({items, handleStateChange}) => {
             {
                 items !== undefined && items.length > 0 && items.map((item, index) => (
                     <tr key={index}>
-                        <td><img src={item.product.featuredImage} className={'img-fluid'} alt={""}/></td>
+                        <td><img src={item.product.featuredImage} style={{'maxWidth': 200}} alt={""}/></td>
                         <td>{item.product.name}</td>
                         <td>{item.quantity}</td>
                         <td>
@@ -33,7 +33,7 @@ const CartForm = ({items, handleStateChange}) => {
                             {item.product.salePrice}
                         </td>
                         <td>
-                            <button className="btn btn-secondary btn-outline" name="remove" value={index}
+                            <button className="btn-remove" name="remove" value={index}
                                     onClick={e => handleClick(e)}>X
                             </button>
                         </td>

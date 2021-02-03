@@ -7,6 +7,16 @@ class Order extends Component {
     }
     googleApiKey = "AIzaSyDoaUMam36O9t_ezNo1s6e3O6a3NaEcAFk";
 
+    shippingOptions = Object.freeze({
+        '1': 'Česká pošta',
+        '2': 'Slovenská pošta'
+    });
+
+    paymentOptions = Object.freeze({
+        '1': 'Dobírka',
+        '2': 'Platba kartou'
+    });
+
     state = {}
 
     async componentDidMount() {
@@ -18,8 +28,8 @@ class Order extends Component {
         this.setState({
             customer: response.cart.customer,
             items: response.cart.items,
-            shipping: response.cart.shipping,
-            payment: response.cart.payment,
+            shipping: this.shippingOptions[response.cart.shipping],
+            payment: this.paymentOptions[response.cart.payment],
             orderState: response.orderState,
             created: response.created
         });
@@ -27,6 +37,7 @@ class Order extends Component {
 
     render() {
         const {customer, items, shipping, payment, orderState, created} = this.state;
+
         return customer === undefined ? "" : <React.Fragment>
             <div className="row pt-5">
                 <div className="col-12">

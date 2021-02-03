@@ -24,6 +24,11 @@ class OrderCreateAPIView(views.APIView):
         return Response(order.id, status=HTTP_201_CREATED)
 
 
+# GET /order/all
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
 # GET /order/{id}/detail
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()

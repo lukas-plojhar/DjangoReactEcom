@@ -4,13 +4,7 @@ import {Redirect} from "react-router-dom";
 import Joi from "joi-browser";
 import axios from "axios";
 
-class OrderForm extends Form {
-    state = {
-        data: this.props.customer,
-        errors: {}
-    };
-
-    locale = {
+var locale= {
         firstName: "Křestní jméno",
         lastName: "Příjmení",
         email: "E-mailová adresa",
@@ -20,19 +14,25 @@ class OrderForm extends Form {
         postcode: "PSČ",
     }
 
-    schema = {
-        firstName: Joi.string().required().label(this.locale.firstName),
-        lastName: Joi.string().required().label(this.locale.lastName),
-        email: Joi.string().email({minDomainAtoms: 2}).required().label(this.locale.email),
-        phone: Joi.string().min(9).required().label(this.locale.phone),
-        address: Joi.string().required().label(this.locale.address),
-        city: Joi.string().required().label(this.locale.city),
-        postcode: Joi.number().min(5).required().label(this.locale.postcode),
+var schema = {
+        firstName: Joi.string().required().label(locale.firstName),
+        lastName: Joi.string().required().label(locale.lastName),
+        email: Joi.string().email({minDomainAtoms: 2}).required().label(locale.email),
+        phone: Joi.string().min(9).required().label(locale.phone),
+        address: Joi.string().required().label(locale.address),
+        city: Joi.string().required().label(locale.city),
+        postcode: Joi.number().min(5).required().label(locale.postcode),
+    };
+
+class OrderForm extends Form {
+    state = {
+        data: this.props.customer,
+        errors: {}
     };
 
     validate = () => {
         const options = {abortEarly: false};
-        const {error} = Joi.validate(this.state.data, this.schema, options);
+        const {error} = Joi.validate(this.state.data, schema, options);
         const errors = {};
 
         // No errors
@@ -78,7 +78,7 @@ class OrderForm extends Form {
                     <Input
                         name="email"
                         value={data.email}
-                        label={this.locale.email}
+                        label={locale.email}
                         onChange={this.handleChange}
                         error={errors.email}
                     />
@@ -86,7 +86,7 @@ class OrderForm extends Form {
                     <Input
                         name="phone"
                         value={data.phone}
-                        label={this.locale.phone}
+                        label={locale.phone}
                         onChange={this.handleChange}
                         error={errors.phone}
                     />
@@ -94,7 +94,7 @@ class OrderForm extends Form {
                     <Input
                         name="firstName"
                         value={data.firstName}
-                        label={this.locale.firstName}
+                        label={locale.firstName}
                         onChange={this.handleChange}
                         error={errors.firstName}
                     />
@@ -102,7 +102,7 @@ class OrderForm extends Form {
                     <Input
                         name="lastName"
                         value={data.lastName}
-                        label={this.locale.lastName}
+                        label={locale.lastName}
                         onChange={this.handleChange}
                         error={errors.lastName}
                     />
@@ -110,7 +110,7 @@ class OrderForm extends Form {
                     <Input
                         name="address"
                         value={data.address}
-                        label={this.locale.address}
+                        label={locale.address}
                         onChange={this.handleChange}
                         error={errors.address}
                     />
@@ -118,7 +118,7 @@ class OrderForm extends Form {
                     <Input
                         name="city"
                         value={data.city}
-                        label={this.locale.city}
+                        label={locale.city}
                         onChange={this.handleChange}
                         error={errors.city}
                     />
@@ -126,14 +126,16 @@ class OrderForm extends Form {
                     <Input
                         name="postcode"
                         value={data.postcode}
-                        label={this.locale.postcode}
+                        label={locale.postcode}
                         onChange={this.handleChange}
                         error={errors.postcode}
                     />
 
-                    <button disabled={Object.keys(errors).length} className="btn btn-primary"
-                            onClick={this.handleOrder}>validate
-                    </button>
+                    <div className="text-center">
+                        <button disabled={Object.keys(errors).length} id="new-order" className="btn btn-primary"
+                                onClick={this.handleOrder}>validate
+                        </button>
+                    </div>
                 </form>
             </React.Fragment>
         )

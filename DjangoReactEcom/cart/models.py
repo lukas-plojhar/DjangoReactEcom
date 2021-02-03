@@ -10,7 +10,7 @@ class Cart(models.Model):
         """
 
     class ShippingOptions(models.TextChoices):
-        CESKA_POSTA = '1', 'Česká pošta'
+        CESKA_POSTA = '1', ('Česká pošta')
         SLOVENSKA_POSTA = '2', 'Slovenská pošta'
 
     class PaymentOptions(models.TextChoices):

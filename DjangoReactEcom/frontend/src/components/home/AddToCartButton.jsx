@@ -8,7 +8,7 @@ const AddToCartButton = (productId) => {
                 productId,
             },
         }}>
-            <button className="btn btn-primary">Přidat do košíku</button>
+            <button className="btn btn-primary my-3">Přidat do košíku</button>
         </Link>
     )
 }
