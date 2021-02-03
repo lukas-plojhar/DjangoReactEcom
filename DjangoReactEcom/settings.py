@@ -132,6 +132,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Media files
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
