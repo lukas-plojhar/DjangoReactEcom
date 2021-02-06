@@ -14,7 +14,7 @@ SECRET_KEY = '7ps579@21idgv())gwgyudl*&64#i*95)92t8n4($fv=gtv_7x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ident-new.herokuapp.com']
+ALLOWED_HOSTS = ['identcz.herokuapp.com']
 
 # Application definition
 
