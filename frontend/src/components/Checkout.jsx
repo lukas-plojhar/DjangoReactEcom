@@ -33,7 +33,7 @@ class Checkout extends Component {
     async componentDidMount() {
         let {items} = this.state.data;
         const productId = this.props.location.state !== undefined ? this.props.location.state.productId.productId : false;
-        // Updating items in cart
+        // Updating items in carts
         if (productId) {
             const newProduct = await axios.get(`http://localhost:8000/product/${productId}/detail`).then(response => response.data);
             const duplicates = items.filter(item => item.product.id === newProduct.id);

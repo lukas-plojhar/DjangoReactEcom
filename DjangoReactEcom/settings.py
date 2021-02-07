@@ -31,9 +31,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My applications
-    'product.apps.ProductConfig',
-    'cart.apps.CartConfig',
-    'order.apps.OrderConfig',
+    # 'products.apps.ProductConfig',
+    # 'carts.apps.CartConfig',
+    # 'orders.apps.OrderConfig',
+    'products',
+    'carts',
+    'orders',
 
     # 3rd party applications
     'rest_framework',

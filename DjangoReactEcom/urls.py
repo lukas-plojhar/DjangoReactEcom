@@ -9,7 +9,7 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
 
                   # API
-                  path('product/', include('product.urls')),
-                  path('cart/', include('cart.urls')),
-                  path('orders/', include('order.urls')),
+                  path('products/', include('products.urls')),
+                  path('carts/', include('carts.urls')),
+                  path('orders/', include('orders.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
