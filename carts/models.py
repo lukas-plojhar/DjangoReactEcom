@@ -23,21 +23,7 @@ class Cart(models.Model):
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
 
     def __str__(self):
-        return f'#{self.id}: {self.customer}'
-
-
-class Customer(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    postcode = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name} (ID:{self.id})'
-
+        return f'#{self.id}'
 
 class Discount(models.Model):
     name = models.CharField(max_length=255, null=False)

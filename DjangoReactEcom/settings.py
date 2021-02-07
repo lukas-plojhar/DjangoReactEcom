@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'products',
     'carts',
     'orders',
+    'customers',
 
     # 3rd party applications
     'rest_framework',

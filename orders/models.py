@@ -11,7 +11,7 @@ class Order(models.Model):
         FAILED = '5',
 
     cart = models.ForeignKey('carts.Cart', on_delete=models.CASCADE, null=False)
-    customer = models.ForeignKey('carts.Customer', on_delete=models.CASCADE, null=False)
+    customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE, null=False)
     created = models.DateTimeField(auto_now=True)
     state = models.IntegerField(choices=OrderState.choices, default=OrderState.ABANDONED)
 
