@@ -17,8 +17,9 @@ class App extends Component {
                         <Route path='/product/:id' component={Product}/>
                         <Route path='/checkout' component={Checkout}/>
                         <Route path='/order' component={Order}/>
+
                         {/*Backend for orders*/}
-                        <Route path='/orders/:id/detail' component={OrderDetail}/>
+                        <Route path='/orders/:id' component={OrderDetail}/>
                         <Route path='/orders' component={OrderList}/>
                         <Route path='not-found' component={() => <h1>Not Found</h1>}/>
                         <Route path='/' component={Home}/>

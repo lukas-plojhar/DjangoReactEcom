@@ -19,8 +19,6 @@ export const Input = ({name, label, value, onChange, error}) => {
 
 
 class Form extends Component {
-
-
     validate = () => {
         console.log('validation starts');
         const errors = {};

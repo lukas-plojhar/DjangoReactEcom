@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Loading from '../../common/Loading'
+import Loading from '../../common/Loading';
+import {Input} from '../../common/Form';
+
 
 export class OrderList extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ export class OrderList extends Component {
     }
 
     async componentDidMount() {
-        const url = `http://localhost:8000/order/all/`;
+        const url = `http://localhost:8000/orders/`;
         const response = await axios.get(url).then(response => response.data);
 
         this.setState({
@@ -51,7 +53,9 @@ export class OrderList extends Component {
                                         <td><a
                                             href={`/orders/${order.id}/detail`}>{order.cart.customer.firstName + " " + order.cart.customer.lastName}</a>
                                         </td>
-                                        <td><a href={`mailto:${order.cart.customer.email}`}>{order.cart.customer.email}</a></td>
+                                        <td><a
+                                            href={`mailto:${order.cart.customer.email}`}>{order.cart.customer.email}</a>
+                                        </td>
                                         <td>{order.cart.customer.phone}</td>
                                     </tr>
                                 )
@@ -69,13 +73,35 @@ export class OrderDetail extends Component {
     constructor(props) {
         super(props);
     }
-
     state = {}
 
     async componentDidMount() {
-        const url = `http://localhost:8000/order/1/detail`;
+        const url = `http://localhost:8000/orders/${this.props.match.params['id']}/`;
         const response = await axios.get(url).then(response => response.data);
         this.setState({...response});
+    }
+
+    handleChange = e => {
+        const {cart} = this.state;
+        const {customer} = cart;
+        customer[e.target.name] = e.target.value;
+        this.setState({cart})
+    }
+
+    handleSubmit = () => {
+        const url = `http://localhost:8000/orders/${this.state.id}/update`;
+        const data = JSON.stringify(this.state);
+        const config = {
+            'headers': {'Content-Type': 'application/json'}
+        };
+
+        axios.put(url, data, config)
+            .then(response => {
+            const {status, data} = response;
+            console.log(status);
+            console.log(data);
+        })
+            .catch(error => console.log(error));
     }
 
     render() {
@@ -87,21 +113,63 @@ export class OrderDetail extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h1>Objednavka {this.state.id} ze dne {this.state.created}</h1>
+                        <h1>Objednavka {this.state.id}</h1>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6">
-                        <h3>Detaily</h3>
-                        Doruceni:
+                    <div className="col-12">
+                        Vytvoreno: {this.state.created}<br/>
+                        Doruceni: {this.state.cart.shipping}<br/>
+                        Platba: {this.state.cart.payment}
                     </div>
+
                     <div className="col-6">
                         <h3>Adresa</h3>
-                        <p>
-                            {this.state.cart.customer.firstName}&nbsp;{this.state.cart.customer.lastName}<br/>
-                            {this.state.cart.customer.address}<br/>
-                            {this.state.cart.customer.city}&nbsp;{this.state.cart.customer.postcode}
-                        </p>
+                        <form>
+                            <Input
+                                name="firstName"
+                                value={this.state.cart.customer.firstName}
+                                label="Jmeno"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="lastName"
+                                value={this.state.cart.customer.lastName}
+                                label="Prijmeni"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="email"
+                                value={this.state.cart.customer.email}
+                                label="Emailova adresa"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="phone"
+                                value={this.state.cart.customer.phone}
+                                label="Telefon"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="address"
+                                value={this.state.cart.customer.address}
+                                label="Adresa"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="city"
+                                value={this.state.cart.customer.city}
+                                label="Mesto"
+                                onChange={this.handleChange}
+                            />
+                            <Input
+                                name="postcode"
+                                value={this.state.cart.customer.postcode}
+                                label="PSC"
+                                onChange={this.handleChange}
+                            />
+                        </form>
+                        <button type="submit" value="Odeslat" onClick={this.handleSubmit}>Odeslat</button>
                     </div>
                 </div>
             </div>

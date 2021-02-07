@@ -66,3 +66,6 @@ class CartSerializer(serializers.Serializer):
         cart.items.set(cartitems)
 
         return cart
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)

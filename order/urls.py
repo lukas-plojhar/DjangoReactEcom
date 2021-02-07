@@ -3,9 +3,10 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.OrderListAPIView.as_view(), name='list_order'),
+    path('<int:pk>/', views.OrderDetailAPIView.as_view(), name='detail_order'),
+    path('<int:pk>/update', views.OrderUpdateAPIView.as_view(), name='update_order'),
     path('create/', views.OrderCreateAPIView.as_view(), name='create_order'),
-    path('all/', views.OrderListAPIView.as_view(), name='list_order'),
-    path('<int:pk>/detail/', views.OrderDetailAPIView.as_view(), name='detail_order'),
 ]
 
 # class ProductManageView(BaseManageView):

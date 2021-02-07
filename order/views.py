@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from cart.serializers import CartSerializer
 from .models import Order
 from .serializers import OrderSerializer
+from cart.models import Customer
+from cart.serializers import CustomerSerializer
 import json
 
 
@@ -24,12 +26,36 @@ class OrderCreateAPIView(views.APIView):
         return Response(order.id, status=HTTP_201_CREATED)
 
 
-# GET /order/all
+# GET /order/
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-# GET /order/{id}/detail
+
+# GET /orders/{id}/
 class OrderDetailAPIView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+
+# PUT /orders/{id}/update
+class OrderUpdateAPIView(views.APIView):
+    def put(self, request, pk):
+        order = Order.objects.get(pk=pk)
+
+        data = json.loads(request.body)
+        print(data['cart'])
+        cart_serializer = CartSerializer(order.cart, data=data['cart'])
+
+        print('old cart')
+        print(order.cart)
+
+        if cart_serializer.is_valid():
+            cart = cart_serializer.save()
+
+        print('new cart')
+        print(order.cart)
+
+
+
+        return Response()
