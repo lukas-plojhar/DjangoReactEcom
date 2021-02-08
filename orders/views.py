@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from carts.serializers import CartSerializer
 from .models import Order
 from .serializers import OrderSerializer
-from carts.models import Customer
-from carts.serializers import CustomerSerializer
+from customers.models import Customer
+from customers.serializers import CustomerSerializer
 import json
 
 
