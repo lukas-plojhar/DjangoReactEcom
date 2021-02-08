@@ -16,6 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'identcz.herokuapp.com',
+    'identcz-fe.herokuapp.com',
     'localhost',
     '127.0.0.1'
 ]
