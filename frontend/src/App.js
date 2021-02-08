@@ -4,7 +4,7 @@ import Checkout from './components/Checkout';
 import Navbar from './components/common/Navbar';
 import Home from './components/Home';
 import Product from './components/product/Product';
-import Order from './components/Order';
+import Thankyou from './components/Thankyou';
 import {OrderList, OrderDetail} from './components/backend/order/Orders';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
                         {/*Frontend*/}
                         <Route path='/product/:id' component={Product}/>
                         <Route path='/checkout' component={Checkout}/>
-                        <Route path='/order' component={Order}/>
+                        <Route path='/thankyou' component={Thankyou}/>
 
                         {/*Backend for orders*/}
                         <Route path='/orders/:id' component={OrderDetail}/>

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Loading from "./common/Loading";
 
-class Order extends Component {
+class Thankyou extends Component {
     constructor(props) {
         super(props);
     }
+
     googleApiKey = "AIzaSyDoaUMam36O9t_ezNo1s6e3O6a3NaEcAFk";
 
     shippingOptions = Object.freeze({
@@ -21,24 +23,26 @@ class Order extends Component {
 
     async componentDidMount() {
         const {data} = this.props.location.state;
-        const url = `http://localhost:8000/order/${data}/detail/`;
+        const url = `http://localhost:8000/orders/${data}`;
         const response = await axios.get(url).then(response => response.data);
 
 
         this.setState({
-            customer: response.cart.customer,
+            id: response.id,
+            customer: response.customer,
             items: response.cart.items,
-            shipping: this.shippingOptions[response.cart.shipping],
-            payment: this.paymentOptions[response.cart.payment],
-            orderState: response.orderState,
+            shipping: response.cart.shipping,
+            payment: response.cart.payment,
             created: response.created
         });
     }
 
     render() {
-        const {customer, items, shipping, payment, orderState, created} = this.state;
+        const {customer, items, shipping, payment, created} = this.state;
 
-        return customer === undefined ? "" : <React.Fragment>
+        if (customer === undefined) return <Loading/>
+
+        return <React.Fragment>
             <div className="row pt-5">
                 <div className="col-12">
                     <h1 className="text-center font-weight-bold">Dekujeme za Vasi objednavku</h1>
@@ -50,14 +54,14 @@ class Order extends Component {
             <div className="row">
                 <div className="col-6">
                     <p>
-                        <b>Preprava</b>: {shipping}<br/>
-                        <b>Platba</b>: {payment}<br/>
+                        <b>Preprava</b>: {this.state.shipping}<br/>
+                        <b>Platba</b>: {this.state.payment}<br/>
                     </p>
                 </div>
                 <div className="col-6">
                     <p>
-                        {items.map(item => {
-                            return <span>{item.product.name}</span>
+                        {items.map((item, index) => {
+                            return <span key={index}>{item.product.name}</span>
                         })}
                     </p>
                 </div>
@@ -67,7 +71,7 @@ class Order extends Component {
 
             <div className="row">
                 <div className="col-6">
-                    <iframe className="img-fluid" style={{border:0, frameBorder: 0, minHeight: 200}}
+                    <iframe className="img-fluid" style={{border: 0, frameBorder: 0, minHeight: 200}}
                             src={`https://www.google.com/maps/embed/v1/place?q=Jizni%202513%2F16&key=${this.googleApiKey}`}
                             allowFullScreen></iframe>
                 </div>
@@ -111,15 +115,8 @@ class Order extends Component {
                     <p>Vaše objednávka byla podána na České poště.</p>
                 </div>
             </div>
-
-            <hr/>
-
-            <div className="row">
-                <div className="col-4">status</div>
-                <div className="col-8">Order Recap</div>
-            </div>
         </React.Fragment>
     }
 }
 
-export default Order;
+export default Thankyou;

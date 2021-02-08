@@ -3,7 +3,7 @@ import React from "react";
 const OrderDetails = ({items, handleClick, isFormValid}) => {
 
     const total = () => {
-        console.log('test');
+        console.log('total');
     }
 
     return (

@@ -23,19 +23,22 @@ class Checkout extends Component {
                 "items": [],
                 "shipping": "1",
                 "payment": "1",
-                "errors": {}
             }
             :
             JSON.parse(localStorage.getItem('teethycz')),
-        other: {}
+        "errors": {}
     }
 
     async componentDidMount() {
         let {items} = this.state.data;
-        const productId = this.props.location.state !== undefined ? this.props.location.state.productId.productId : false;
+        let productId;
+
+        if (this.props.location.state.productId.productId !== undefined)
+            productId = this.props.location.state.productId.productId;
+
         // Updating items in carts
         if (productId) {
-            const newProduct = await axios.get(`http://localhost:8000/product/${productId}/detail`).then(response => response.data);
+            const newProduct = await axios.get(`http://localhost:8000/products/${productId}`).then(response => response.data);
             const duplicates = items.filter(item => item.product.id === newProduct.id);
             if (duplicates.length > 0) {
                 items.forEach(item => {
@@ -81,7 +84,7 @@ class Checkout extends Component {
 
     handleNewOrder(e) {
         const {customer, items, shipping, payment} = this.state.data;
-        const url = `http://localhost:8000/order/create/`;
+        const url = `http://localhost:8000/orders/create/`;
         const data = JSON.stringify({
             "customer": customer,
             "items": items,
@@ -100,7 +103,7 @@ class Checkout extends Component {
                 if (status === 201) {
                     localStorage.removeItem('teethycz');
                     this.props.history.push({
-                        pathname: `/order`,
+                        pathname: `/thankyou`,
                         state: {data}
                     });
                 }

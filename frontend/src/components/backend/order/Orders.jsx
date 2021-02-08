@@ -44,19 +44,19 @@ export class OrderList extends Component {
                                 return (
                                     <tr>
                                         <th scope="row" key={order.id}><a
-                                            href={`/orders/${order.id}/detail`}>{order.id}</a></th>
+                                            href={`/orders/${order.id}`}>{order.id}</a></th>
 
                                         <td><a
-                                            href={`/orders/${order.id}/detail`}>{order.created}</a></td>
+                                            href={`/orders/${order.id}`}>{order.created}</a></td>
                                         <td><a
-                                            href={`/orders/${order.id}/detail`}>{order.orderState}</a></td>
+                                            href={`/orders/${order.id}`}>{order.state}</a></td>
                                         <td><a
-                                            href={`/orders/${order.id}/detail`}>{order.cart.customer.firstName + " " + order.cart.customer.lastName}</a>
+                                            href={`/orders/${order.id}`}>{order.customer.firstName + " " + order.customer.lastName}</a>
                                         </td>
                                         <td><a
-                                            href={`mailto:${order.cart.customer.email}`}>{order.cart.customer.email}</a>
+                                            href={`mailto:${order.customer.email}`}>{order.customer.email}</a>
                                         </td>
-                                        <td>{order.cart.customer.phone}</td>
+                                        <td>{order.customer.phone}</td>
                                     </tr>
                                 )
                             })
@@ -73,6 +73,7 @@ export class OrderDetail extends Component {
     constructor(props) {
         super(props);
     }
+
     state = {}
 
     async componentDidMount() {
@@ -82,8 +83,7 @@ export class OrderDetail extends Component {
     }
 
     handleChange = e => {
-        const {cart} = this.state;
-        const {customer} = cart;
+        const {cart, customer} = this.state;
         customer[e.target.name] = e.target.value;
         this.setState({cart})
     }
@@ -97,10 +97,10 @@ export class OrderDetail extends Component {
 
         axios.put(url, data, config)
             .then(response => {
-            const {status, data} = response;
-            console.log(status);
-            console.log(data);
-        })
+                const {status, data} = response;
+                console.log(status);
+                console.log(data);
+            })
             .catch(error => console.log(error));
     }
 
@@ -128,43 +128,43 @@ export class OrderDetail extends Component {
                         <form>
                             <Input
                                 name="firstName"
-                                value={this.state.cart.customer.firstName}
+                                value={this.state.customer.firstName}
                                 label="Jmeno"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="lastName"
-                                value={this.state.cart.customer.lastName}
+                                value={this.state.customer.lastName}
                                 label="Prijmeni"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="email"
-                                value={this.state.cart.customer.email}
+                                value={this.state.customer.email}
                                 label="Emailova adresa"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="phone"
-                                value={this.state.cart.customer.phone}
+                                value={this.state.customer.phone}
                                 label="Telefon"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="address"
-                                value={this.state.cart.customer.address}
+                                value={this.state.customer.address}
                                 label="Adresa"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="city"
-                                value={this.state.cart.customer.city}
+                                value={this.state.customer.city}
                                 label="Mesto"
                                 onChange={this.handleChange}
                             />
                             <Input
                                 name="postcode"
-                                value={this.state.cart.customer.postcode}
+                                value={this.state.customer.postcode}
                                 label="PSC"
                                 onChange={this.handleChange}
                             />

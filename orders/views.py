@@ -1,27 +1,55 @@
 from rest_framework import views, generics
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.response import Response
-from carts.serializers import CartSerializer
+import json
+
 from .models import Order
 from .serializers import OrderSerializer
 from customers.models import Customer
 from customers.serializers import CustomerSerializer
-import json
+from carts.models import Cart, CartItem
+from carts.serializers import CartSerializer, CartItemSerializer
+from products.models import Product
 
 
 # POST /orders/create
 class OrderCreateAPIView(views.APIView):
     def post(self, request):
-        cart_serializer = CartSerializer(data=json.loads(request.body))
+        # Get data from request
+        data = json.loads(request.body)
 
-        if cart_serializer.is_valid():
-            cart = cart_serializer.save()
+        # Save customer
+        customer = data['customer']
+        customer_serializer = CustomerSerializer(data=customer)
+        if customer_serializer.is_valid():
+            customer_serializer.save()
 
+        customer = Customer.objects.last()
+
+        # Save cart
+        cart = Cart(
+            payment=data['payment'],
+            shipping=data['shipping']
+        )
+        cart.save()
+
+        # Save cart items
+        items = data['items']
+        for item in items:
+            cart_item = CartItem(
+                cart=cart,
+                product=Product.objects.get(id=item['product']['id']),
+                quantity=item['quantity']
+            )
+            cart_item.save()
+
+        # Save order
         order = Order(
             cart=cart,
-            customer=cart.customer,
+            customer=customer
         )
         order.save()
+        print(order.id)
 
         return Response(order.id, status=HTTP_201_CREATED)
 
@@ -41,21 +69,20 @@ class OrderDetailAPIView(generics.RetrieveAPIView):
 # PUT /orders/{id}/update
 class OrderUpdateAPIView(views.APIView):
     def put(self, request, pk):
-        order = Order.objects.get(pk=pk)
-
+        # Getting data
         data = json.loads(request.body)
-        print(data['carts'])
-        cart_serializer = CartSerializer(order.cart, data=data['carts'])
+        order = Order.objects.get(id=pk)
 
-        print('old carts')
-        print(order.cart)
+        # Updating customer
+        customer = Customer.objects.get(id=order.customer.id)
+        customer_serializer = CustomerSerializer(instance=customer, data=data['customer'])
+        if customer_serializer.is_valid():
+            customer_serializer.save()
 
+        # Updating cart (ONLY shipping and payment)
+        cart = Cart.objects.get(id=order.cart.id)
+        cart_serializer = CartSerializer(instance=cart, data=data['cart'])
         if cart_serializer.is_valid():
-            cart = cart_serializer.save()
+            cart_serializer.save()
 
-        print('new carts')
-        print(order.cart)
-
-
-
-        return Response()
+        return Response(status=HTTP_200_OK)

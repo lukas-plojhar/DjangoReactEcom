@@ -5,43 +5,25 @@ from customers.serializers import CustomerSerializer
 from rest_framework import serializers
 
 
-class DiscountSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    code = serializers.CharField()
-
 class CartItemSerializer(serializers.Serializer):
-    product = serializers.IntegerField()
+    product = ProductSerializer()
     quantity = serializers.IntegerField()
-
-    def create(self, validated_data):
-        return CartItem.objects.create(**validated_data)
 
 
 class CartSerializer(serializers.Serializer):
-    shipping = serializers.ChoiceField(choices=Cart.ShippingOptions.choices, default=1)
-    payment = serializers.ChoiceField(choices=Cart.PaymentOptions.choices, default=1)
+    id = serializers.IntegerField()
+    shipping = serializers.CharField(source='get_shipping_display')
+    payment = serializers.CharField(source='get_payment_display')
+    items = serializers.SerializerMethodField()
 
-    def create(self, validated_data):
-        customer_data = validated_data.pop('customer')
-        items_data = validated_data.pop('items')
-        cartitems = []
-
-        for item in items_data:
-            product_data = item['products']
-            cartitems.append(
-                CartItem.objects.create(
-                    product=Product.objects.get(pk=product_data['id']),
-                    quantity=item['quantity']
-                ))
-
-        cart = Cart.objects.create(
-            payment=validated_data.pop('payment'),
-            shipping=validated_data.pop('shipping')
-        )
-
-        cart.items.set(cartitems)
-
-        return cart
+    def get_items(self, instance):
+        items = CartItem.objects.filter(cart__id=instance.id)
+        serialized_items = CartItemSerializer(items, many=True)
+        return serialized_items.data
 
     def update(self, instance, validated_data):
-        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.payment = validated_data.get('payment', instance.payment)
+        instance.shipping = validated_data.get('shipping', instance.shipping)
+        return instance
+
+
