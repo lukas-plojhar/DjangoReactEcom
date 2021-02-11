@@ -7,6 +7,9 @@ import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import axios from "axios";
 
+// const API = 'https://identcz.herokuapp.com';
+const API = 'http://localhost:8000';
+
 class Checkout extends Component {
     state = {
         data: JSON.parse(localStorage.getItem('teethycz')) === null ?
@@ -38,7 +41,7 @@ class Checkout extends Component {
 
         // Updating items in carts
         if (productId) {
-            const newProduct = await axios.get(`http://localhost:8000/products/${productId}`).then(response => response.data);
+            const newProduct = await axios.get(`${API}/products/${productId}`).then(response => response.data);
             const duplicates = items.filter(item => item.product.id === newProduct.id);
             if (duplicates.length > 0) {
                 items.forEach(item => {
@@ -84,7 +87,7 @@ class Checkout extends Component {
 
     handleNewOrder(e) {
         const {customer, items, shipping, payment} = this.state.data;
-        const url = `http://localhost:8000/orders/create/`;
+        const url = `${API}/orders/create/`;
         const data = JSON.stringify({
             "customer": customer,
             "items": items,
@@ -101,11 +104,11 @@ class Checkout extends Component {
             .then(response => {
                 const {status, data} = response;
                 if (status === 201) {
-                    localStorage.removeItem('teethycz');
-                    this.props.history.push({
-                        pathname: `/thankyou`,
-                        state: {data}
-                    });
+                    // localStorage.removeItem('teethycz');
+                    // this.props.history.push({
+                    //     pathname: `/thankyou`,
+                    //     state: {data}
+                    // });
                 }
                 ;
             })

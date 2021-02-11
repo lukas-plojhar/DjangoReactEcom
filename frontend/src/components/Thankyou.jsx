@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Loading from "./common/Loading";
 
+const API = 'https://identcz.herokuapp.com';
+
 class Thankyou extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,7 @@ class Thankyou extends Component {
 
     async componentDidMount() {
         const {data} = this.props.location.state;
-        const url = `http://localhost:8000/orders/${data}`;
+        const url = `${API}/orders/${data}`;
         const response = await axios.get(url).then(response => response.data);
 
 
@@ -42,7 +44,7 @@ class Thankyou extends Component {
 
         if (customer === undefined) return <Loading/>
 
-        return <React.Fragment>
+        return <div className="container">
             <div className="row pt-5">
                 <div className="col-12">
                     <h1 className="text-center font-weight-bold">Dekujeme za Vasi objednavku</h1>
@@ -115,7 +117,7 @@ class Thankyou extends Component {
                     <p>Vaše objednávka byla podána na České poště.</p>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     }
 }
 

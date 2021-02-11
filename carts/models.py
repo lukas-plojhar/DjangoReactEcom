@@ -23,7 +23,7 @@ class Cart(models.Model):
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)
 
     def __str__(self):
-        return f'#{self.id}'
+        return f'{self.id}'
 
 class Discount(models.Model):
     name = models.CharField(max_length=255, null=False)

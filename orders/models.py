@@ -1,4 +1,6 @@
 from django.db import models
+from carts.models import CartItem
+
 
 class Order(models.Model):
     class OrderState(models.TextChoices):
@@ -17,3 +19,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f'#{self.id} od {self.customer} v {self.created}'
+
+    def get_total(self):
+        total = 0
+        items = CartItem.objects.filter(cart__id=self.cart.id)
+        for item in items:
+            total += int(item.product.sale_price)
+
+        return total

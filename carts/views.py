@@ -1,9 +1,6 @@
-from django.http import Http404
 from rest_framework import generics, status, mixins, viewsets
-from rest_framework.mixins import CreateModelMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 
 from .models import Cart
 from .serializers import CartSerializer
@@ -32,6 +29,7 @@ class CartList(APIView):
 class CartDetailAPIView(generics.RetrieveAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
 
 # PUT /carts/<hash>/update
 class CartUpdateAPIView(generics.UpdateAPIView):

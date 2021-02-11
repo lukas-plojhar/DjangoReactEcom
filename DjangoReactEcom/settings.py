@@ -1,17 +1,9 @@
 import os
+import django_heroku
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '7ps579@21idgv())gwgyudl*&64#i*95)92t8n4($fv=gtv_7x'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -21,8 +13,45 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
-# Application definition
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+]
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends
+    #     .postgresql_psycopg2',
+    #     'HOST': 'ec2-54-220-35-19.eu-west-1.compute.amazonaws.com',
+    #     'NAME': 'd56j7rfn4eclsp',
+    #     'USER': 'loerjgdrysicqm',
+    #     'PORT': '5432',
+    #     'PASSWORD': '32fcce2a55cdbe5ea3958b362f0ecf53789490d031eafd6d18e0f10edb9dfe05',
+    # }
+}
+
+# Mail definition
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'donotreply@kamiltrojnar.pl'
+EMAIL_HOST_PASSWORD = 'passwordsecret'
+
+# HEROKU SETTINGS https://help.heroku.com/MAAHJSVZ/how-can-i-setup-mailgun-on-django
+# EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+# EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+# EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+# EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+# EMAIL_USE_TLS = False
+# DEFAULT_FROM_EMAIL = 'testing@example.com'
+
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +72,20 @@ INSTALLED_APPS = [
     # 3rd party applications
     'rest_framework',
     'corsheaders',
+    'anymail'
 ]
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": "9e778cb988d3fc4e4431068a8c763d3e-4de08e90-025089fb",
+    "MAILGUN_SENDER_DOMAIN": 'sandbox6a54d266c7e84716ad7e70065ade3a42.mailgun.org',  # your Mailgun domain, if needed
+    # "MAILGUN_SENDER_DOMAIN": 'https://api.mailgun.net/v3/sandbox6a54d266c7e84716ad7e70065ade3a42.mailgun.org',  # your Mailgun domain, if needed
+    # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
+    # https://github.com/anymail/django-anymail
+}
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "you@example.com"  # if you don't already have this in settings
+SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # new
@@ -60,17 +102,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'DjangoReactEcom.urls'
 
-CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
-]
-
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'testing@example.com'
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
 
 TEMPLATES = [
     {
@@ -89,17 +122,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DjangoReactEcom.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -149,28 +171,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
 
-# new
+# REST framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
 }
 
-# Heroku settings
-# if os.getcwd() == '/app':
-#     import dj_database_url
-#     db_from_env = dj_database_url.config(conn_max_age=500)
-#     DATABASES['default'].update(db_from_env)
-#     # Honor the 'X-forwarder-Proto' header for request.is_secure().
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#
-#     # Allow all host headers
-#     ALLOWED_HOSTS = ['ident-new.herokuapp.com']
-#     DEBUG = True
-#
-#     # Static asset configuration
-#     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#
-#     STATICFILES_DIRS = (
-#         os.path.join(BASE_DIR, 'static')
-#     )
+django_heroku.settings(locals())

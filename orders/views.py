@@ -10,6 +10,7 @@ from customers.serializers import CustomerSerializer
 from carts.models import Cart, CartItem
 from carts.serializers import CartSerializer, CartItemSerializer
 from products.models import Product
+from DjangoReactEcom.mailService import send_new_order_confirmation
 
 
 # POST /orders/create
@@ -46,10 +47,13 @@ class OrderCreateAPIView(views.APIView):
         # Save order
         order = Order(
             cart=cart,
-            customer=customer
+            customer=customer,
+            state=Order.OrderState.NEW
         )
         order.save()
-        print(order.id)
+
+        # Send confirmation email
+        send_new_order_confirmation(orderId=order.id)
 
         return Response(order.id, status=HTTP_201_CREATED)
 
