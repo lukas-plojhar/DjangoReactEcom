@@ -20,6 +20,12 @@ class Order(models.Model):
     def __str__(self):
         return f'#{self.id} od {self.customer} v {self.created}'
 
+    def get_payment(self):
+        pass
+
+    def get_shipping(self):
+        pass
+
     def get_total(self):
         total = 0
         items = CartItem.objects.filter(cart__id=self.cart.id)
