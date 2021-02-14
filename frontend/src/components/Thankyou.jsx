@@ -29,7 +29,6 @@ class Thankyou extends Component {
         const url = `${API}/orders/${data}`;
         const response = await axios.get(url).then(response => response.data);
 
-
         this.setState({
             id: response.id,
             customer: response.customer,

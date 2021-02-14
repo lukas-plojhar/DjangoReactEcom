@@ -55,8 +55,8 @@ class OrderCreateAPIView(views.APIView):
         order.save()
 
         # Send confirmation email
-        # send_new_order_confirmation(orderId=order.id)
-        print(order.get_export_string_for_package())
+        send_new_order_confirmation(orderId=order.id)
+        print(f'export string = {order.get_export_string_for_package()}')
 
         return Response(order.id, status=HTTP_201_CREATED)
 
@@ -107,6 +107,3 @@ def export_new_orders(request):
         writer.writerow(order.export_as_list())
 
     return response
-
-
-

@@ -1,3 +1,5 @@
+{% load multiply %}
+
 <!DOCTYPE html>
 <html
         style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
@@ -5,7 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Potvrzení objednávky </title>
+    <title>Potvrzení objednávky</title>
     <style type="text/css">
         img {
             max-width: 100%;
@@ -127,7 +129,7 @@
                                     <td class="content-block"
                                         style="text-align: right; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                                         valign="top">
-                                        Objednávka č. <b>126487111</b>
+                                        Objednávka č. <b>{{ order_id }}</b>
                                     </td>
 
                                 </tr>
@@ -161,7 +163,7 @@
                                         style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                                         valign="top">
                                         Už na ní pracujeme.<br/>
-                                        Dáme vám vědět, jakmile bude připravena k vyzvednutí.
+                                        Dáme vám vědět, jakmile bude předána přepravci k doručení.
                                     </td>
                                 </tr>
                             </table>
@@ -193,8 +195,8 @@
                                     <td class="content-block"
                                         style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                                         valign="top">
-                                        Způsob platby:<br/><b>Kartou předem</b><br/><br/>
-                                        Způsob dopravy:<br/><b>Ceska posta</b>
+                                        Způsob platby:<b>Kartou předem</b><br/><br/>
+                                        Způsob dopravy:<b>Ceska posta</b>
                                     </td>
                                 </tr>
                             </table>
@@ -221,45 +223,46 @@
                             valign="top">
                             <table width="100%" cellpadding="0" cellspacing="0"
                                    style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                <tr
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        1x ident<br/>
-                                    </td>
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        <b>1223</b>
-                                    </td>
-                                </tr>
-                                <tr
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        Doručení
-                                    </td>
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        <b>99</b>
-                                    </td>
-                                </tr>
-                                <tr
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        <b>Celková cena s DPH</b>
-                                    </td>
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        <b>2000</b>
-                                    </td>
-                                </tr>
+                                {% for item in items %}
+                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            {{ item.product.name }}&nbsp;*&nbsp;{{ item.quantity }}<br/>
+                                        </td>
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            <b>{% multiply item.product.sale_price item.quantity %}</b>
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            Doručení
+                                        </td>
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            <b>99</b>
+                                        </td>
+                                    </tr>
+                                    <tr
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            <b>Celková cena s DPH</b>
+                                        </td>
+                                        <td class="content-block"
+                                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                                            valign="top">
+                                            <b>{{ total }}</b>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </table>
                         </td>
                     </tr>
@@ -319,5 +322,4 @@
                 </table>
                 <!-- END: Footer -->
 </body>
-
 </html>

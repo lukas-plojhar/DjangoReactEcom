@@ -16,19 +16,13 @@ def send(subject, html_message, from_email, to):
 # https://stackoverflow.com/questions/3005080/how-to-send-html-email-with-django-with-dynamic-content-in-it
 def send_new_order_confirmation(orderId):
     # Get order details
-    response = requests.get('http://localhost:8000/orders/' + str(orderId))
-    data = json.loads(response.content)
     order = Order.objects.get(id=orderId)
 
-    # Process data
-    print(orderId)
-    total = order.get_total()
-    items = order.get_items()
-
     # Sending the email
-    content = render_to_string('emails/new_order.html', {'total': total, 'items': items})
+    content = render_to_string('emails/new_order.html', context={
+        'total': order.get_total(),
+        'items': order.get_items(),
+        'order_id': orderId
+    })
 
     return send('Subject', content, 'identcz@herokuapp.com', 'plojharl@gmail.com')
-
-    # send_mail("It works!", "This will get sent through Mailgun",
-    #           "Anymail Sender <from@example.com>", ["plojharl@gmail.com"])

@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
     name = serializers.CharField()
     regularPrice = serializers.IntegerField(source='regular_price')
     salePrice = serializers.IntegerField(source='sale_price')
@@ -22,6 +21,3 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_stock(self, obj):
         return True if obj.stock > 0 else False
-
-
-

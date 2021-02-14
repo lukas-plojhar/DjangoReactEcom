@@ -29,7 +29,7 @@ class Order(models.Model):
         items = self.get_items()
         total = 0
         for item in items:
-            total += item.product.sale_price
+            total += item.product.sale_price * item.quantity
 
         return total
 
