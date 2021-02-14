@@ -76,8 +76,8 @@ INSTALLED_APPS = [
 ]
 
 ANYMAIL = {
-    "MAILGUN_API_KEY": "9e778cb988d3fc4e4431068a8c763d3e-4de08e90-025089fb",
-    "MAILGUN_SENDER_DOMAIN": 'sandbox6a54d266c7e84716ad7e70065ade3a42.mailgun.org',  # your Mailgun domain, if needed
+    "MAILGUN_API_KEY": "2b5623e612d75bce2a0d2244d96a68e1-4de08e90-1d525369",
+    "MAILGUN_SENDER_DOMAIN": 'sandboxe14e2202150d4925843e3b0359c10b25.mailgun.org',  # your Mailgun domain, if needed
     # "MAILGUN_SENDER_DOMAIN": 'https://api.mailgun.net/v3/sandbox6a54d266c7e84716ad7e70065ade3a42.mailgun.org',  # your Mailgun domain, if needed
     # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
     # https://github.com/anymail/django-anymail
@@ -108,7 +108,9 @@ ROOT_URLCONF = 'DjangoReactEcom.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

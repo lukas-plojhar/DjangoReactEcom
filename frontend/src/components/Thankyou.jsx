@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Loading from "./common/Loading";
 
-const API = 'https://identcz.herokuapp.com';
+// const API = 'https://identcz.herokuapp.com';
+const API = 'http://localhost:8000';
 
 class Thankyou extends Component {
     constructor(props) {

@@ -36,8 +36,12 @@ class Checkout extends Component {
         let {items} = this.state.data;
         let productId;
 
-        if (this.props.location.state.productId.productId !== undefined)
+        if (this.props.location.state !== undefined)
             productId = this.props.location.state.productId.productId;
+            this.props.history.replace({
+                pathname: this.props.location.pathname,
+                state: undefined
+            });
 
         // Updating items in carts
         if (productId) {
@@ -104,11 +108,11 @@ class Checkout extends Component {
             .then(response => {
                 const {status, data} = response;
                 if (status === 201) {
-                    // localStorage.removeItem('teethycz');
-                    // this.props.history.push({
-                    //     pathname: `/thankyou`,
-                    //     state: {data}
-                    // });
+                    localStorage.removeItem('teethycz');
+                    this.props.history.push({
+                        pathname: `/thankyou`,
+                        state: {data}
+                    });
                 }
                 ;
             })

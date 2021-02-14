@@ -3,7 +3,12 @@ from django.db import models
 class CartItem(models.Model):
     cart = models.ForeignKey('carts.cart', on_delete=models.PROTECT, null=False)
     product = models.ForeignKey('products.product', on_delete=models.PROTECT, null=False)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.IntegerField()
+
+    # @property
+    def get_export_string(self):
+        print(f'CartItem: id = {self.id}, quantity = {self.quantity}')
+        return f'{self.product.export_name}*{self.quantity}'
 
 
 class Cart(models.Model):
