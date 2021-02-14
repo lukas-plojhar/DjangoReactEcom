@@ -35,22 +35,6 @@ DATABASES = {
     # }
 }
 
-# Mail definition
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'donotreply@kamiltrojnar.pl'
-EMAIL_HOST_PASSWORD = 'passwordsecret'
-
-# HEROKU SETTINGS https://help.heroku.com/MAAHJSVZ/how-can-i-setup-mailgun-on-django
-# EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-# EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-# EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-# EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-# EMAIL_USE_TLS = False
-# DEFAULT_FROM_EMAIL = 'testing@example.com'
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,9 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My applications
-    # 'products.apps.ProductConfig',
-    # 'carts.apps.CartConfig',
-    # 'orders.apps.OrderConfig',
     'products',
     'carts',
     'orders',
@@ -78,14 +59,9 @@ INSTALLED_APPS = [
 ANYMAIL = {
     "MAILGUN_API_KEY": "2b5623e612d75bce2a0d2244d96a68e1-4de08e90-1d525369",
     "MAILGUN_SENDER_DOMAIN": 'sandboxe14e2202150d4925843e3b0359c10b25.mailgun.org',  # your Mailgun domain, if needed
-    # "MAILGUN_SENDER_DOMAIN": 'https://api.mailgun.net/v3/sandbox6a54d266c7e84716ad7e70065ade3a42.mailgun.org',  # your Mailgun domain, if needed
-    # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
-    # https://github.com/anymail/django-anymail
 }
 
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "you@example.com"  # if you don't already have this in settings
-SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # new
@@ -129,8 +105,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DjangoReactEcom.wsgi.application'
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
