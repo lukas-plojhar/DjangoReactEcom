@@ -7,22 +7,14 @@ import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import axios from "axios";
 
-const API = 'https://identcz.herokuapp.com';
-// const API = 'http://localhost:8000';
+// const API = 'https://identcz.herokuapp.com';
+const API = 'http://localhost:8000';
 
 class Checkout extends Component {
     state = {
         data: JSON.parse(localStorage.getItem('teethycz')) === null ?
             {
-                "customer": {
-                    "firstName": "",
-                    "lastName": "",
-                    "email": "",
-                    "phone": "",
-                    "address": "",
-                    "city": "",
-                    "postcode": ""
-                },
+                "customer": {},
                 "items": [],
                 "shipping": "1",
                 "payment": "1",
@@ -38,17 +30,17 @@ class Checkout extends Component {
 
         if (this.props.location.state !== undefined)
             productId = this.props.location.state.productId.productId;
-            this.props.history.replace({
-                pathname: this.props.location.pathname,
-                state: undefined
-            });
+        this.props.history.replace({
+            pathname: this.props.location.pathname,
+            state: undefined
+        });
 
         // Updating items in carts
         if (productId) {
             const config = {
-                'headers': {
-                    'Access-Control-Allow-Origin': '*'
-                }
+                // 'headers': {
+                //     'Access-Control-Allow-Origin': '*'
+                // }
             };
             const newProduct = await axios.get(`${API}/products/${productId}`, config).then(response => response.data);
             const duplicates = items.filter(item => item.product.id === newProduct.id);
@@ -124,6 +116,33 @@ class Checkout extends Component {
             .catch(error => console.log(error));
     }
 
+    async handleUpsell(e) {
+        this.addToCart(e.target.value)
+    }
+
+    async addToCart(id) {
+        const {items} = this.state.data;
+        console.log(items);
+
+        // Is duplicate
+        items.forEach(item => {
+            if (item.product.id == id) {
+                item.quantity++;
+            }
+        });
+
+        // New product
+        items.push({
+            'product': await axios.get(`${API}/products/${id}`).then(response => response.data),
+            'quantity': 1
+        });
+
+        // Saving the data
+        const {data} = this.state;
+        data.items = items;
+        this.setState({data});
+    }
+
     // Component rendering
     render() {
         const {data} = this.state;
@@ -139,7 +158,11 @@ class Checkout extends Component {
                         />
                     </div>
                     <div className="col-12">
-                        <p>upsell form</p>
+                        <p>
+                            <button className="btn btn-primary" value="4" onClick={(e) => this.handleUpsell(e)}>Upsell
+                                add to cart
+                            </button>
+                        </p>
                     </div>
                 </div>
                 <div className="row">
