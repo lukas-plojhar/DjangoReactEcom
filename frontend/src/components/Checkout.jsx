@@ -7,8 +7,8 @@ import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import axios from "axios";
 
-// const API = 'https://identcz.herokuapp.com';
-const API = 'http://localhost:8000';
+const API = 'https://identcz.herokuapp.com';
+// const API = 'http://localhost:8000';
 
 class Checkout extends Component {
     state = {
