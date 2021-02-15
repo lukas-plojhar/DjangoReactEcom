@@ -45,7 +45,12 @@ class Checkout extends Component {
 
         // Updating items in carts
         if (productId) {
-            const newProduct = await axios.get(`${API}/products/${productId}`).then(response => response.data);
+            const config = {
+                'headers': {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            };
+            const newProduct = await axios.get(`${API}/products/${productId}`, config).then(response => response.data);
             const duplicates = items.filter(item => item.product.id === newProduct.id);
             if (duplicates.length > 0) {
                 items.forEach(item => {
