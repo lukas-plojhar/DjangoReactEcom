@@ -55,11 +55,11 @@ class OrderForm extends Form {
     }
 
     handleChange = e => {
-        const {data} = this.state;
-        data[e.target.name] = e.target.value;
-        this.setState({data});
-        this.validateProperty(e);
-        this.props.handleStateChange(this.state.data);
+        // const {data} = this.state;
+        // data[e.target.name] = e.target.value;
+        // this.setState({data});
+        // this.validateProperty(e);
+        this.props.handleChange(e);
     }
 
     handleOrder = e => {
@@ -130,12 +130,6 @@ class OrderForm extends Form {
                         onChange={this.handleChange}
                         error={errors.postcode}
                     />
-
-                    <div className="text-center">
-                        <button disabled={Object.keys(errors).length} id="new-order" className="btn btn-primary"
-                                onClick={this.handleOrder}>validate
-                        </button>
-                    </div>
                 </form>
             </React.Fragment>
         )

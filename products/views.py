@@ -5,14 +5,22 @@ from .serializers import ProductSerializer
 
 class ProductListAPIView(generics.ListCreateAPIView):
     """
-    Returns all products
+    Return all products
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+class ProductUpsellListAPIView(generics.ListAPIView):
+    """
+    Return upsell products
+    """
+    queryset = Product.objects.filter(is_upsell=True)
+    serializer_class = ProductSerializer
+
+
 class ProductDetailAPIView(generics.RetrieveAPIView):
     """
-    Return a specific products by ID
+    Return product by ID
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

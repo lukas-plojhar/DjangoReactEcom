@@ -5,6 +5,7 @@ import CartForm from "./checkout/CartForm";
 import OrderForm from './checkout/OrderForm';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
+import Upsells from './checkout/Upsell';
 import axios from "axios";
 
 // const API = 'https://identcz.herokuapp.com';
@@ -76,8 +77,8 @@ class Checkout extends Component {
 
     handleCustomerStateChange(e) {
         const {data} = this.state;
-        data.customer = e;
-        this.setState({data});
+        console.log(e.target.name);
+        //this.setState({data});
     }
 
     handleCartStateChange(e) {
@@ -117,25 +118,27 @@ class Checkout extends Component {
     }
 
     async handleUpsell(e) {
-        this.addToCart(e.target.value)
+        alert(e)
     }
 
+    // Adds product to a cart (state and localstorage)
     async addToCart(id) {
         const {items} = this.state.data;
-        console.log(items);
+        const isInCart = items.filter(item => item.product.id == id).length;
 
-        // Is duplicate
-        items.forEach(item => {
-            if (item.product.id == id) {
-                item.quantity++;
-            }
-        });
-
-        // New product
-        items.push({
-            'product': await axios.get(`${API}/products/${id}`).then(response => response.data),
-            'quantity': 1
-        });
+        if (!isInCart) {
+            items.push({
+                'product': await axios.get(`${API}/products/${id}`).then(response => response.data),
+                'quantity': 1
+            });
+        } else {
+            items.forEach(item => {
+                if (item.product.id == id) {
+                    item.quantity++;
+                    return;
+                }
+            });
+        }
 
         // Saving the data
         const {data} = this.state;
@@ -151,26 +154,23 @@ class Checkout extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-12" id="cart-form">
+                    <div className="col-12 mt-3 mb-5" id="cart-form">
                         <CartForm
                             items={data.items}
                             handleStateChange={(e) => this.handleCartStateChange(e)}
                         />
                     </div>
                     <div className="col-12">
-                        <p>
-                            <button className="btn btn-primary" value="4" onClick={(e) => this.handleUpsell(e)}>Upsell
-                                add to cart
-                            </button>
-                        </p>
+                        <Upsells
+                            addToCart={e => this.addToCart(e)}
+                        />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12 col-md-6" id="order-form">
                         <OrderForm
                             customer={data.customer}
-                            handleStateChange={(e) => this.handleCustomerStateChange(e)}
-                            handleOrder={(e) => this.handleNewOrder(e)}
+                            handleChange={(e) => this.handleCustomerStateChange(e)}
                         />
                     </div>
                     <div className="col-12 col-md-6" id="order-details">
@@ -187,7 +187,7 @@ class Checkout extends Component {
                             handleStateChange={(e) => this.handleOrderStateChange(e)}
                         />
                         <hr/>
-
+                        <button onClick={(e) => this.handleNewOrder(e)}>Create order</button>
                     </div>
                 </div>
             </div>

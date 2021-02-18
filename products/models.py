@@ -13,6 +13,7 @@ class Product(models.Model):
     # product_components = RichTextField(null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     export_name = models.CharField(max_length=255)
+    is_upsell = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.id}: {self.name}'
