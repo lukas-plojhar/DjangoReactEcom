@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import Loading from "./common/Loading";
-import CartForm from "./checkout/CartForm";
-import OrderForm from './checkout/OrderForm';
+import Cart from "./checkout/Cart";
+import CustomerForm from './checkout/CustomerForm';
 import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import Upsells from './checkout/Upsell';
@@ -75,7 +75,7 @@ class Checkout extends Component {
         this.setState({data});
     }
 
-    handleCustomerStateChange(e) {
+    handleCustomerFormChange(e) {
         const {data} = this.state;
         console.log(e.target.name);
         //this.setState({data});
@@ -117,10 +117,6 @@ class Checkout extends Component {
             .catch(error => console.log(error));
     }
 
-    async handleUpsell(e) {
-        alert(e)
-    }
-
     // Adds product to a cart (state and localstorage)
     async addToCart(id) {
         const {items} = this.state.data;
@@ -154,40 +150,36 @@ class Checkout extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-12 mt-3 mb-5" id="cart-form">
-                        <CartForm
-                            items={data.items}
-                            handleStateChange={(e) => this.handleCartStateChange(e)}
-                        />
-                    </div>
-                    <div className="col-12">
-                        <Upsells
-                            addToCart={e => this.addToCart(e)}
-                        />
-                    </div>
+                    <Cart
+                        items={data.items}
+                        handleStateChange={(e) => this.handleCartStateChange(e)}
+                    />
+                    <Upsells
+                        addToCart={e => this.addToCart(e)}
+                    />
                 </div>
                 <div className="row">
                     <div className="col-12 col-md-6" id="order-form">
-                        <OrderForm
+                        <CustomerForm
                             customer={data.customer}
-                            handleChange={(e) => this.handleCustomerStateChange(e)}
+                            handleChange={(e) => this.handleCustomerFormChange(e)}
                         />
                     </div>
                     <div className="col-12 col-md-6" id="order-details">
-                        <h3 className="checkout-title">Vase objednavka</h3>
-                        <OrderDetails
-                            items={data.items}
-                            handleClick={this.handleOrderButtonClick}
-
-                        />
                         <h3>Doruceni a platba</h3>
                         <ServicesForm
                             shipping={data.shipping}
                             payment={data.payment}
                             handleStateChange={(e) => this.handleOrderStateChange(e)}
                         />
+                        <h3 className="checkout-title">Vase objednavka</h3>
+                        <OrderDetails
+                            items={data.items}
+                            handleClick={this.handleOrderButtonClick}
+
+                        />
                         <hr/>
-                        <button onClick={(e) => this.handleNewOrder(e)}>Create order</button>
+                        <button className="btn btn-primary" onClick={(e) => this.handleNewOrder(e)}>Create order</button>
                     </div>
                 </div>
             </div>

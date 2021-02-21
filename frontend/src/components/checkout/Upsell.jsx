@@ -14,14 +14,19 @@ class Upsells extends Component {
     }
 
     async componentDidMount() {
-        const url = `${API}/products/upsells`;
-        const items = await axios.get(url).then(response => response.data);
+        const items = await axios.get(`${API}/products/upsells`).then(response => response.data);
+        // const items = JSON.parse(localStorage.getItem('teethycz'));
+
         this.setState({items});
+    }
+
+    componentDidUpdate() {
+
     }
 
     render() {
         const {items} = this.state;
-        return <div className="row">
+        return <React.Fragment>
             {items.map(item => {
                 return <Upsell
                     id={item.id}
@@ -32,8 +37,7 @@ class Upsells extends Component {
                     handleClick={(e => this.props.addToCart(e.target.value))}
                 />
             })}
-
-        </div>
+        </React.Fragment>
     }
 }
 

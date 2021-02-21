@@ -24,7 +24,7 @@ var schema = {
         postcode: Joi.number().min(5).required().label(locale.postcode),
     };
 
-class OrderForm extends Form {
+class CustomerForm extends Form {
     state = {
         data: this.props.customer,
         errors: {}
@@ -137,4 +137,4 @@ class OrderForm extends Form {
 }
 
 
-export default OrderForm;
+export default CustomerForm;

@@ -2,8 +2,13 @@ import React from "react";
 
 const OrderDetails = ({items, handleClick, isFormValid}) => {
 
-    const total = () => {
-        console.log('total');
+    const getTotal = () => {
+        let total = 0;
+        items.forEach(item => {
+            total += item.quantity * item.product.salePrice
+        });
+
+        return total;
     }
 
     return (
@@ -15,7 +20,7 @@ const OrderDetails = ({items, handleClick, isFormValid}) => {
                             {item.product.name} - {item.product.salePrice} x {item.quantity}
                         </p>
                     ))}
-                    <p className={'total'}>Celkem: {total}</p>
+                    <p className={'total'}>Celkem: {getTotal()}</p>
                 </div>
             </div>
         </React.Fragment>
