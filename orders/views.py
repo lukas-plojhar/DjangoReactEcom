@@ -102,8 +102,9 @@ def export_new_orders(request):
     orders = Order.objects.filter(state=Order.OrderState.NEW)
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response, dialect=CeskaPostaDialect)
+    ceskaposta_static = ['DR', '0.5', '7000', '7+41', 'FO']
 
     for order in orders:
-        writer.writerow(order.export_as_list())
+        writer.writerow(order.export_as_list(static=ceskaposta_static))
 
     return response

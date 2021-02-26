@@ -76,9 +76,9 @@ class Checkout extends Component {
     }
 
     handleCustomerFormChange(e) {
-        const {customer} = this.state.data;
-        customer[e.target.name] = e.target.value;
-        this.setState({customer});
+        const {data} = this.state;
+        data.customer[e.target.name] = e.target.value;
+        this.setState({data});
     }
 
     handleCartStateChange(e) {
@@ -142,9 +142,6 @@ class Checkout extends Component {
         this.setState({data});
     }
 
-    isOrderButtonActive() {
-        return true
-    }
 
     // Component rendering
     render() {
@@ -183,7 +180,9 @@ class Checkout extends Component {
 
                         />
                         <hr/>
-                        <button className="btn btn-primary" disabled={!this.isOrderButtonActive()} onClick={(e) => this.handleNewOrder(e)}>Create order</button>
+                        <button className="btn btn-primary"
+                                onClick={(e) => this.handleNewOrder(e)}>Create order
+                        </button>
                     </div>
                 </div>
             </div>

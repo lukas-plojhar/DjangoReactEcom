@@ -5,26 +5,26 @@ import Joi from "joi-browser";
 import axios from "axios";
 
 // Translated input labels
-var locale= {
-        firstName: "Křestní jméno",
-        lastName: "Příjmení",
-        email: "E-mailová adresa",
-        phone: "Telefon",
-        address: "Adresa",
-        city: "Město",
-        postcode: "PSČ",
-    }
+var locale = {
+    firstName: "Křestní jméno",
+    lastName: "Příjmení",
+    email: "E-mailová adresa",
+    phone: "Telefon",
+    address: "Adresa",
+    city: "Město",
+    postcode: "PSČ",
+}
 
 // Validation schema
 var schema = {
-        firstName: Joi.string().required().label(locale.firstName),
-        lastName: Joi.string().required().label(locale.lastName),
-        email: Joi.string().email({minDomainAtoms: 2}).required().label(locale.email),
-        phone: Joi.string().min(9).required().label(locale.phone),
-        address: Joi.string().required().label(locale.address),
-        city: Joi.string().required().label(locale.city),
-        postcode: Joi.number().min(5).required().label(locale.postcode),
-    };
+    firstName: Joi.string().required().label(locale.firstName),
+    lastName: Joi.string().required().label(locale.lastName),
+    email: Joi.string().email({minDomainAtoms: 2}).required().label(locale.email),
+    phone: Joi.string().min(9).required().label(locale.phone),
+    address: Joi.string().required().label(locale.address),
+    city: Joi.string().required().label(locale.city),
+    postcode: Joi.number().required().label(locale.postcode),
+};
 
 class CustomerForm extends Form {
     state = {
@@ -32,43 +32,8 @@ class CustomerForm extends Form {
         errors: {}
     };
 
-    validate = () => {
-        const options = {abortEarly: false};
-        const {error} = Joi.validate(this.state.data, schema, options);
-        const errors = {};
-
-        // No errors
-        if (!error) return;
-
-        // Errors found
-        for (let item of error.details) {
-            errors[item.path[0]] = item.message
-        }
-        return errors;
-    }
-
-    validateProperty = (e) => {
-        const errors = this.state.errors;
-        const {data} = this.state;
-        if (data[e.target.name].trim() === '')
-            errors[e.target.name] = `${[e.target.ariaLabel]} is required.`;
-        else delete errors[e.target.name];
-        this.setState({errors})
-    }
-
     handleChange = e => {
-        // const {data} = this.state;
-        // data[e.target.name] = e.target.value;
-        // this.setState({data});
-        // this.validateProperty(e);
         this.props.handleChange(e);
-    }
-
-    handleOrder = e => {
-        e.preventDefault();
-        const errors = this.validate();
-        if (!errors) this.props.handleOrder();
-        else this.setState({errors});
     }
 
     render() {
@@ -83,6 +48,7 @@ class CustomerForm extends Form {
                         label={locale.email}
                         onChange={this.handleChange}
                         error={errors.email}
+                        required
                     />
 
                     <Input
@@ -137,6 +103,5 @@ class CustomerForm extends Form {
         )
     }
 }
-
 
 export default CustomerForm;

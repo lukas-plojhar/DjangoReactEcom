@@ -34,7 +34,7 @@ class Order(models.Model):
         return total
 
     # Get export string of items for package label
-    def get_export_string_for_package(self):
+    def encode_cart_for_label(self):
         items = self.get_items()
         export_string = ''
 
@@ -45,8 +45,13 @@ class Order(models.Model):
         return export_string
 
     # 62011306;Jana;Paulusova;Stare Dobrkovice;Cesky Krumlov;38101;jana.paulusova@gmail.com;732447971;0;"2 ID ";DR;0.5;7000;7+41;FO
-    def export_as_list(self):
-        static = ['DR', '0.5', '7000', '7+41', 'FO']
+    def export_as_list(self, static):
+        if self.cart.payment == Cart.PaymentOptions.COD:
+            total = self.get_total()
+
+        else:
+            total = 0
+
         row = [self.id,
                self.customer.first_name,
                self.customer.last_name,
@@ -55,16 +60,16 @@ class Order(models.Model):
                self.customer.postcode,
                self.customer.email,
                self.customer.phone,
-               (self.get_total(), 0)[self.cart.payment == Cart.PaymentOptions.CC],
-               self.export_items()
+               total,
+               self.encode_cart_for_label()
                ]
 
         row.extend(static)
-        self.change_state(Order.OrderState.DISPATCHED)
+        self.update_state(state=Order.OrderState.DISPATCHED)
         return row
 
    # Change order state
-    def change_state(self, state):
+    def update_state(self, state):
         self.state = state
-        self.save()
-        return 0
+        return self.save()
+
