@@ -10,18 +10,16 @@ class Upsells extends Component {
     }
 
     state = {
-        items: []
+        items: [],
     }
 
     async componentDidMount() {
         const items = await axios.get(`${API}/products/upsells`).then(response => response.data);
-        // const items = JSON.parse(localStorage.getItem('teethycz'));
 
         this.setState({items});
     }
 
     componentDidUpdate() {
-
     }
 
     render() {
@@ -53,3 +51,5 @@ const Upsell = ({id, image, name, description, price, handleClick}) => {
         <button className="btn btn-secondary" value={id} onClick={handleClick}>Pridat do kosiku</button>
     </div>
 }
+
+

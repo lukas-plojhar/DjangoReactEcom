@@ -4,6 +4,7 @@ import {Redirect} from "react-router-dom";
 import Joi from "joi-browser";
 import axios from "axios";
 
+// Translated input labels
 var locale= {
         firstName: "Křestní jméno",
         lastName: "Příjmení",
@@ -14,6 +15,7 @@ var locale= {
         postcode: "PSČ",
     }
 
+// Validation schema
 var schema = {
         firstName: Joi.string().required().label(locale.firstName),
         lastName: Joi.string().required().label(locale.lastName),
