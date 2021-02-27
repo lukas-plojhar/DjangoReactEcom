@@ -1,0 +1,31 @@
+.banner-container {
+  width: 100%;
+  padding: 60px 0px;
+  background-color: #32bef0;
+  margin-top: 100px;
+}
+
+.banner-container .banner-content {
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  grid-column-gap: 100px;
+}
+
+.banner-container .banner-content .brand {
+  grid-row-gap: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+.banner-container .banner-content .brand p {
+  text-align: center;
+  color: #fff;
+  line-height: 1.5rem;
+}
+/*# sourceMappingURL=banner.css.map */

@@ -7,9 +7,7 @@ import ServicesForm from './checkout/ServicesForm';
 import OrderDetails from './checkout/OrderDetails';
 import Upsells from './checkout/Upsell';
 import axios from "axios";
-
-// const API = 'https://identcz.herokuapp.com';
-const API = 'http://localhost:8000';
+import {API} from "../index";
 
 class Checkout extends Component {
     state = {
@@ -29,6 +27,7 @@ class Checkout extends Component {
         let {items} = this.state.data;
         let productId;
 
+        // Get ID of product added to cart
         if (this.props.location.state !== undefined)
             productId = this.props.location.state.productId.productId;
         this.props.history.replace({

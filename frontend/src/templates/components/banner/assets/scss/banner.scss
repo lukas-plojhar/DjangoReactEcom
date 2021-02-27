@@ -1,0 +1,23 @@
+@import "../../../../../assets/scss/_config";
+.banner-container {
+  width: 100%;
+  padding: 60px 0px;
+  background-color: $theme_bg;
+  margin-top: 100px;
+}
+.banner-container .banner-content {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  grid-column-gap: 100px;
+}
+.banner-container .banner-content .brand {
+  grid-row-gap: 40px;
+  align-items: center;
+  justify-items: center;
+}
+.banner-container .banner-content .brand p {
+  text-align: center;
+  color: #fff;
+  line-height: 1.5rem;
+}

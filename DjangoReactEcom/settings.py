@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     # 3rd party applications
     'rest_framework',
     'corsheaders',
-    'anymail'
+    'anymail',
+    'rest_framework_swagger'
 ]
 
 ANYMAIL = {
@@ -159,7 +160,8 @@ MEDIA_URL = '/images/'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' # for Swagger
 }
 
 django_heroku.settings(locals())

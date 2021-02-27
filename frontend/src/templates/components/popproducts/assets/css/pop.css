@@ -1,0 +1,71 @@
+.popular-product-container {
+  padding: 60px 0px;
+}
+
+.popular-product-content h1 {
+  font-size: 50px;
+  font-weight: 800;
+  color: #32bef0;
+  margin-bottom: 20px;
+}
+
+.popular-product-content .splide_item {
+  width: 100%;
+  height: auto;
+}
+
+.popular-product-content .splide_item .img-container img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.popular-product-content .splide_item a {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  width: 95%;
+  line-height: 1.5rem;
+  text-decoration: none;
+  color: #000;
+}
+
+.popular-product-content .splide_item a:hover {
+  color: #32bef0;
+}
+
+.popular-product-content .splide_item button {
+  padding: 10px 20px;
+  color: #32bef0;
+  background-color: #fff;
+  border: 1px solid #32bef0;
+  border-radius: 30px;
+  font-weight: 800;
+  cursor: pointer;
+  width: 60%;
+}
+
+.popular-product-content .splide_item button:hover {
+  background-color: #32bef0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.popular-product-content .splide_item .review-container {
+  margin-bottom: 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.popular-product-content .splide_item .review-container .star .star-img {
+  fill: #32bef0;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.popular-product-content .splide_item .review-container p {
+  font-size: 12px;
+  color: gray;
+}
+/*# sourceMappingURL=pop.css.map */

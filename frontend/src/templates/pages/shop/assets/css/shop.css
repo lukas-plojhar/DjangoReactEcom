@@ -1,0 +1,10 @@
+.shop-page {
+  background-color: #fff;
+}
+
+.multiple-col-product {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+/*# sourceMappingURL=shop.css.map */

@@ -6,9 +6,8 @@ class CartItem(models.Model):
     quantity = models.IntegerField()
 
     # @property
-    def get_export_string(self):
-        print(f'CartItem: id = {self.id}, quantity = {self.quantity}')
-        return f'{self.product.export_name}*{self.quantity}'
+    def get_package_label(self):
+        return f'{self.product.export_name} * {self.quantity}'
 
 
 class Cart(models.Model):
@@ -29,6 +28,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
 
 class Discount(models.Model):
     name = models.CharField(max_length=255, null=False)

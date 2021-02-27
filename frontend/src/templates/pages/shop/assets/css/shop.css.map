@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,gBAAgB,EAAE,IAAI;CACvB;;AACD,AAAA,qBAAqB,CAAC;EACpB,eAAe,EAAE,aAAa;CAC/B",
+    "sources": [
+        "../scss/shop.scss"
+    ],
+    "names": [],
+    "file": "shop.css"
+}

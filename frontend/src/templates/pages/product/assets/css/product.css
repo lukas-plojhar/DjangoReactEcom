@@ -1,0 +1,82 @@
+.bandcamp-section {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+}
+
+.bandcamp-section a {
+  color: #32bef0;
+  font-size: 14px;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
+.bandcamp-section span {
+  font-size: 13px;
+  color: gray;
+}
+
+.single-product-content {
+  height: auto;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.single-product-content .img-container {
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
+}
+
+.single-product-content .img-container div {
+  display: -ms-grid;
+  display: grid;
+}
+
+.single-product-content .img-container .thumbSlider {
+  -ms-grid-columns: 70px 1fr;
+      grid-template-columns: 70px 1fr;
+  grid-column-gap: 20px;
+}
+
+.single-product-content .context-container {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+}
+
+.single-product-content .img-container div .product-img-cover {
+  height: auto;
+  width: 100%;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+}
+
+.product-img-cover img {
+  width: 100%;
+  height: 470px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
+  border-color: #32bef0;
+}
+
+#splide02-list {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#splide02 {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+}
+/*# sourceMappingURL=product.css.map */

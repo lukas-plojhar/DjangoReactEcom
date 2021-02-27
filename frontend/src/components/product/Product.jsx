@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import {Link} from "react-router-dom";
+import API from "../../API";
 
 class Product extends Component {
     constructor(props) {
@@ -13,32 +14,34 @@ class Product extends Component {
     }
 
     componentDidMount(props) {
-        axios.get('http://127.0.0.1:8000/product/' + this.state.id).then(
-            res => {
-                this.setState({products: res.data});
+        axios.get(`${API}/products/${this.state.id}`).then(
+            response => {
+                console.log(response);
+                this.setState({products: response.data});
             }
         )
 
     }
 
     render() {
+        const {products, id} = this.state;
         return (
             <div className="row">
                 <div className="col-6">
-                    <img src={this.state.products.main_image}
+                    <img src={products.featuredImage}
                          className="img-fluid"
-                         alt={this.state.products.name}/>
+                         alt={products.name}/>
                 </div>
                 <div className="col-6">
-                    <h1>{this.state.products.name}</h1>
-                    <h4>{this.state.products.headline}</h4>
-                    <p>{this.state.products.description}</p>
+                    <h1>{products.name}</h1>
+                    <h4>{products.headline}</h4>
+                    <p>{products.description}</p>
                     <p>
-                        {this.state.products.regular_price}<br/>
-                        {this.state.products.sale_price}
+                        {products.regularPrice}<br/>
+                        {products.salePrice}
                     </p>
-                    <Link to={"/checkout/" + this.state.id}>
-                        <button className="btn btn-primary">Buy now</button>
+                    <Link to={`/checkout/${id}`}>
+                        <button className="btn btn-primary"><Link to={``}>Buy now</Link></button>
                     </Link>
                 </div>
             </div>

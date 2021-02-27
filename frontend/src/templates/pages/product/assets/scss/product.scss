@@ -1,0 +1,54 @@
+@import "../../../../../assets/scss/_config";
+.bandcamp-section {
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+}
+.bandcamp-section a {
+  color: $theme_primary_color;
+  font-size: 14px;
+  text-decoration: none;
+  padding-right: 10px;
+}
+.bandcamp-section span {
+  font-size: 13px;
+  color: gray;
+}
+.single-product-content {
+  height: auto;
+  width: 100%;
+  justify-content: space-between;
+}
+.single-product-content .img-container {
+  flex-basis: 45%;
+}
+.single-product-content .img-container div {
+  display: grid;
+}
+.single-product-content .img-container .thumbSlider {
+  grid-template-columns: 70px 1fr;
+  grid-column-gap: 20px;
+}
+.single-product-content .context-container {
+  flex-basis: 50%;
+}
+.single-product-content .img-container div .product-img-cover {
+  height: auto;
+  width: 100%;
+  grid-column: 2/3;
+}
+.product-img-cover img {
+  width: 100%;
+  height: 470px;
+  object-fit: cover;
+}
+.splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
+  border-color: $theme_primary_color;
+}
+#splide02-list {
+  flex-direction: column;
+}
+#splide02 {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}

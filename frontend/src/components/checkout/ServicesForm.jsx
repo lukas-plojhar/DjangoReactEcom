@@ -20,15 +20,6 @@ const ServicesForm = ({shipping, payment, handleStateChange}) => {
                     handleChange={(e) => handleChange(e)}
                     price="79"
                 />
-
-                <RadioInput
-                    label="Slovenska posta"
-                    name="shipping"
-                    value="2"
-                    checked={shipping === "2" ? 'checked' : ''}
-                    handleChange={(e) => handleChange(e)}
-                    price="69"
-                />
             </form>
             <hr/>
             <form>
@@ -38,7 +29,7 @@ const ServicesForm = ({shipping, payment, handleStateChange}) => {
                     value="1"
                     checked={payment === "1" ? 'checked' : ''}
                     handleChange={(e) => handleChange(e)}
-                    price="30"
+                    price="49"
                 />
                 <RadioInput
                     label="Platba kartou"

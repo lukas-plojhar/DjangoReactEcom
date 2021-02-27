@@ -55,8 +55,7 @@ class OrderCreateAPIView(views.APIView):
         order.save()
 
         # Send confirmation email
-        send_new_order_confirmation(orderId=order.id)
-        print(f'export string = {order.get_export_string_for_package()}')
+        # send_new_order_confirmation(orderId=order.id)
 
         return Response(order.id, status=HTTP_201_CREATED)
 
@@ -95,15 +94,16 @@ class OrderUpdateAPIView(views.APIView):
         return Response(status=HTTP_200_OK)
 
 
-# GET /export
+# GET /orders/export
 # Exports all orders that should be sent
 # Format: 62011306;Jana;Paulusova;Stare Dobrkovice;Cesky Krumlov;38101;jana.paulusova@gmail.com;732447971;0;"2 ID ";DR;0.5;7000;7+41;FO
 def export_new_orders(request):
     orders = Order.objects.filter(state=Order.OrderState.NEW)
     response = HttpResponse(content_type='text/csv')
+
+    # CZ
     writer = csv.writer(response, dialect=CeskaPostaDialect)
     ceskaposta_static = ['DR', '0.5', '7000', '7+41', 'FO']
-
     for order in orders:
         writer.writerow(order.export_as_list(static=ceskaposta_static))
 

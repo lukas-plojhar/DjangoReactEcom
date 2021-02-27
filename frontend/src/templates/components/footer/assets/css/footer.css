@@ -1,0 +1,97 @@
+.footer-content {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  padding: 100px 0px;
+}
+
+.footer-content .footer-logo {
+  margin-bottom: 60px;
+  width: 100px;
+  height: 100px;
+}
+
+.footer-content .footer-menu a {
+  text-decoration: none;
+  color: gray;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.footer-content .footer-menu a:hover {
+  color: #32bef0;
+}
+
+.footer-content .mail-list-container {
+  position: relative;
+  margin-top: 30px;
+}
+
+.footer-content .mail-list-container input {
+  height: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+  padding: 15px 0px;
+}
+
+.footer-content .mail-list-container .send {
+  position: absolute;
+  top: 13px;
+  right: 10px;
+  fill: #ccc;
+  cursor: pointer;
+}
+
+.footer-content .mail-list-container input:focus {
+  border: 2px solid #666;
+}
+
+.footer-content .mail-list-container input:focus + .send {
+  fill: #32bef0;
+}
+
+.footer-content .social-icons {
+  margin-top: 30px;
+}
+
+.footer-content .social-icons a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  height: 40px;
+  width: 40px;
+  font-weight: bold;
+  border-radius: 20px;
+  background-color: #32bef0;
+  margin: 0px 10px;
+  text-align: center;
+  padding-top: 9px;
+}
+
+.footer-content .social-icons a:hover {
+  background-color: #000;
+}
+
+.footer-content .copyright {
+  font-size: 12px;
+  margin-top: 20px;
+  color: gray;
+}
+
+.footer-content .bottom-link {
+  color: gray;
+  font-size: 12px;
+  margin-top: 30px;
+}
+
+.footer-content .bottom-link a {
+  padding: 0px 10px;
+  color: inherit;
+  text-decoration: none;
+}
+/*# sourceMappingURL=footer.css.map */
