@@ -7,7 +7,7 @@ import Thankyou from './components/Thankyou';
 import Navbar from "./components/common/Navbar";
 
 // New Web
-import shop from "./templates/pages/home/shop";
+import shop from './templates/pages/shop/shop'
 
 // New website
 // import nav from "./templates/components/topnavbar/nav";

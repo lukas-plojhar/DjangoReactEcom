@@ -1,93 +1,98 @@
 .sticky {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: #fff;
-  z-index: 99999;
-  -webkit-box-shadow: 0 4px 2px -2px #ddd;
-          box-shadow: 0 4px 2px -2px #ddd;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #fff;
+    z-index: 99999;
+    -webkit-box-shadow: 0 4px 2px -2px #ddd;
+    box-shadow: 0 4px 2px -2px #ddd;
 }
 
 .top-navbar {
-  width: 100%;
-  height: auto;
-  padding: 20px 0px;
+    width: 100%;
+    height: auto;
+    padding: 20px 0px;
 }
 
 .top-navbar .nav {
-  width: 100%;
-  -ms-grid-columns: auto 1fr auto auto auto;
-      grid-template-columns: auto 1fr auto auto auto;
-  grid-column-gap: 20px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+    width: 100%;
+    -ms-grid-columns: auto 1fr auto auto auto;
+    grid-template-columns: auto 1fr auto auto auto;
+    grid-column-gap: 20px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .top-navbar .nav .menu-container {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
 }
 
 .top-navbar .nav .menu-container a {
-  text-decoration: none;
-  color: gray;
-  padding: 0px 15px;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: bold;
+    text-decoration: none;
+    color: gray;
+    padding: 0px 15px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .top-navbar .nav .menu-container a:hover {
-  color: #32bef0;
+    color: #32bef0;
 }
 
 .top-navbar .man-svg,
 .cart-svg {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .top-navbar .search-box {
-  position: relative;
+    position: relative;
 }
 
 .top-navbar .search-box input {
-  width: 150px;
-  height: 40px;
-  border-radius: 8px;
-  border: 2px solid #e0e0e0;
-  padding-left: 15px;
-  font-size: 18px;
-  font-weight: 400;
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    padding-left: 15px;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .top-navbar .search-box input:hover + .search-svg,
 .top-navbar .search-box input:focus + .search-svg {
-  stroke: #32bef0;
+    stroke: #32bef0;
 }
 
 .top-navbar .search-box .search-svg {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  stroke: #b3b3b3;
-  cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    stroke: #b3b3b3;
+    cursor: pointer;
 }
 
 .top-navbar .mobile-nav {
-  -ms-grid-columns: 1fr auto auto;
-      grid-template-columns: 1fr auto auto;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0px 20px;
-  grid-column-gap: 15px;
+    -ms-grid-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0px 20px;
+    grid-column-gap: 15px;
 }
 
 .top-navbar .mobile-nav .mobile-logo {
-  height: 40px;
-  width: 40px;
+    height: 40px;
+    width: 40px;
 }
+
+.sticky-design {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) !important;
+}
+
 /*# sourceMappingURL=nav.css.map */

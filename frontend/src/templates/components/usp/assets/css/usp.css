@@ -1,0 +1,31 @@
+.usp-container {
+  width: 100%;
+  padding: 30px 0px;
+  background-color: #1f5bff;
+  margin-top: 100px;
+}
+
+.usp-container .usp-content {
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  grid-column-gap: 100px;
+}
+
+.usp-container .usp-content .brand {
+  grid-row-gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+.usp-container .usp-content .brand p {
+  text-align: center;
+  color: #fff !important;
+  line-height: 1.5rem;
+}
+/*# sourceMappingURL=banner.css.map */

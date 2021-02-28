@@ -30,7 +30,7 @@ export default class product extends Component {
                 <h1>{this.props.data.title}</h1>
                 <p>{this.props.data.intro}</p>
                 <a href="/" className="theme-bg d:inline-block">
-                  Shop Now
+                  Vice informaci
                 </a>
               </div>
             </div>

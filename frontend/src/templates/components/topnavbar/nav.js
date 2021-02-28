@@ -13,9 +13,11 @@ export default class nav extends Component {
       if (window.pageYOffset === 0) {
         document.getElementById("fixgap").style.height = "0px";
         navbar.classList.remove("sticky");
+        navbar.classList.remove("sticky-design");
       } else {
         document.getElementById("fixgap").style.height = "100px";
         navbar.classList.add("sticky");
+        navbar.classList.add("sticky-design");
       }
     };
   }

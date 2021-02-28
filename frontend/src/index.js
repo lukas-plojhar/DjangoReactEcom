@@ -4,7 +4,7 @@ import Router from './Router';
 import reportWebVitals from './reportWebVitals';
 
 // CSS imports
-import './static/css/style.css'
+// import './static/css/style.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import "./assets/css/global.css";
 import "./assets/css/tiny-slider.css";

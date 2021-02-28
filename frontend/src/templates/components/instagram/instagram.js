@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import "./assets/css/instragram.css";
+import "./assets/css/instagram.css";
 
 export default class instagram extends Component {
   render() {
     return (
-      <div className="instragram-iframe-container">
+      <div className="instagram-iframe-container">
         <div className="container">
           <div className="iframe-content">
             <h1>Satisfied Smiles</h1>
