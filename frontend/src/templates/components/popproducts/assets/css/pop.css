@@ -5,7 +5,7 @@
 .popular-product-content h1 {
   font-size: 50px;
   font-weight: 800;
-  color: #32bef0;
+  color: #1f5bff;
   margin-bottom: 20px;
 }
 
@@ -31,14 +31,14 @@
 }
 
 .popular-product-content .splide_item a:hover {
-  color: #32bef0;
+  color: #1f5bff;
 }
 
 .popular-product-content .splide_item button {
   padding: 10px 20px;
-  color: #32bef0;
+  color: #1f5bff;
   background-color: #fff;
-  border: 1px solid #32bef0;
+  border: 1px solid #1f5bff;
   border-radius: 30px;
   font-weight: 800;
   cursor: pointer;
@@ -46,7 +46,7 @@
 }
 
 .popular-product-content .splide_item button:hover {
-  background-color: #32bef0;
+  background-color: #1f5bff;
   color: #fff;
   cursor: pointer;
 }
@@ -59,7 +59,7 @@
 }
 
 .popular-product-content .splide_item .review-container .star .star-img {
-  fill: #32bef0;
+  fill: #1f5bff;
   cursor: pointer;
   margin-right: 8px;
 }

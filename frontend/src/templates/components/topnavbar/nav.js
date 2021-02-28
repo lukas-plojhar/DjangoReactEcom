@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./assets/css/nav.css";
 import { ReactComponent as Logo } from "./assets/svg/logo.svg";
-import { ReactComponent as SearchSVG } from "./assets/svg/search.svg";
-import { ReactComponent as ManSVG } from "./assets/svg/man.svg";
 import { ReactComponent as CartSVG } from "./assets/svg/cart.svg";
 import { ReactComponent as MenuSVG } from "./assets/svg/menu.svg";
 

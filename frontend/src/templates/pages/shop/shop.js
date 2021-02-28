@@ -8,7 +8,7 @@ import Banner from "../../components/banner/banner";
 import PopularProducts from "../../components/popproducts/popproducts";
 import Footer from "../../components/footer/footer";
 import Review from "../../components/review/review";
-import Instragram from "../../components/instagram/instagram";
+import Instragram from "../../components/instragram/instragram";
 
 /**
  * PRODUCT DATA
@@ -36,11 +36,11 @@ export default class shop extends Component {
         {products.map((product) => {
           return <Product data={product} key={product.id} />;
         })}
+        <Review />
         <ColProduct />
+        <PopularProducts />
         <Instragram />
         <Banner />
-        <Review />
-        <PopularProducts />
         <Footer />
       </React.Fragment>
     );

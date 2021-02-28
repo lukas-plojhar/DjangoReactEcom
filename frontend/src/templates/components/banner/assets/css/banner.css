@@ -1,7 +1,7 @@
 .banner-container {
   width: 100%;
   padding: 60px 0px;
-  background-color: #32bef0;
+  background-color: #1f5bff;
   margin-top: 100px;
 }
 
@@ -25,7 +25,7 @@
 
 .banner-container .banner-content .brand p {
   text-align: center;
-  color: #fff;
+  color: #fff !important;
   line-height: 1.5rem;
 }
 /*# sourceMappingURL=banner.css.map */

@@ -25,7 +25,7 @@
   font-size: 50px;
   letter-spacing: -1px;
   line-height: 1.12;
-  color: #32bef0;
+  color: #1f5bff;
   margin-bottom: 15px;
   margin-top: 20px;
 }
@@ -41,11 +41,11 @@
   width: 30%;
   height: 45px;
   border-radius: 50px;
-  border: 2px solid #32bef0;
+  border: 2px solid #1f5bff;
   background-color: transparent;
   font-weight: bold;
   font-size: 14px;
-  color: #32bef0;
+  color: #1f5bff;
   cursor: pointer;
 }
 /*# sourceMappingURL=product.css.map */

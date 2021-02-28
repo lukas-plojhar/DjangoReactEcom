@@ -14,7 +14,7 @@
   font-size: 50px;
   letter-spacing: -1px;
   line-height: 1.12;
-  color: #32bef0;
+  color: #1f5bff;
 }
 
 .review-content .top-header .right-header span {
@@ -26,8 +26,8 @@
 }
 
 .review-content .top-header .right-header button {
-  border: 2px solid #32bef0;
-  color: #32bef0;
+  border: 2px solid #1f5bff;
+  color: #1f5bff;
   background-color: transparent;
   border-radius: 50px;
   font-weight: bold;
@@ -36,7 +36,7 @@
 }
 
 .review-content .top-header .right-header button:hover {
-  background-color: #32bef0;
+  background-color: #1f5bff;
   color: #fff;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .single-review-box .star-review-box .single-star-ic {
-  fill: #32bef0;
+  fill: #1f5bff;
   margin-right: 5px;
 }
 

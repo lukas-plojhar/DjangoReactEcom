@@ -6,6 +6,9 @@ import Product from './components/product/Product';
 import Thankyou from './components/Thankyou';
 import Navbar from "./components/common/Navbar";
 
+// New Web
+import shop from "./templates/pages/home/shop";
+
 // New website
 // import nav from "./templates/components/topnavbar/nav";
 // import shop from "./templates/pages/shop/shop";
@@ -14,12 +17,13 @@ class Router extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Navbar />
+                {/*<Navbar />*/}
+
                 <Switch>
                     <Route path='/product/:id' component={Product}/>
                     <Route path='/checkout' component={Checkout}/>
                     <Route path='/thankyou' component={Thankyou}/>
-                    <Route path='/' component={Home}/>
+                    <Route path='/' component={shop}/>
                     <Redirect to='not-found'/>
                 </Switch>
             </BrowserRouter>
