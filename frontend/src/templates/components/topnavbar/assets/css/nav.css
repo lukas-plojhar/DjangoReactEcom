@@ -1,3 +1,9 @@
+.logo {
+    max-height: 18px;
+    width: auto;
+    margin-top: -3px;
+}
+
 .sticky {
     position: fixed;
     top: 0px;
@@ -41,7 +47,7 @@
 }
 
 .top-navbar .nav .menu-container a:hover {
-    color: #32bef0;
+    color: #1f5bff;
 }
 
 .top-navbar .man-svg,
@@ -59,13 +65,13 @@
     border-radius: 8px;
     border: 2px solid #e0e0e0;
     padding-left: 15px;
-    font-size: 18px;
+    /*font-size: 18px;*/
     font-weight: 400;
 }
 
 .top-navbar .search-box input:hover + .search-svg,
 .top-navbar .search-box input:focus + .search-svg {
-    stroke: #32bef0;
+    stroke: #1f5bff;
 }
 
 .top-navbar .search-box .search-svg {
@@ -87,8 +93,8 @@
 }
 
 .top-navbar .mobile-nav .mobile-logo {
-    height: 40px;
-    width: 40px;
+    height: 18px;
+    width: auto;
 }
 
 .sticky-design {

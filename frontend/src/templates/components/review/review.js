@@ -20,13 +20,13 @@ export default class review extends Component {
         <div className="container">
           <div className="review-content">
             <div className="top-header d:flex flex:row">
-              <h1>Glowing and Grinning Reviews</h1>
-              <div className="right-header d:grid">
-                <span className="d:block">
-                  Over <b>5,000</b> 5 star reviews
-                </span>
-                <button>Shop Now</button>
-              </div>
+              <h1>Ohlasy našich zákazníků</h1>
+              {/*<div className="right-header d:grid">*/}
+              {/*  <span className="d:block">*/}
+              {/*    Více než <b>1,000</b> hodnocení*/}
+              {/*  </span>*/}
+              {/*  <button>Prohlédnout produkty</button>*/}
+              {/*</div>*/}
             </div>
             <Splide
               options={{
@@ -66,150 +66,7 @@ export default class review extends Component {
                   </div>
                 </div>
               </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
-              <SplideSlide>
-                <div className="single-review-box d:grid">
-                  <div className="star-review-box d:flex flex:row">
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                    <Star className="single-star-ic" />
-                  </div>
-                  <h2>Awesome</h2>
-                  <span>
-                    I just received my teeth whitening kit and it is AMAZING! I
-                    had a little problem with my order but customer service was
-                    absolutely wonderful and solved the problem right away!
-                    Definitely would recommend this product to any and
-                    everyone!!
-                  </span>
-                  <div className="review-user d:grid">
-                    <img src="/uploads/avatar.png" alt="avater" />
-                    <p>Cassandra C.</p>
-                    <span>New York, NY</span>
-                  </div>
-                </div>
-              </SplideSlide>
+
               <SplideSlide>
                 <div className="single-review-box d:grid">
                   <div className="star-review-box d:flex flex:row">

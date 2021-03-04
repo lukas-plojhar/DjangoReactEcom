@@ -1,31 +1,37 @@
 .usp-container {
-  width: 100%;
-  padding: 30px 0px;
-  background-color: #1f5bff;
-  margin-top: 100px;
+    width: 100%;
+    padding: 60px 0px;
+    background-color: rgb(248, 249, 250);
+    margin-top: 100px;
 }
 
 .usp-container .usp-content {
-  -ms-grid-columns: 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  justify-items: center;
-  grid-column-gap: 100px;
+    -ms-grid-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-items: center;
+    grid-column-gap: 100px;
 }
 
 .usp-container .usp-content .brand {
-  grid-row-gap: 20px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  justify-items: center;
+    grid-row-gap: 20px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    justify-items: center;
 }
 
 .usp-container .usp-content .brand p {
-  text-align: center;
-  color: #fff !important;
-  line-height: 1.5rem;
+    text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+    .usp-container .usp-content {
+        grid-template-columns: none;
+        grid-row-gap: 10px;
+    }
+}
+
 /*# sourceMappingURL=banner.css.map */

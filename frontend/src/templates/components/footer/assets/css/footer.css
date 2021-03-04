@@ -16,11 +16,10 @@
   text-decoration: none;
   color: gray;
   padding: 10px 20px;
-  font-weight: bold;
 }
 
 .footer-content .footer-menu a:hover {
-  color: #32bef0;
+  color: #1f5bff;
 }
 
 .footer-content .mail-list-container {
@@ -32,7 +31,7 @@
   height: 50px;
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  /*font-size: 16px;*/
   border: 2px solid #ccc;
   border-radius: 4px;
   width: 300px;
@@ -52,7 +51,7 @@
 }
 
 .footer-content .mail-list-container input:focus + .send {
-  fill: #32bef0;
+  fill: #1f5bff;
 }
 
 .footer-content .social-icons {
@@ -67,7 +66,7 @@
   width: 40px;
   font-weight: bold;
   border-radius: 20px;
-  background-color: #32bef0;
+  background-color: #1f5bff;
   margin: 0px 10px;
   text-align: center;
   padding-top: 9px;

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./assets/css/nav.css";
-import { ReactComponent as Logo } from "./assets/svg/logo.svg";
 import { ReactComponent as CartSVG } from "./assets/svg/cart.svg";
 import { ReactComponent as MenuSVG } from "./assets/svg/menu.svg";
+
+// Images
+import logo from "../../../assets/images/teethylogo.png";
 
 export default class nav extends Component {
   componentDidMount() {
@@ -28,11 +30,13 @@ export default class nav extends Component {
           <div className="container">
             <div className="nav d:none sm:d:grid ">
               <div className="logo">
-                <Logo />
+                <img src={logo} alt="" className="logo"/>
               </div>
               <div className="menu-container d:flex flex:row">
-                <Link to="/">Home</Link>
-                <Link to="/shop">Shop All</Link>
+                <Link to="/shop">Nabídka produktů</Link>
+                <Link to="/">Recenze a výsledky</Link>
+                <Link to="/">Nejčastější dotazy</Link>
+                <Link to="/">Kontakt</Link>
               </div>
               <div className="cart-svg">
                 <CartSVG />
@@ -40,7 +44,7 @@ export default class nav extends Component {
             </div>
             <div className="mobile-nav d:grid sm:d:none">
               <div className="logo">
-                <Logo className="mobile-logo" />
+                <img src={logo} className="mobile-logo" />
               </div>
               <div className="man-svg">
                 <CartSVG />

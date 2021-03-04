@@ -10,6 +10,8 @@ import Footer from "../../components/footer/footer";
 import Review from "../../components/review/review";
 import Instagram from "../../components/instagram/instagram";
 
+import productImage from "../../../static/img/UV_kit.png";
+
 /**
  * PRODUCT DATA
  */
@@ -47,13 +49,16 @@ export default class shop extends Component {
                                         hollywoodská hvězda?</h1>
                                     <p>Vrať svým zubům jejich přirozenou bělost a
                                         pevnost. Jednoduše, rychle a za pár korun.</p>
-                                    <a href="/" className="theme-bg d:inline-block">
-                                        Chci bílé zuby
-                                    </a>
+                                    <button className="btn btn-primary" style={{marginRight: 30}}>Přidat do košíku
+                                    </button>
+                                    <button className="btn btn-secondary">> zjistit více</button>
                                 </div>
                             </div>
                             <div className="product-img">
-                                <img src="https://ident-system.cz/wp-content/uploads/2021/03/uv-sada-copy.png" alt="product"/>
+                                <img src={productImage} alt="product"/>
+                                <div className="badge-overlay"><img
+                                    src="https://i2.wp.com/wcdemo.mergadoshop.com/wp-content/uploads/2020/03/overeno_zakazniky_gold_1.png"/>
+                                </div>
                             </div>
                         </div>
                     </div>

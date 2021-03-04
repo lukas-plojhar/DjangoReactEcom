@@ -8,6 +8,7 @@ import Navbar from "./components/common/Navbar";
 
 // New Web
 import shop from './templates/pages/shop/shop'
+import product from "./templates/pages/product/product";
 
 // New website
 // import nav from "./templates/components/topnavbar/nav";
@@ -18,11 +19,11 @@ class Router extends Component {
         return (
             <BrowserRouter>
                 {/*<Navbar />*/}
-
                 <Switch>
                     <Route path='/product/:id' component={Product}/>
                     <Route path='/checkout' component={Checkout}/>
                     <Route path='/thankyou' component={Thankyou}/>
+                    <Route path='/product' component={product}/>
                     <Route path='/' component={shop}/>
                     <Redirect to='not-found'/>
                 </Switch>

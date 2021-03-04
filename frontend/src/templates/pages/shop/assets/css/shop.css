@@ -7,4 +7,35 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+
+.product-img > img {
+    max-height: 600px;
+    width: auto !important;
+}
+
+/*Overlay edit*/
+.product-img {
+  position: relative;
+}
+
+/* Make the image to responsive */
+.product-img > img {
+  display: block;
+}
+
+/* The overlay effect - lays on top of the container and over the image */
+.badge-overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  transition: .5s ease;
+  opacity:1;
+  text-align: right;
+}
+
+.badge-overlay > img {
+    max-width: 130px;
+    max-height: 130px;
+}
+
 /*# sourceMappingURL=shop.css.map */

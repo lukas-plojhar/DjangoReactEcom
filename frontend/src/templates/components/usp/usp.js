@@ -9,17 +9,17 @@ export default class usp extends Component {
             <div className="usp-container">
                 <div className="container">
                     <div className="col-12">
-                        <h4 className="text:center" style={{color: "white"}}>
+                        <h2 className="text:center">
                             K zubaři už nemusíš. Do jediné krabičky jsme vložili vše, co tvé zuby potřebují:
                             koncentrovaný
                             gel plný minerálů a přírodních extraktů, které používají zubní lékaři. Už po pár aplikacích
                             budou tvé zuby až o 6 stupňů bělejší.
-                        </h4>
+                        </h2>
                     </div>
                     <div className="usp-content d:grid">
                         <div className="brand d:grid">
                             <img src={image} alt=""/>
-                            <h4 className="font-weight-bold" style={{color: "white"}}>Pohodlně</h4>
+                            <h2 className="font-weight-bold">Pohodlně</h2>
                             <p>
                                 Jde to i bez zubaře. Sadu na domácí bělení zubů můžeš použít kdykoliv. Jednoduše,
                                 bezbolestně a rychle – aplikace ti nezabere víc než 16 minut denně.
@@ -27,7 +27,7 @@ export default class usp extends Component {
                         </div>
                         <div className="brand d:grid">
                             <img src={image} alt=""/>
-                            <h4 className="font-weight-bold" style={{color: "white"}}>Levně</h4>
+                            <h2 className="font-weight-bold">Levně</h2>
                             <p>
                                 Kvalita něco stojí. Ale nemusí to být tisícovky. Získej péči jako od zubaře a ušetři při
                                 tom až 4500,- oproti běžným cenám v ordinacích zubních lékařů.
@@ -35,7 +35,7 @@ export default class usp extends Component {
                         </div>
                         <div className="brand d:grid">
                             <img src={image} alt=""/>
-                            <h4 className="font-weight-bold" style={{color: "white"}}>Spolehlivě</h4>
+                            <h2 className="font-weight-bold">Spolehlivě</h2>
                             <p>
                                 Výsledek uvidíš okamžitě. Speciální gel v kombinaci s UV světlem tvé zuby vybělí, díky
                                 extraktům z aloe a heřmánku navíc účinně posílí zubní sklovinu.
