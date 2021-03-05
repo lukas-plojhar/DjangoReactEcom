@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import "./assets/css/VariationButton.css"
 
-export const VariationButton = ({selected, handleClick, id, label, name, price, secondPrice}) => {
+export const VariationButton = ({selected, handleClick, id, label, name, price, salePrice, secondPrice}) => {
     return <div className={selected ? "radio d:inline-block active" : "radio d:inline-block"}
                 id={id} onClick={handleClick}>
         {label ? <span className="top-out">{label ? label : ""}</span> : ""}
         <p className="txt text:center">{name}</p>
         <p className="d:grid bottom-txt text:center">
+            {salePrice ? <b style={{textDecoration: 'line-through'}}> {salePrice},-</b> : null}
             <b>{price},-</b>
-            {secondPrice ? <small>{secondPrice} ,- / ošetření</small> : ""}
+            {secondPrice ? <small>{secondPrice} ,- / ošetření</small> : null}
         </p>
     </div>
 }
@@ -17,7 +18,7 @@ export class VariationButtonGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: this.props.selected
+            selected: this.props.selected || 1
         }
     }
 
@@ -35,6 +36,7 @@ export class VariationButtonGroup extends Component {
                     label={child.props.label}
                     name={child.props.name}
                     price={child.props.price}
+                    salePrice={child.props.salePrice}
                     secondPrice={child.props.secondPrice}
                     handleClick={() => this.handleClick(i)}
                 />)}

@@ -10,6 +10,9 @@ import "./assets/css/product.css";
 import ThumbnailSlider from "../../components/thumbnailslider/ThumbnailSlider";
 import {ReactComponent as Star} from "../../components/review/assets/svg/star.svg";
 import {VariationButton, VariationButtonGroup} from "../../components/variatiobutton/VariationButton";
+import API from "../../../API";
+import axios from "axios";
+import {Link} from "react-router-dom";
 
 const HeurekaBadge = () => {
     return <React.Fragment>
@@ -30,36 +33,48 @@ export default class product extends Component {
         super(props);
 
         this.state = {
-            productName: "Belici pasky na zuby",
-            shortDescription: "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 30 minut.\n" +
-                "Bělicí pásky na zuby od Teethy obsahují koncentrovaný gel a jedinečný způsob\n" +
-                "aplikace urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás\n" +
-                "na prvním místě, bělicí pásky proto vyrábíme přímo v České republice.",
-            rating: 4.8,
-            numberOfReviews: 903,
-            tab1: "something",
-            tab2: "something 2",
-            tab3: "someting 3"
+            ui: {
+                selectedVariation: 1,
+                selectedTab: 1
+            },
+            id: 1
         }
     }
 
+    async componentDidMount(props) {
+        const url = `${API}/products/${this.state.id}`;
+        const data = await axios.get(url).then(response => response.data);
+        this.setState({...data});
+        console.log(data);
+    }
+
+    handleTabChange(e) {
+        let state = this.state;
+        state.ui.selectedTab = e.target.id;
+        this.setState(state);
+        alert(e.target.value);
+    }
+
     render() {
-        const {shortDescription, productName, rating, numberOfReviews, tab1, tab2, tab3} = this.state;
+        if (!this.state.name) return <React.Fragment/>
+        const {id, name, description, featuredImage, regularPrice, salePrice} = this.state;
+        const rating = 4.8;
+        const numberOfReviews = 905;
+        const images = [
+            {
+                original: 'https://picsum.photos/id/1018/250/150/',
+                thumbnail: 'https://picsum.photos/id/1018/250/150/',
+            },
+        ]
+
         return (
             <div>
                 <Navbar/>
-                {/*<section className="bandcamp-section">*/}
-                {/*    BREADCRUMBS*/}
-                {/*    <div className="container">*/}
-                {/*      <a href="/">Shop All</a>*/}
-                {/*      <span>/ Electric Tootbrush</span>*/}
-                {/*    </div>*/}
-                {/*</section>*/}
                 <section className="single-product-container">
                     <div className="container">
                         <div className="single-product-content d:flex flex:row">
                             <div className="img-container d:none sm:d:flex">
-                                <ThumbnailSlider/>
+                                <ThumbnailSlider images={images}/>
                             </div>
                             <div className="context-container">
                                 <div className="star-review d:flex flex:row">
@@ -68,34 +83,31 @@ export default class product extends Component {
                                     </div>
                                     <span className="rv-span">({rating}) / {numberOfReviews} hodnocení</span>
                                 </div>
-                                <h1>{productName}</h1>
-
+                                <h1>{name}</h1>
                                 <div className="mobile-slider d:grid sm:d:none">
-                                    <Splide
-                                        id="mobileSlider01"
-                                        options={{
-                                            rewind: true,
-                                            width: 300,
-                                        }}
-                                    >
-                                        <SplideSlide>
-                                            <img src="/uploads/p1.png" alt="product"/>
-                                        </SplideSlide>
-                                        <SplideSlide>
-                                            <img src="/uploads/p2.png" alt="product"/>
-                                        </SplideSlide>
-                                        <SplideSlide>
-                                            <img src="/uploads/p3.png" alt="product"/>
-                                        </SplideSlide>
-                                        <SplideSlide>
-                                            <img src="/uploads/p4.png" alt="product"/>
-                                        </SplideSlide>
-                                    </Splide>
+                                    <ThumbnailSlider/>
                                 </div>
-                                <VariationButtonGroup selected={1}>
+                                {/*<div className="mobile-slider d:grid sm:d:none">*/}
+                                {/*    <Splide*/}
+                                {/*        id="mobileSlider01"*/}
+                                {/*        options={{*/}
+                                {/*            rewind: true,*/}
+                                {/*            width: 300,*/}
+                                {/*        }}*/}
+                                {/*    >*/}
+                                {/*        <SplideSlide>*/}
+                                {/*            <img src="https://teethy.cz/wp-content/uploads/2018/10/na-hlavn%C3%AD-stranu-2-min.png" alt="product"/>*/}
+                                {/*        </SplideSlide>*/}
+                                {/*        <SplideSlide>*/}
+                                {/*            <img src="https://teethy.cz/wp-content/uploads/2018/10/p%C5%99ed%C4%9Blan%C3%A9-balen%C3%AD-min.png" alt="product"/>*/}
+                                {/*        </SplideSlide>*/}
+                                {/*    </Splide>*/}
+                                {/*</div>*/}
+                                <VariationButtonGroup selected={this.state.ui.selectedVariation}>
                                     <VariationButton
                                         name="2 tydenni kura"
-                                        price={499}
+                                        price={regularPrice}
+                                        salePrice={salePrice}
                                         secondPrice={36}
                                     />
                                     <VariationButton
@@ -103,11 +115,13 @@ export default class product extends Component {
                                         label="Oblibene"
                                         name="4 tydenni kura"
                                         price={799}
+                                        salePrice={1399}
                                         secondPrice={28}
                                     />
                                     <VariationButton
                                         name="6 tydenni kura"
                                         price={999}
+                                        salePrice={1999}
                                         secondPrice={24}
                                     />
                                 </VariationButtonGroup>
@@ -115,10 +129,12 @@ export default class product extends Component {
                                 <p><small>Balení obsahuje: 14x horní pásek, 14x dolní pásek, stupnici pro kontrolu
                                     bělosti, návod k použití
                                     v českém jazyce</small></p>
-                                <button className="add-to-cart">Přidat do košíku</button>
+                                <Link to={`/checkout/${id}`}>
+                                    <button className="add-to-cart">Přidat do košíku</button>
+                                </Link>
                                 <div className="product-intro">
                                     <p>
-                                        {shortDescription}
+                                        {description}
                                     </p>
                                 </div>
                                 <HeurekaBadge/>
@@ -130,13 +146,8 @@ export default class product extends Component {
                                     <a
                                         href="#fea"
                                         className={this.state.feaTab ? "active" : null}
-                                        onClick={(e) => {
-                                            this.setState({
-                                                feaTab: true,
-                                                deaTab: false,
-                                                direTab: false,
-                                            });
-                                        }}
+                                        id={1}
+                                        onClick={(e) => this.handleTabChange(e)}
                                     >
                                         Přehled
                                     </a>
@@ -173,7 +184,7 @@ export default class product extends Component {
                                         style={{display: this.state.feaTab ? "block" : "none"}}
                                     >
                       <span>
-                        {tab1}
+                        asd
                       </span>
                                     </div>
                                     <div
@@ -181,7 +192,7 @@ export default class product extends Component {
                                         style={{display: this.state.direTab ? "block" : "none"}}
                                     >
                       <span>
-                        {tab2}
+                        asd
                       </span>
                                     </div>
                                     <div
@@ -190,7 +201,7 @@ export default class product extends Component {
                                         style={{display: this.state.deaTab ? "block" : "none"}}
                                     >
                       <span>
-                        {tab3}
+                        asd
                       </span>
                                     </div>
                                 </div>

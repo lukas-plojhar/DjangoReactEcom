@@ -30,8 +30,8 @@
 }
 
 .single-product-content .img-container div {
-  display: -ms-grid;
-  display: grid;
+  /*display: -ms-grid;*/
+  display: block;
 }
 
 .single-product-content .img-container .thumbSlider {
@@ -77,8 +77,8 @@
 
 .single-product-content .context-container {
   padding: 0px 0px;
-  -ms-flex-preferred-size: 40%;
-      flex-basis: 40%;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 
 .single-product-content .context-container h1 {

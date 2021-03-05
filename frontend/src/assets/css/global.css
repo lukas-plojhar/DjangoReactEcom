@@ -1,6 +1,8 @@
 /**
  * IMPORT CONFIG
  */
+
+@import "~react-image-gallery/styles/css/image-gallery.css";
 /**
  * GLOBAL STYLE
  */
@@ -13,7 +15,7 @@
     font-weight: 400;
     font-size: 16px;
     /*font-font: Nunito;*/
-    text-align: justify;
+    text-align: left;
     line-height: 1.42;
 }
 
