@@ -7,24 +7,27 @@ import Thankyou from './components/Thankyou';
 import Navbar from "./components/common/Navbar";
 
 // New Web
-import shop from './templates/pages/shop/shop'
-import product from "./templates/pages/product/product";
+import home from './templates/pages/home/home';
+import product from './templates/pages/product/product';
+import Shop from './templates/pages/shop/shop';
 
 // New website
 // import nav from "./templates/components/topnavbar/nav";
-// import shop from "./templates/pages/shop/shop";
+// import home from "./templates/pages/home/home";
 
 class Router extends Component {
     render() {
         return (
             <BrowserRouter>
                 {/*<Navbar />*/}
+                {/*<TopOffer/>*/}
                 <Switch>
-                    <Route path='/product/:id' component={Product}/>
-                    <Route path='/checkout' component={Checkout}/>
-                    <Route path='/thankyou' component={Thankyou}/>
+                    {/*<Route path='/product/:id' component={Product}/>*/}
+                    {/*<Route path='/checkout' component={Checkout}/>*/}
+                    {/*<Route path='/thankyou' component={Thankyou}/>*/}
                     <Route path='/product' component={product}/>
-                    <Route path='/' component={shop}/>
+                    <Route path='/shop' component={Shop}/>
+                    <Route path='/' component={home}/>
                     <Redirect to='not-found'/>
                 </Switch>
             </BrowserRouter>

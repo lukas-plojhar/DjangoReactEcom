@@ -8,7 +8,7 @@ export default class usp extends Component {
         return (
             <div className="usp-container">
                 <div className="container">
-                    <div className="col-12">
+                    <div className="mb-5">
                         <h2 className="text:center">
                             K zubaři už nemusíš. Do jediné krabičky jsme vložili vše, co tvé zuby potřebují:
                             koncentrovaný

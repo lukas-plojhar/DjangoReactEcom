@@ -4,13 +4,27 @@ import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import {ReactComponent as Star} from "./assets/svg/star.svg";
 
-const StarReview = (reviews, stars = 5) => {
-    return <div className="review-container d:flex flex:row">
-        <div className="star d:flex flex:row">
-            {[...Array(stars)].map((e, i) => <Star className="star-img" key={i}/>)}
+const ProductSlide = ({image, name, price, rating, numberOfReview}) => {
+    return <SplideSlide>
+        <div className="splide_item d:grid">
+            <div className="img-container">
+                <img src={image}/>
+            </div>
+            <a href="/" className="d:block">
+                {name}
+            </a>
+            <div className="review-container d:flex flex:row">
+                <div className="star d:flex flex:row">
+                    <Star className="star-img"/>
+                    <span className="rv-span">{rating} / ({numberOfReview})</span>
+                </div>
+            </div>
+            <span>{price} ,-</span>
+            <button className="btn-underline">
+                více informací
+            </button>
         </div>
-        <p>{reviews} Reviews</p>
-    </div>
+    </SplideSlide>
 }
 
 
@@ -20,7 +34,7 @@ export default class popproducts extends Component {
             <div className="popular-product-container">
                 <div className="container">
                     <div className="popular-product-content">
-                        <h1>Ostatní také zakoupili</h1>
+                        <h2>Ostatní také zakoupili</h2>
                         <Splide
                             options={{
                                 rewind: true,
@@ -38,44 +52,21 @@ export default class popproducts extends Component {
                                 perMove: 1,
                             }}
                         >
-                            <SplideSlide>
-                                <div className="splide_item d:grid">
-                                    <div className="img-container">
-                                        <img src="/uploads/product_3.png" alt="1"/>
-                                    </div>
-                                    <a href="/" className="d:block">
-                                        Sada bělicích per
-                                    </a>
-                                    <div className="review-container d:flex flex:row">
-                                        <div className="star d:flex flex:row">
-                                            <Star className="star-img"/>
-                                            <span className="rv-span">4.8 / (185)</span>
-                                        </div>
-                                    </div>
-                                    <button className="btn-secondary">
-                                        >  více informací
-                                    </button>
-                                </div>
-                            </SplideSlide>
-                            <SplideSlide>
-                                <div className="splide_item d:grid">
-                                    <div className="img-container">
-                                        <img src="/uploads/product_4.png" alt="1"/>
-                                    </div>
-                                    <a href="/" className="d:block">
-                                        Mineralizující zubní pudr
-                                    </a>
-                                    <div className="review-container d:flex flex:row">
-                                        <div className="star d:flex flex:row">
-                                            <Star className="star-img"/>
-                                            <span className="rv-span">4.8 / (185)</span>
-                                        </div>
-                                    </div>
-                                    <button className="btn-secondary">
-                                        >  více informací
-                                    </button>
-                                </div>
-                            </SplideSlide>
+                            <ProductSlide
+                                image="/uploads/product_3.png"
+                                name="Sada belicich per"
+                                price={499}
+                                rating={4.8}
+                                numberOfReview={185}
+                            />
+
+                            <ProductSlide
+                                image="/uploads/product_3.png"
+                                name="Mineralizující zubní pudr"
+                                price={249}
+                                rating={4.8}
+                                numberOfReview={185}
+                            />
                         </Splide>
                     </div>
                 </div>

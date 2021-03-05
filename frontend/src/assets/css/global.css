@@ -13,6 +13,8 @@
     font-weight: 400;
     font-size: 16px;
     /*font-font: Nunito;*/
+    text-align: justify;
+    line-height: 1.42;
 }
 
 /* LUKAS EDIT */
@@ -29,31 +31,58 @@ h2 {
 
 button {
     margin: 1.5rem 0 !important;
-    min-width: 210px;
-    max-width: 60%;
-    min-height: 68px;
-    font-size: 18px !important;
+    font-size: 16px !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     text-align: center;
+    letter-spacing: 1px;
 
 }
 
 .btn-primary {
+    min-width: 210px;
+    max-width: 60%;
+    min-height: 58px;
     border-radius: 2em !important;
     background: #1f5bff !important;
     color: #fff;
     text-decoration: none;
 }
 
-.btn-secondary {
-    color: #1f5bff !important;
+.btn-underline {
+    min-width: 0;
+    max-width: 150px;
+    min-height: 20px;
+    margin: 30px 0 !important;
+    font-weight: 900 !important;
+    text-align: left;
+    color: #1f5bff;
     background: none;
     border: none;
-    border-bottom: 1px solid #1f5bff !important;
-
+    border-bottom: 1px solid #1f5bff;
 }
 
+.btn-underline:before {
+    content: "> ";
+    font-size: 20px;
+    font-weight: 900;
+}
+
+@media screen and (min-width: 769px) {
+    .desktop-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-center {
+        text-align: center
+    }
+
+    .mobile-hide {
+        display: none !important;
+    }
+}
 
 /* END: LUKAS EDIT */
 
@@ -469,9 +498,9 @@ button {
 
     .product-content .product-details .content p,
     .multiple-product-content .product p {
-        margin: 0px 0px 20px 0px !important;
+        margin: 0px 0px 0px 0px !important;
         width: 100% !important;
-        padding: 0px 30px;
+        padding: 0px;
     }
 
     .product-content .product-details .content h1 {
@@ -513,7 +542,7 @@ button {
     .review-content .top-header h1,
     .popular-product-content h1 {
         width: 100% !important;
-        font-size: 36px !important;
+        text-align: left;
     }
 
     .review-content .top-header .right-header {

@@ -28,10 +28,17 @@
 }
 
 @media screen and (max-width: 768px) {
+    .usp-container{
+        padding: 40px 0 !important;
+        margin-top: 0px !important;
+    }
+
     .usp-container .usp-content {
         grid-template-columns: none;
         grid-row-gap: 10px;
     }
+
+
 }
 
 /*# sourceMappingURL=banner.css.map */

@@ -1,0 +1,57 @@
+.shop-page {
+    background-color: #fff;
+}
+
+.multiple-col-product {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+/*Overlay edit*/
+.product-img {
+    position: relative;
+}
+
+/* Make the image to responsive */
+.product-img > img {
+    display: block;
+}
+
+/* The overlay effect - lays on top of the container and over the image */
+.badge-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    transition: .5s ease;
+    opacity: 1;
+    text-align: right;
+}
+
+.badge-overlay > img {
+    max-width: 130px;
+    max-height: 130px;
+}
+
+@media screen and (max-width: 768px) {
+    .badge-overlay > img {
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    .product-img {
+        margin: 0 -15px;
+    }
+}
+
+/*.product-container {*/
+/*    background-image: url(https://ident-system.cz/wp-content/uploads/2020/12/test-min.jpg) !important;*/
+/*    background-position: center center !important;*/
+/*    background-repeat: no-repeat !important;*/
+/*    background-size: cover !important;*/
+/*    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s !important;*/
+/*    padding: 0% 0% 20% 0% !important;*/
+/*}*/
+
+
+/*# sourceMappingURL=home.css.map */

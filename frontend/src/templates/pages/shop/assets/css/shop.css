@@ -1,41 +1,66 @@
-.shop-page {
-  background-color: #fff;
-}
+/*.product-container {*/
+/*  margin-bottom: 40px;*/
+/*}*/
 
-.multiple-col-product {
+.product-content {
+  height: auto;
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
 
-.product-img > img {
-    max-height: 600px;
-    width: auto !important;
+.product-content .product-details,
+.product-content .product-img {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 
-/*Overlay edit*/
-.product-img {
-  position: relative;
+.product-content .product-details {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-/* Make the image to responsive */
-.product-img > img {
-  display: block;
+.product-content .product-details .content h1 {
+  /*font-size: 50px;*/
+  color: #1f5bff;
+  margin-bottom: 15px;
 }
 
-/* The overlay effect - lays on top of the container and over the image */
-.badge-overlay {
-  position: absolute;
-  top: 0;
+.product-content .product-details .content p {
+  /*font-size: 21px;*/
+  margin-bottom: 40px;
+  width: 82%;
+}
+
+.product-content .product-details .content a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  /*font-size: 21px;*/
+  font-weight: 600;
+}
+
+.product-content .product-details .content a:hover {
+  color: #1f5bff;
+  border: 2px solid #1f5bff;
+  background-color: #fff;
+  /*font-size: 18px;*/
+  font-weight: 600;
+  padding: 15px 30px;
+}
+
+.product-content .product-img img {
   width: 100%;
-  transition: .5s ease;
-  opacity:1;
-  text-align: right;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.badge-overlay > img {
-    max-width: 130px;
-    max-height: 130px;
+.product-img > img {
+  max-width: 500px;
+  height: auto;
 }
 
-/*# sourceMappingURL=shop.css.map */
+/*# sourceMappingURL=product.css.map */

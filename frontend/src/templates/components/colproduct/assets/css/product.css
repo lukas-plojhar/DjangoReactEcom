@@ -31,7 +31,7 @@
 
 .multiple-product-content .product p {
     /*font-size: 21px;*/
-    line-height: 1.52;
+    line-height: 1.42;
     /*margin-bottom: 40px;*/
     /*width: 82%;*/
 }
@@ -48,5 +48,12 @@
 .bottom-txt {
     font-size: 18px;
 }
+
+@media screen and (max-width: 768px) {
+    h1.colproduct-headline {
+        text-align: center !important;
+    }
+}
+
 
 /*# sourceMappingURL=product.css.map */

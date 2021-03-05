@@ -82,4 +82,11 @@
 .cart {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 768px){
+  .popular-product-container{
+    padding: 30px 0 !important;
+  }
+}
+
 /*# sourceMappingURL=pop.css.map */

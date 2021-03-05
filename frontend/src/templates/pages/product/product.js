@@ -11,23 +11,42 @@ import ThumbnailSlider from "../../components/thumbnailslider/ThumbnailSlider";
 import {ReactComponent as Star} from "../../components/review/assets/svg/star.svg";
 import {VariationButton, VariationButtonGroup} from "../../components/variatiobutton/VariationButton";
 
+const HeurekaBadge = () => {
+    return <React.Fragment>
+        <hr/>
+        <div className="buy-another d:grid">
+            <img src="https://www.nazuby.cz/file/img/33777?w=84&h=84&rt=fsp" alt="product"/>
+            <p>
+                <b>99 % lidí nás doporučuje </b><br/>
+                100 % lidí dorazilo zboží včas <br/>
+                1,9 dne je průměrná doba dodání
+            </p>
+        </div>
+    </React.Fragment>
+}
+
 export default class product extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            feaTab: true,
-            direTab: false,
-            deaTab: false,
-            discount: true,
-            regular: false,
-        };
+            productName: "Belici pasky na zuby",
+            shortDescription: "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 30 minut.\n" +
+                "Bělicí pásky na zuby od Teethy obsahují koncentrovaný gel a jedinečný způsob\n" +
+                "aplikace urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás\n" +
+                "na prvním místě, bělicí pásky proto vyrábíme přímo v České republice.",
+            rating: 4.8,
+            numberOfReviews: 903,
+            tab1: "something",
+            tab2: "something 2",
+            tab3: "someting 3"
+        }
     }
 
     render() {
+        const {shortDescription, productName, rating, numberOfReviews, tab1, tab2, tab3} = this.state;
         return (
             <div>
-                <TopBanner/>
                 <Navbar/>
                 {/*<section className="bandcamp-section">*/}
                 {/*    BREADCRUMBS*/}
@@ -47,9 +66,9 @@ export default class product extends Component {
                                     <div className="d:flex flex:row">
                                         <Star className="star-icon"/>
                                     </div>
-                                    <span className="rv-span">(4.8) / 903 hodnocení</span>
+                                    <span className="rv-span">({rating}) / {numberOfReviews} hodnocení</span>
                                 </div>
-                                <h1>Bělicí pásky na zuby</h1>
+                                <h1>{productName}</h1>
 
                                 <div className="mobile-slider d:grid sm:d:none">
                                     <Splide
@@ -74,45 +93,35 @@ export default class product extends Component {
                                     </Splide>
                                 </div>
                                 <VariationButtonGroup selected={1}>
-                                <VariationButton
-                                    name="2 tydenni kura"
-                                    price={499}
-                                    secondPrice={36}
-                                />
-                                <VariationButton
-                                    selected={true}
-                                    label="Oblibene"
-                                    name="4 tydenni kura"
-                                    price={799}
-                                    secondPrice={28}
-                                />
-                                <VariationButton
-                                    name="6 tydenni kura"
-                                    price={999}
-                                    secondPrice={24}
-                                />
-                            </VariationButtonGroup>
+                                    <VariationButton
+                                        name="2 tydenni kura"
+                                        price={499}
+                                        secondPrice={36}
+                                    />
+                                    <VariationButton
+                                        selected={true}
+                                        label="Oblibene"
+                                        name="4 tydenni kura"
+                                        price={799}
+                                        secondPrice={28}
+                                    />
+                                    <VariationButton
+                                        name="6 tydenni kura"
+                                        price={999}
+                                        secondPrice={24}
+                                    />
+                                </VariationButtonGroup>
 
-                                <small>14x horní pásek, 14x dolní pásek, stupnici pro kontrolu bělosti, návod k použití
-                                    v českém jazyce</small>
+                                <p><small>Balení obsahuje: 14x horní pásek, 14x dolní pásek, stupnici pro kontrolu
+                                    bělosti, návod k použití
+                                    v českém jazyce</small></p>
                                 <button className="add-to-cart">Přidat do košíku</button>
                                 <div className="product-intro">
                                     <p>
-                                        Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 30 minut.
-                                        Bělicí pásky na zuby od Teethy obsahují koncentrovaný gel a jedinečný způsob
-                                        aplikace urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás
-                                        na prvním místě, bělicí pásky proto vyrábíme přímo v České republice.
+                                        {shortDescription}
                                     </p>
                                 </div>
-                                <hr/>
-                                <div className="buy-another d:grid">
-                                    <img src="https://www.nazuby.cz/file/img/33777?w=84&h=84&rt=fsp" alt="product"/>
-                                    <p>
-                                        <b>99 % lidí nás doporučuje </b><br/>
-                                        100 % lidí dorazilo zboží včas <br/>
-                                        1,9 dne je průměrná doba dodání
-                                    </p>
-                                </div>
+                                <HeurekaBadge/>
                             </div>
                         </div>
                         <div className="product-tabs-container">
@@ -164,16 +173,7 @@ export default class product extends Component {
                                         style={{display: this.state.feaTab ? "block" : "none"}}
                                     >
                       <span>
-                        <ul>
-                          <li>
-                            8 bright on premium whitening pens (2 full whitening
-                            treatments)
-                          </li>
-                          <li>
-                            Hands-free, smartphone-powered LED accelerator
-                            light, so you can brighten on the go
-                          </li>
-                        </ul>
+                        {tab1}
                       </span>
                                     </div>
                                     <div
@@ -181,14 +181,7 @@ export default class product extends Component {
                                         style={{display: this.state.direTab ? "block" : "none"}}
                                     >
                       <span>
-                        <ul>
-                          <li>
-                            Last but not least, go forth and shine.
-                            <p>
-                              <br/>
-                            </p>
-                          </li>
-                        </ul>
+                        {tab2}
                       </span>
                                     </div>
                                     <div
@@ -197,12 +190,7 @@ export default class product extends Component {
                                         style={{display: this.state.deaTab ? "block" : "none"}}
                                     >
                       <span>
-                        Our teeth whitening kit contains everything you’ll need
-                        to achieve full enbrightenment. Behold, 2 full whitening
-                        treatments (a year's supply) plus our LED whitening
-                        accelerator light. The blue LED wavelength accelerates
-                        our Bright Boost™ formula, so you could see your
-                        brightest bright even faster. Now go forth and shine.
+                        {tab3}
                       </span>
                                     </div>
                                 </div>
@@ -210,15 +198,15 @@ export default class product extends Component {
                         </div>
                     </div>
                 </section>
-                <Poproduct tag="People Also Viewed"/>
+                <Poproduct/>
                 <Review bg="#f8f9fa" page="product"/>
-                <section className="comments-section">
-                    <div className="container">
-                        <div className="comment-content">
-                            <h1 className="text:center">All Reviews</h1>
-                        </div>
-                    </div>
-                </section>
+                {/*<section className="comments-section">*/}
+                {/*    <div className="container">*/}
+                {/*        <div className="comment-content">*/}
+                {/*            <h1 className="text:center">All Reviews</h1>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</section>*/}
                 <Footer/>
             </div>
         );
