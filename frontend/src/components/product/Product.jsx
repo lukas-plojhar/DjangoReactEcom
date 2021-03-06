@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import {Link} from "react-router-dom";
-import API from "../../API";
+import {API} from "../../Globals";
 
 class Product extends Component {
     constructor(props) {
@@ -14,7 +14,8 @@ class Product extends Component {
     }
 
     componentDidMount(props) {
-        axios.get(`${API}/products/${this.state.id}`).then(
+        const {id} = this.state;
+        axios.get(`${API}/products/${id}`).then(
             response => {
                 console.log(response);
                 this.setState({products: response.data});

@@ -1,7 +1,5 @@
 import React, {Component} from "react";
-import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import TopBanner from "../../components/topofferbanner/banner";
 import Navbar from "../../components/topnavbar/nav";
 import Footer from "../../components/footer/footer";
 import Poproduct from "../../components/popproducts/popproducts";
@@ -10,44 +8,34 @@ import "./assets/css/product.css";
 import ThumbnailSlider from "../../components/thumbnailslider/ThumbnailSlider";
 import {ReactComponent as Star} from "../../components/review/assets/svg/star.svg";
 import {VariationButton, VariationButtonGroup} from "../../components/variatiobutton/VariationButton";
-import API from "../../../API";
+import {API} from "../../../Globals";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import HeurekaBadge from "./components/HeurekaBadge";
 
-const HeurekaBadge = () => {
-    return <React.Fragment>
-        <hr/>
-        <div className="buy-another d:grid">
-            <img src="https://www.nazuby.cz/file/img/33777?w=84&h=84&rt=fsp" alt="product"/>
-            <p>
-                <b>99 % lidí nás doporučuje </b><br/>
-                100 % lidí dorazilo zboží včas <br/>
-                1,9 dne je průměrná doba dodání
-            </p>
-        </div>
-    </React.Fragment>
-}
 
 export default class product extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             ui: {
                 selectedVariation: 1,
                 selectedTab: 1
             },
-            id: 1
+            id: props.match.params.id,
         }
     }
 
+    // Hooks
     async componentDidMount(props) {
-        const url = `${API}/products/${this.state.id}`;
+        const {id} = this.state;
+        const url = `${API}/products/${id}`;
         const data = await axios.get(url).then(response => response.data);
         this.setState({...data});
         console.log(data);
     }
 
+    // Handlers
     handleTabChange(e) {
         let state = this.state;
         state.ui.selectedTab = e.target.id;
@@ -87,22 +75,6 @@ export default class product extends Component {
                                 <div className="mobile-slider d:grid sm:d:none">
                                     <ThumbnailSlider/>
                                 </div>
-                                {/*<div className="mobile-slider d:grid sm:d:none">*/}
-                                {/*    <Splide*/}
-                                {/*        id="mobileSlider01"*/}
-                                {/*        options={{*/}
-                                {/*            rewind: true,*/}
-                                {/*            width: 300,*/}
-                                {/*        }}*/}
-                                {/*    >*/}
-                                {/*        <SplideSlide>*/}
-                                {/*            <img src="https://teethy.cz/wp-content/uploads/2018/10/na-hlavn%C3%AD-stranu-2-min.png" alt="product"/>*/}
-                                {/*        </SplideSlide>*/}
-                                {/*        <SplideSlide>*/}
-                                {/*            <img src="https://teethy.cz/wp-content/uploads/2018/10/p%C5%99ed%C4%9Blan%C3%A9-balen%C3%AD-min.png" alt="product"/>*/}
-                                {/*        </SplideSlide>*/}
-                                {/*    </Splide>*/}
-                                {/*</div>*/}
                                 <VariationButtonGroup selected={this.state.ui.selectedVariation}>
                                     <VariationButton
                                         name="2 tydenni kura"
@@ -111,7 +83,6 @@ export default class product extends Component {
                                         secondPrice={36}
                                     />
                                     <VariationButton
-                                        selected={true}
                                         label="Oblibene"
                                         name="4 tydenni kura"
                                         price={799}
@@ -126,10 +97,11 @@ export default class product extends Component {
                                     />
                                 </VariationButtonGroup>
 
-                                <p><small>Balení obsahuje: 14x horní pásek, 14x dolní pásek, stupnici pro kontrolu
+                                <p><small>Balení obsahuje: {(this.state.ui.selectedVariation + 1) * 14}x horní
+                                    pásek, {(this.state.ui.selectedVariation + 1) * 14}x dolní pásek, stupnici pro kontrolu
                                     bělosti, návod k použití
                                     v českém jazyce</small></p>
-                                <Link to={`/checkout/${id}`}>
+                                <Link to={`/checkout/?add-to-cart=${id}`}>
                                     <button className="add-to-cart">Přidat do košíku</button>
                                 </Link>
                                 <div className="product-intro">

@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import "./assets/css/global.css";
 import "./assets/css/tiny-slider.css";
 
-// const API = 'https://identcz.herokuapp.com';
+// const Globals = 'https://identcz.herokuapp.com';
 export const API = 'http://localhost:8000';
 
 ReactDOM.render(<Router/>, document.getElementById('root'));

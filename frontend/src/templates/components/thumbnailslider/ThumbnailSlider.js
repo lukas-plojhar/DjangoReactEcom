@@ -12,7 +12,7 @@ export default class ThumbnailSlider extends React.Component {
     render() {
         const images = [
             {
-                original: 'https://teethy.cz/wp-content/uploads/2018/10/p%C5%99ed%C4%9Blan%C3%A9-balen%C3%AD-min.png',
+                original: 'https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png',
                 thumbnail: 'https://picsum.photos/id/1018/250/150/',
             },
             {

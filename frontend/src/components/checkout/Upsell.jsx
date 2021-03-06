@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-// const API = 'https://identcz.herokuapp.com';
+// const Globals = 'https://identcz.herokuapp.com';
 const API = 'http://localhost:8000';
 
 class Upsells extends Component {
@@ -43,13 +43,18 @@ export default Upsells;
 
 // Component for single upsell product
 const Upsell = ({id, image, name, description, price, handleClick}) => {
-    return <div className="col-4 center">
-        <img src={image} alt=""/>
-        <h3>{name}</h3>
-        <p>{description}</p>
-        <p>{price},-</p>
-        <button className="btn btn-secondary" value={id} onClick={handleClick}>Pridat do kosiku</button>
-    </div>
+    return (
+        <div className="row py-4 upsells">
+            <div className="col-6 col-md-4 center">
+                <img src={image} alt=""/>
+                <h5>{name}</h5>
+                <p>{description}</p>
+                <p>{price},-</p>
+                <button className="btn btn-primary btn-upsell" value={id} onClick={handleClick}>Pridat do kosiku
+                </button>
+            </div>
+        </div>
+    )
 }
 
 

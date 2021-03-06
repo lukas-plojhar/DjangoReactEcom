@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Loading from "./common/Loading";
-
-const API = 'https://identcz.herokuapp.com';
-// const Globals = 'http://localhost:8000';
+import {API, GoogleAPIKey} from "../../../Globals";
 
 class Thankyou extends Component {
     constructor(props) {
         super(props);
     }
-
-    googleApiKey = "AIzaSyDoaUMam36O9t_ezNo1s6e3O6a3NaEcAFk";
 
     shippingOptions = Object.freeze({
         '1': 'Česká pošta',
@@ -42,7 +37,7 @@ class Thankyou extends Component {
     render() {
         const {customer, items, shipping, payment, created} = this.state;
 
-        if (customer === undefined) return <Loading/>
+        if (customer === undefined) return null;
 
         return <div className="container">
             <div className="row pt-5">
@@ -74,7 +69,7 @@ class Thankyou extends Component {
             <div className="row">
                 <div className="col-6">
                     <iframe className="img-fluid" style={{border: 0, frameBorder: 0, minHeight: 200}}
-                            src={`https://www.google.com/maps/embed/v1/place?q=Jizni%202513%2F16&key=${this.googleApiKey}`}
+                            src={`https://www.google.com/maps/embed/v1/place?q=Jizni%202513%2F16&key=${GoogleAPIKey}`}
                             allowFullScreen></iframe>
                 </div>
                 <div className="col-6">

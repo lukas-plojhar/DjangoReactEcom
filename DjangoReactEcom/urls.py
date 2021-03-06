@@ -4,13 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_swagger_view(title='Pastebin API')
+schema_view = get_swagger_view(title='Pastebin Globals')
 
 urlpatterns = [
                   # Backend
                   path('admin/', admin.site.urls),
 
-                  # API
+                  # Globals
                   path('doc/', schema_view),
                   path('products/', include('products.urls')),
                   path('carts/', include('carts.urls')),
