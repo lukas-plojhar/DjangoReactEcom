@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'anymail',
-    'rest_framework_swagger'
+    # 'rest_framework_swagger'
 ]
 
 ANYMAIL = {
@@ -162,7 +162,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' # for Swagger
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' # for Swagger
 }
 
 django_heroku.settings(locals())

@@ -55,19 +55,14 @@ export default Cart;
 class Upsells extends Component {
     constructor(props) {
         super(props);
-    }
-
-    state = {
-        items: [],
+        this.state = {
+            items: [],
+        }
     }
 
     async componentDidMount() {
         const items = await axios.get(`${API}/products/upsells`).then(response => response.data);
-
         this.setState({items});
-    }
-
-    componentDidUpdate() {
     }
 
     render() {

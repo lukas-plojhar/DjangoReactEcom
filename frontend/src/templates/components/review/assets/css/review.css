@@ -41,13 +41,13 @@
 }
 
 .review-content .review-slider-compo {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
 }
 
 .single-review-box {
     width: 100%;
     height: auto;
-    padding: 30px;
+    padding: 15px;
     background-color: #fff;
 }
 
@@ -63,14 +63,15 @@
 .single-review-box h2 {
     margin-bottom: 30px;
     /*font-size: 28px;*/
-    line-height: 1.15;
+    /*line-height: 1.15;*/
     margin-bottom: 2rem;
     white-space: normal;
 }
 
 .single-review-box span {
-    line-height: 1.7;
+    /*line-height: 1.7;*/
     white-space: normal;
+    text-align: justify;
     /*font-size: 16px;*/
 }
 

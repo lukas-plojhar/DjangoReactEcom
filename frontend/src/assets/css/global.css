@@ -558,6 +558,7 @@ button {
 
     .popular-product-content .splide_item button {
         font-size: 12px !important;
+        min-height: 48px;
     }
 
     .footer-content {
