@@ -9,24 +9,25 @@ import logo from "../../../assets/images/teethylogo.png";
 
 export default class nav extends Component {
     componentDidMount() {
-        window.onscroll = function () {
-            let navbar = document.getElementById("navbar");
-
-            if (window.pageYOffset === 0) {
-                document.getElementById("fixgap").style.height = "0px";
-                navbar.classList.remove("sticky");
-                navbar.classList.remove("sticky-design");
-            } else {
-                document.getElementById("fixgap").style.height = "100px";
-                navbar.classList.add("sticky");
-                navbar.classList.add("sticky-design");
-            }
-        };
+        // window.onscroll = function () {
+        //     let navbar = document.getElementById("navbar");
+        //
+        //     if (window.pageYOffset === 0) {
+        //         document.getElementById("fixgap").style.height = "0px";
+        //         navbar.classList.remove("sticky");
+        //         navbar.classList.remove("sticky-design");
+        //     } else {
+        //         document.getElementById("fixgap").style.height = "100px";
+        //         navbar.classList.add("sticky");
+        //         navbar.classList.add("sticky-design");
+        //     }
+        // };
     }
 
     render() {
         return (
             <React.Fragment>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                 <nav id="navbar" className="top-navbar">
                     <div className="container">
                         <div className="nav d:none sm:d:grid ">

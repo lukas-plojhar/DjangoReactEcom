@@ -3,7 +3,7 @@ import "./assets/css/home.css";
 import TopNav from "../../components/topnavbar/nav";
 import ColProduct from "../../components/colproduct/colproduct";
 import Usp from "../../components/usp/usp";
-import PopularProducts from "../../components/popproducts/popproducts";
+import PopularProducts from "../../components/popularProducts/PopularProducts";
 import Footer from "../../components/footer/footer";
 import Review from "../../components/review/review";
 import Instagram from "../../components/instagram/instagram";

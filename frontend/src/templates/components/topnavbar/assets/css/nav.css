@@ -101,4 +101,17 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) !important;
 }
 
+/*React tabs override*/
+.react-tabs {
+    margin: 10px 0 35px;
+}
+
+.react-tabs__tab-list, .react-tabs__tab--selected {
+    border: none !important;
+}
+
+.react-tabs__tab--selected {
+    border-bottom: 2px solid #1f5bff !important;
+}
+
 /*# sourceMappingURL=nav.css.map */

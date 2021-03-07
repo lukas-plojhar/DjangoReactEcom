@@ -22,7 +22,7 @@ export default class ThumbnailSlider extends React.Component {
 
         return <ImageGallery
             items={this.props.images || images}
-            thumbnailPosition="left"
+            thumbnailPosition="bottom"
             lazyLoad={true}
             showNav={true}
             showPlayButton={false}

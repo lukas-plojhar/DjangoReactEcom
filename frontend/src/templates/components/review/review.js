@@ -4,6 +4,7 @@ import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import {ReactComponent as Star} from "./assets/svg/star.svg";
 
+// Render stars
 const Stars = ({count}) => {
     return <div className="star-review-box d:flex flex:row">
         <Star className="single-star-ic"/>
@@ -14,6 +15,7 @@ const Stars = ({count}) => {
     </div>
 }
 
+// One slide component for Splide
 const ReviewSlide = ({stars, name, children}) => {
     return <SplideSlide>
         <div className="single-review-box d:grid">
@@ -39,6 +41,18 @@ export default class review extends Component {
     }
 
     render() {
+        const options = {
+            perPage: 4,
+            rewind: true,
+            gap: "1rem",
+            pagination: false,
+            breakpoints: {
+                640: {
+                    perPage: 2,
+                },
+            },
+        };
+
         return (
             <div
                 style={{background: this.props.bg != null ? this.props.bg : null}}
@@ -55,26 +69,19 @@ export default class review extends Component {
                             {/*  <button>Prohlédnout produkty</button>*/}
                             {/*</div>*/}
                         </div>
-                        <Splide
-                            options={{
-                                perPage: 4,
-                                rewind: true,
-                                gap: "1rem",
-                                pagination: false,
-                                breakpoints: {
-                                    640: {
-                                        perPage: 1,
-                                    },
-                                },
-                            }}
-                            className="review-slider-compo"
-                        >
+                        <Splide options={options} className="review-slider-compo">
                             <ReviewSlide name="Jan Novak" stars={5}>
-                                měl jsem obavy protože mám citlivé zuby ale bez problémů fungujem, jemné štípání hned odezní
+                                měl jsem obavy protože mám citlivé zuby ale bez problémů fungujem, jemné štípání hned
+                                odezní
                             </ReviewSlide>
 
                             <ReviewSlide name="Tereza Novotna" stars={5}>
-                                zkoušel jsem bělící pudr a ale tohle je mnohem lepší a pohodlnější. i bělení se mi zdá výraznější
+                                zkoušel jsem bělící pudr a ale tohle je mnohem lepší a pohodlnější. i bělení se mi zdá
+                                výraznější
+                            </ReviewSlide>
+
+                            <ReviewSlide name="nekdo dalsi" stars={5}>
+                                asdasdasdasads
                             </ReviewSlide>
                         </Splide>
                     </div>
