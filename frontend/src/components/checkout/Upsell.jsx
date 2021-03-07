@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {API} from "../../Globals";
+import {Splide, SplideSlide} from "@splidejs/react-splide";
+import {ReactComponent as Star} from "../../templates/components/popularProducts/assets/svg/star.svg";
 
 class Upsells extends Component {
     constructor(props) {
@@ -34,6 +36,10 @@ class Upsells extends Component {
     }
 
     render() {
+        // Data
+        const {products} = this.state;
+
+        // Splide slider options
         const options = {
             rewind: true,
             perPage: 3,
