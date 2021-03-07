@@ -86,12 +86,8 @@
 
 @media screen and (max-width: 768px){
   .popular-product-container{
-<<<<<<< Updated upstream
-    padding: 30px 0 !important;
-=======
     padding: 40px 15px !important;
     margin: -15px;
->>>>>>> Stashed changes
   }
 }
 

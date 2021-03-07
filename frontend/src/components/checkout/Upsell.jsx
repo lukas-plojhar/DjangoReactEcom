@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {API} from "../../Globals";
 
-// const Globals = 'https://identcz.herokuapp.com';
-const API = 'http://localhost:8000';
 
 class Upsells extends Component {
     constructor(props) {
@@ -22,43 +21,27 @@ class Upsells extends Component {
     componentDidUpdate() {
     }
 
-<<<<<<< Updated upstream
     render() {
-        const {items} = this.state;
-        return <React.Fragment>
-            {items.map(item => {
-                return <Upsell
-                    id={item.id}
-                    image={item.featuredImage}
-                    name={item.name}
-                    description={item.description}
-                    price={item.salePrice}
-                    handleClick={(e => this.props.addToCart(e.target.value))}
-                />
-            })}
-        </React.Fragment>
-=======
         return (
             <div className="popular-product-container" style={{backgroundColor: this.props.bg}}>
-                    <div className="popular-product-content">
-                        <h2>Ostatní také zakoupili</h2>
-                        <Splide options={options}>
-                            {products.map((product, index) => {
-                                return <UpsellSlide
-                                    key={index}
-                                    image={product.featuredImage}
-                                    name={product.name}
-                                    regularPrice={product.regularPrice}
-                                    salePrice={product.salePrice}
-                                    rating={product.rating || 4.8}
-                                    numberOfReview={product.numberOfReviews || 905}
-                                />
-                            })}
-                        </Splide>
-                    </div>
+                <div className="popular-product-content">
+                    <h2>Ostatní také zakoupili</h2>
+                    <Splide options={options}>
+                        {products.map((product, index) => {
+                            return <UpsellSlide
+                                key={index}
+                                image={product.featuredImage}
+                                name={product.name}
+                                regularPrice={product.regularPrice}
+                                salePrice={product.salePrice}
+                                rating={product.rating || 4.8}
+                                numberOfReview={product.numberOfReviews || 905}
+                            />
+                        })}
+                    </Splide>
+                </div>
             </div>
         );
->>>>>>> Stashed changes
     }
 }
 
