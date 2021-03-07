@@ -22,6 +22,7 @@ class Upsells extends Component {
     componentDidUpdate() {
     }
 
+<<<<<<< Updated upstream
     render() {
         const {items} = this.state;
         return <React.Fragment>
@@ -36,6 +37,28 @@ class Upsells extends Component {
                 />
             })}
         </React.Fragment>
+=======
+        return (
+            <div className="popular-product-container" style={{backgroundColor: this.props.bg}}>
+                    <div className="popular-product-content">
+                        <h2>Ostatní také zakoupili</h2>
+                        <Splide options={options}>
+                            {products.map((product, index) => {
+                                return <UpsellSlide
+                                    key={index}
+                                    image={product.featuredImage}
+                                    name={product.name}
+                                    regularPrice={product.regularPrice}
+                                    salePrice={product.salePrice}
+                                    rating={product.rating || 4.8}
+                                    numberOfReview={product.numberOfReviews || 905}
+                                />
+                            })}
+                        </Splide>
+                    </div>
+            </div>
+        );
+>>>>>>> Stashed changes
     }
 }
 

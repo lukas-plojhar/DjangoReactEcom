@@ -1,5 +1,6 @@
 .popular-product-container {
   padding: 60px 0px;
+  background: rgb(248, 249, 250) !important;
 }
 
 .popular-product-content h1 {
@@ -85,7 +86,12 @@
 
 @media screen and (max-width: 768px){
   .popular-product-container{
+<<<<<<< Updated upstream
     padding: 30px 0 !important;
+=======
+    padding: 40px 15px !important;
+    margin: -15px;
+>>>>>>> Stashed changes
   }
 }
 
