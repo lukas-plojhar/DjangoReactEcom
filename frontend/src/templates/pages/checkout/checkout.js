@@ -150,6 +150,7 @@ export default class checkout extends Component {
                     <div className="container">
                         <div className="checkout-content">
                             {/*<p className="checkout-title">Rekapitulace objednavky</p>*/}
+                            <h2 className="checkout-title">Vas kosik</h2>
                             <Cart
                                 items={data.items}
                                 handleStateChange={(e) => this.handleCartStateChange(e)}

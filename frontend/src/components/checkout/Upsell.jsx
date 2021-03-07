@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Splide, SplideSlide} from "@splidejs/react-splide";
-import {ReactComponent as Star} from "../../templates/components/popularProducts/assets/svg/star.svg";
-
-// const Globals = 'https://identcz.herokuapp.com';
-const API = 'http://localhost:8000';
+import {API} from "../../Globals";
 
 class Upsells extends Component {
     constructor(props) {
@@ -38,10 +34,6 @@ class Upsells extends Component {
     }
 
     render() {
-        // Data
-        const {products} = this.state;
-
-        // Splide slider options
         const options = {
             rewind: true,
             perPage: 3,
@@ -60,26 +52,23 @@ class Upsells extends Component {
             },
             perMove: 1,
         }
-
         return (
             <div className="popular-product-container" style={{backgroundColor: this.props.bg}}>
-                <div className="container">
-                    <div className="popular-product-content">
-                        <h2>Ostatní také zakoupili</h2>
-                        <Splide options={options}>
-                            {products.map((product, index) => {
-                                return <UpsellSlide
-                                    key={index}
-                                    image={product.featuredImage}
-                                    name={product.name}
-                                    regularPrice={product.regularPrice}
-                                    salePrice={product.salePrice}
-                                    rating={product.rating || 4.8}
-                                    numberOfReview={product.numberOfReviews || 905}
-                                />
-                            })}
-                        </Splide>
-                    </div>
+                <div className="popular-product-content">
+                    <h2>Ostatní také zakoupili</h2>
+                    <Splide options={options}>
+                        {products.map((product, index) => {
+                            return <UpsellSlide
+                                key={index}
+                                image={product.featuredImage}
+                                name={product.name}
+                                regularPrice={product.regularPrice}
+                                salePrice={product.salePrice}
+                                rating={product.rating || 4.8}
+                                numberOfReview={product.numberOfReviews || 905}
+                            />
+                        })}
+                    </Splide>
                 </div>
             </div>
         );
