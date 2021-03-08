@@ -126,11 +126,22 @@
   z-index: 99999;
 }
 .menu-top-bar {
-  justify-content: space-between;
+  grid-template-columns: 1fr auto;
+  align-items: center;
   width: 100%;
+  margin-bottom: 40px;
 }
 .menu-top-bar .close-icon {
   height: 15px;
   width: 15px;
+  fill: #1f5bff;
+}
+.logo-menu {
+  height: 20px;
+}
+.m-menu-link a {
+  padding: 10px 0px;
+  display: block;
+  color: #1f5bff;
 }
 /*# sourceMappingURL=nav.css.map */

@@ -58,14 +58,20 @@ export default class nav extends Component {
           className="mobile-menu-content"
           style={{ display: this.state.openMobileMenu ? "block" : "none" }}
         >
-          <div className="menu-top-bar d:flex flex:row">
-            <img className="logo" src={logo} alt="logo" />
+          <div className="menu-top-bar d:grid">
+            <img className="logo-menu" src={logo} alt="logo" />
             <Close
               className="close-icon"
               onClick={(e) => {
                 this.setState({ openMobileMenu: false });
               }}
             />
+          </div>
+          <div className="m-menu-link">
+            <Link to="/shop">Shop</Link>
+            <Link to="/shop">Shop A</Link>
+            <Link to="/shop">Shop B</Link>
+            <Link to="/shop">Shop D</Link>
           </div>
         </div>
       </React.Fragment>
