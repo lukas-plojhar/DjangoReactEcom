@@ -12,6 +12,7 @@ export default class nav extends Component {
 
     this.state = {
       openMobileMenu: false,
+      menuAmi: false,
     };
   }
 
@@ -54,7 +55,7 @@ export default class nav extends Component {
               <div
                 className="cart-svg m-menu"
                 onClick={(e) => {
-                  this.setState({ openMobileMenu: true });
+                  this.setState({ openMobileMenu: true, menuAmi: true });
                 }}
               >
                 <MenuSVG />
@@ -63,7 +64,11 @@ export default class nav extends Component {
           </div>
         </nav>
         <div
-          className="mobile-menu-content"
+          className={
+            this.state.menuAmi
+              ? "mobile-menu-content showAmi"
+              : "mobile-menu-content "
+          }
           style={{ display: this.state.openMobileMenu ? "block" : "none" }}
         >
           <div className="menu-top-bar d:grid">
@@ -71,7 +76,7 @@ export default class nav extends Component {
             <Close
               className="close-icon"
               onClick={(e) => {
-                this.setState({ openMobileMenu: false });
+                this.setState({ openMobileMenu: false, hideAmi: true });
               }}
             />
           </div>
