@@ -37,9 +37,9 @@ export default class nav extends Component {
                                 </div>
                             </Link>
                             <div className="menu-container text-center">
-                                <Link to="/shop">Nabídka produktů</Link>
-                                <Link to="/recenze">Recenze a výsledky</Link>
-                                <Link to="/faq">Nejčastější dotazy</Link>
+                                <Link to="/shop">Produkty</Link>
+                                <Link to="/recenze">Výsledky</Link>
+                                <Link to="/faq">Časté dotazy</Link>
                                 <Link to="/kontakt">Kontakt</Link>
                             </div>
                             <div className="cart-svg">
@@ -47,12 +47,11 @@ export default class nav extends Component {
                             </div>
                         </div>
                         <div className="mobile-nav d:grid sm:d:none">
+                            <Link to="/">
                             <div className="logo">
                                 <img src={logo} className="mobile-logo"/>
                             </div>
-                            <div className="man-svg">
-                                <CartSVG/>
-                            </div>
+                                </Link>
                             <div className="cart-svg">
                                 <MenuSVG/>
                             </div>

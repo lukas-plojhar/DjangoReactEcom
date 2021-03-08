@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import './assets/css/shop.css'
+import './assets/css/shop.css';
 import TopNav from "../../components/topnavbar/nav";
 import {Link} from "react-router-dom";
 
@@ -21,17 +21,21 @@ const Product = ({id, price, imageLeft, title, headline, description, image}) =>
                 >
                     <div className="product-details d:grid">
                         <div className="content">
-                            <h1>{title}</h1>
+                            <Link to={`/produkt/${id}`}>
+                                <h1>{title}</h1>
+                            </Link>
                             <h6>{headline}</h6>
                             <p>{description}</p>
                             <h3>již od {price} ,-</h3>
-                            <Link to={`/products/${id}`}>
+                            <Link to={`/produkt/${id}`}>
                                 <button className="btn btn-primary">Vice informaci</button>
                             </Link>
                         </div>
                     </div>
                     <div className="product-img">
-                        <img src={image}/>
+                        <Link to={`/produkt/${id}`}>
+                            <img src={image}/>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import "./assets/css/footer.css";
+import {Link} from "react-router-dom";
 
 
-export default class footer extends Component {
+export default class Footer extends Component {
     render() {
         return (
             <footer className="bottom-footer">
@@ -11,22 +12,15 @@ export default class footer extends Component {
                     <div className="footer-content d:grid">
                         {/*<Logo className="footer-logo" />*/}
                         <div className="footer-menu">
-                            <a href="/">Platba a doručení</a>
-                            <a href="/">Kontakt</a>
-                            <a href="/">Obchodní podmínky</a>
-                            <a href="/">Reklamační řád</a>
+                            <Link to="/obchodni-podminky">Platba a doručení</Link>
+                            <Link to="/kontakt">Kontakt</Link>
+                            <Link to="/obchodni-podminky">Obchodní podmínky</Link>
+                            <Link to="/reklamacni-rad">Reklamační řád</Link>
                         </div>
-                        {/*<form className="mail-list-container">*/}
-                        {/*  <input type="email" placeholder="Join our mailing list" />*/}
-                        {/*  <Send className="send" />*/}
-                        {/*</form>*/}
-                        <div className="social-icons">
-                            <a href="/">fb</a>
-                            <a href="/">ig</a>
-                            {/*<a href="/">t</a>*/}
-                            {/*<a href="/">y</a>*/}
-                            {/*<a href="/">s</a>*/}
-                        </div>
+                        {/*<div className="social-icons">*/}
+                        {/*    <a href="https://facebook.com/teethycz">fb</a>*/}
+                        {/*    <a href="https://instagram.com/teethycz">ig</a>*/}
+                        {/*</div>*/}
                         <div className="partners m-1 text-center">
                             <img src="https://onas.heureka.cz/upload/221-logoheurekanoclaim.png"
                                  className="partner-logo"/>

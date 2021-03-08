@@ -21,6 +21,10 @@
 
 /* LUKAS EDIT */
 
+li {
+    margin-left: 20px;
+}
+
 h1 {
     font-size: 32px;
     font-weight: 900;

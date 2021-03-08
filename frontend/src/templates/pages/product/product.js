@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import Navbar from "../../components/topnavbar/nav";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 import Review from "../../components/review/review";
 import "./assets/css/product.css";
 import ThumbnailSlider from "../../components/thumbnailslider/ThumbnailSlider";
@@ -117,7 +117,7 @@ export default class product extends Component {
                                     kontrolu
                                     bělosti, návod k použití
                                     v českém jazyce</small></p>
-                                <Link to={`/checkout/?add-to-cart=${id}`}>
+                                <Link to={`/pokladna/${id}`}>
                                     <button className="add-to-cart">Přidat do košíku</button>
                                 </Link>
                                 <div className="product-intro">

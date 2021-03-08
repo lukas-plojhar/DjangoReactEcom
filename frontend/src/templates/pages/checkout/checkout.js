@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Footer from "../../../components/common/Footer";
 import "./assets/css/checkout.css";
 import {Link} from "react-router-dom";
 import {API, Website} from "../../../Globals";
@@ -11,6 +10,7 @@ import PaymentAndShippingOptions from "./components/Options";
 import Upsells from "../../../components/checkout/Upsell";
 import CustomerForm from "../../../components/checkout/CustomerForm";
 import ServicesForm from "../../../components/checkout/ServicesForm";
+import Footer from "../../components/footer/Footer";
 
 
 export default class checkout extends Component {
@@ -102,7 +102,7 @@ export default class checkout extends Component {
                 if (status === 201) {
                     localStorage.removeItem('teethycz');
                     this.props.history.push({
-                        pathname: `/thankyou`,
+                        pathname: `/dekujeme`,
                         state: {data}
                     });
                 }
@@ -147,7 +147,7 @@ export default class checkout extends Component {
         return (
             <div>
                 <section className="checkout-container">
-                    <div className="container">
+                    <div className="container my-5">
                         <div className="checkout-content">
                             {/*<p className="checkout-title">Rekapitulace objednavky</p>*/}
                             <h2 className="checkout-title">Vas kosik</h2>

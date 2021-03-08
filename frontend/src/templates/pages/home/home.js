@@ -4,7 +4,7 @@ import TopNav from "../../components/topnavbar/nav";
 import ColProduct from "../../components/colproduct/colproduct";
 import Usp from "../../components/usp/usp";
 import PopularProducts from "../../components/popularProducts/PopularProducts";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 import Review from "../../components/review/review";
 import Instagram from "../../components/instagram/instagram";
 
@@ -49,7 +49,7 @@ export default class home extends Component {
                                         a pevnost. Jednoduše, rychle a za pár korun.</p>
                                     <div className="row">
                                         <div className="col-12 col-sm-6 text-center">
-                                            <Link to="/shop">
+                                            <Link to="/obchod">
                                                 <button className="btn btn-primary">Chci bílé zuby
                                                 </button>
                                             </Link>

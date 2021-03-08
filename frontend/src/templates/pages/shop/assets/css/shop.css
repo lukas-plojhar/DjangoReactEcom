@@ -37,9 +37,7 @@
 .product-content .product-details .content a {
   color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
   /*font-size: 21px;*/
-  font-weight: 600;
 }
 
 .product-content .product-details .content a:hover {

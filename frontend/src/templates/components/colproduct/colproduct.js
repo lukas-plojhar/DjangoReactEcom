@@ -66,7 +66,7 @@ class SingleColProduct extends Component {
                             secondPrice={false}
                         />
                     </VariationButtonGroup>
-                    <Link to={`/checkout/${id}`}>
+                    <Link to={`/pokladna/${id}`}>
                         <button className="btn btn-primary">Přidat do košíku</button>
                     </Link>
                 </div>
