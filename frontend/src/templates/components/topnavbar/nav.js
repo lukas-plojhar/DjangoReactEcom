@@ -15,6 +15,14 @@ export default class nav extends Component {
     };
   }
 
+  /**
+   * Hide Open Mobile Menu
+   * @returns void
+   */
+  hideOpenMobileMenu = (e) => {
+    this.setState({ openMobileMenu: false });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -68,10 +76,18 @@ export default class nav extends Component {
             />
           </div>
           <div className="m-menu-link">
-            <Link to="/shop">Shop</Link>
-            <Link to="/shop">Shop A</Link>
-            <Link to="/shop">Shop B</Link>
-            <Link to="/shop">Shop D</Link>
+            <Link to="/shop" onClick={this.hideOpenMobileMenu}>
+              Shop
+            </Link>
+            <Link to="/shop" onClick={this.hideOpenMobileMenu}>
+              Shop A
+            </Link>
+            <Link to="/shop" onClick={this.hideOpenMobileMenu}>
+              Shop B
+            </Link>
+            <Link to="/shop" onClick={this.hideOpenMobileMenu}>
+              Shop D
+            </Link>
           </div>
         </div>
       </React.Fragment>
