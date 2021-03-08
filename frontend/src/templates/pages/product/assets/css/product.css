@@ -20,13 +20,13 @@
   height: auto;
   width: 100%;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .single-product-content .img-container {
   -ms-flex-preferred-size: 57%;
-      flex-basis: 57%;
+  flex-basis: 57%;
 }
 
 .single-product-content .img-container div {
@@ -36,7 +36,7 @@
 
 .single-product-content .img-container .thumbSlider {
   -ms-grid-columns: 70px 1fr;
-      grid-template-columns: 70px 1fr;
+  grid-template-columns: 70px 1fr;
   grid-column-gap: 20px;
 }
 
@@ -52,7 +52,7 @@
   width: 100%;
   height: 470px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
@@ -62,8 +62,8 @@
 .secondary-slider .splide__list {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .secondary-slider {
@@ -78,7 +78,7 @@
 .single-product-content .context-container {
   padding: 0px 0px;
   -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
+  flex-basis: 100%;
 }
 
 .single-product-content .context-container h1 {
@@ -88,6 +88,7 @@
 
 .star-review {
   margin-bottom: 5px;
+  justify-content: center;
 }
 
 .star-review .star-icon {
@@ -132,8 +133,8 @@
   width: 100%;
   padding: 20px 0px;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   border: none;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
@@ -149,9 +150,9 @@
   padding: 20px;
   border-radius: 4px;
   -ms-grid-columns: auto 1fr;
-      grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr;
   -ms-grid-rows: auto auto auto;
-      grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto;
   grid-column-gap: 20px;
 }
 
@@ -246,14 +247,15 @@
 .radio-group {
   width: 100%;
   height: auto;
-  padding: 20px 0px;
+  padding: 40px 0px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
 }
 
 .radio-group .radio {
   position: relative;
   height: auto;
   border: 2px solid #ddd;
-  margin-right: 20px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -263,7 +265,7 @@
 }
 
 .radio-group .active > .txt {
-  background-color: rgba(31,91,255,0.2);
+  background-color: rgba(31, 91, 255, 0.2);
   border-bottom: 1px solid #1f5bff !important;
 }
 
@@ -273,16 +275,18 @@
 }
 
 .radio-group .radio .top-out {
+  width: 80%;
   background-color: #ddd;
   color: #000;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 10px;
   position: absolute;
-  top: -13px;
+  top: -15px;
   border-radius: 50px;
-  left: 30px;
+  left: 10%;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .radio-group .radio .txt {
