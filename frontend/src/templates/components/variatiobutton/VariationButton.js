@@ -20,7 +20,7 @@ export const VariationButton = ({
       onClick={handleClick}
     >
       {label ? <span className="top-out">{label ? label : ""}</span> : ""}
-      <p className="txt text:center">{name}</p>
+      <p className="txt text:center variation-button-text">{name}</p>
       <p className="d:grid bottom-txt text:center">
         {salePrice ? (
           <b style={{ textDecoration: "line-through" }}> {salePrice},-</b>

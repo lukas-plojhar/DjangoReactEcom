@@ -58,7 +58,7 @@ class SingleColProduct extends Component {
             ({rating}) {numberOfReviews}x
           </span>
         </div>
-        <p className="text:center sm:text:left">{description}</p>
+        <p className="text:center sm:text:left" style={{padding: 0}}>{description}</p>
         <small className="mt-3 text:center sm:text:left">{content}</small>
         <div className="text-center">
           <VariationButtonGroup selected={selectedVariation}>

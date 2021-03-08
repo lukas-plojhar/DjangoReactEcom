@@ -1,5 +1,6 @@
 .logo {
   width: auto;
+  max-width: 90px;
 }
 
 .sticky {

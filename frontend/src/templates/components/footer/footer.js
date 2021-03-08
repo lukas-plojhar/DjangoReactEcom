@@ -3,7 +3,7 @@ import "./assets/css/footer.css";
 import {Link} from "react-router-dom";
 
 
-export default class Footer extends Component {
+export default class footer extends Component {
     render() {
         return (
             <footer className="bottom-footer">

@@ -10,6 +10,7 @@
   border: 2px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
+  max-width: 160px;
 }
 
 .radio-group .active {
@@ -50,4 +51,8 @@
 .radio-group .radio .bottom-txt {
   padding: 5px 15px;
   /*font-size: 12px;*/
+}
+
+p.variation-button-text {
+    text-align: center !important;
 }

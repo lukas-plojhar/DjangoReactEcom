@@ -70,7 +70,7 @@ export default class review extends Component {
         <div className="container">
           <div className="review-content">
             <div className="top-header d:flex flex:row">
-              <h1 className="text:center sm:text:left">
+              <h1 className="text:center sm:text:left review-headline">
                 Ohlasy našich zákazníků
               </h1>
               {/*<div className="right-header d:grid">*/}

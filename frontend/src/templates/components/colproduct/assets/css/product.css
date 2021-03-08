@@ -31,9 +31,14 @@
 
 .multiple-product-content .product p {
     /*font-size: 21px;*/
+    text-align: left;
     line-height: 1.42;
     /*margin-bottom: 40px;*/
     /*width: 82%;*/
+}
+
+.multiple-product-content .product small {
+    text-align: left;
 }
 
 .multiple-product-content .product button {
@@ -54,6 +59,8 @@
         text-align: center !important;
     }
 }
+
+
 
 
 /*# sourceMappingURL=product.css.map */

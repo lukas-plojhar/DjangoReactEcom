@@ -10,7 +10,7 @@ const Product = ({id, price, imageLeft, title, headline, description, image}) =>
             : "product-container whitesmoke-bg"
         }
     >
-        <div className="container">
+        <div className="shop-container">
             <div className="col-12 mt-5">
                 <div
                     className={

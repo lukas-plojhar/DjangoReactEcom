@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import Navbar from "../../components/topnavbar/nav";
-import Footer from "../../components/footer/footer";
+import footer from "../../components/footer/footer";
 import Review from "../../components/review/review";
 import "./assets/css/product.css";
 import ThumbnailSlider from "../../components/thumbnailslider/ThumbnailSlider";
@@ -165,7 +165,7 @@ export default class product extends Component {
         {/*        </div>*/}
         {/*    </div>*/}
         {/*</section>*/}
-        <Footer />
+        {/*<Footer />*/}
       </div>
     );
   }
