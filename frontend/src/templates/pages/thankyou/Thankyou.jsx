@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {API, GoogleAPIKey} from "../../../Globals";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/footer/footer";
 import TopNav from "../../components/topnavbar/nav";
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import TopNav from "../../components/topnavbar/nav";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/footer/footer";
 
 const TermsOfUse = () => {
     return <React.Fragment>
