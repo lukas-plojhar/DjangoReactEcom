@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./assets/css/nav.css";
 import { ReactComponent as CartSVG } from "./assets/svg/cart.svg";
 import { ReactComponent as MenuSVG } from "./assets/svg/menu.svg";
 import { ReactComponent as Close } from "./assets/svg/close.svg";
-
-// Images
 import logo from "../../../assets/images/teethylogo.png";
+import "./assets/css/nav.css";
 
 export default class nav extends Component {
   constructor(props) {
@@ -15,22 +13,6 @@ export default class nav extends Component {
     this.state = {
       openMobileMenu: false,
     };
-  }
-
-  componentDidMount() {
-    // window.onscroll = function () {
-    //     let navbar = document.getElementById("navbar");
-    //
-    //     if (window.pageYOffset === 0) {
-    //         document.getElementById("fixgap").style.height = "0px";
-    //         navbar.classList.remove("sticky");
-    //         navbar.classList.remove("sticky-design");
-    //     } else {
-    //         document.getElementById("fixgap").style.height = "100px";
-    //         navbar.classList.add("sticky");
-    //         navbar.classList.add("sticky-design");
-    //     }
-    // };
   }
 
   render() {
@@ -76,13 +58,16 @@ export default class nav extends Component {
           className="mobile-menu-content"
           style={{ display: this.state.openMobileMenu ? "block" : "none" }}
         >
-          a
-          {/* <div className="menu-top-bar d:flex flex:row">
+          <div className="menu-top-bar d:flex flex:row">
             <img className="logo" src={logo} alt="logo" />
-            <Close className="close-icon" />
-          </div> */}
+            <Close
+              className="close-icon"
+              onClick={(e) => {
+                this.setState({ openMobileMenu: false });
+              }}
+            />
+          </div>
         </div>
-        <div id="fixgap" className="hidden"></div>
       </React.Fragment>
     );
   }

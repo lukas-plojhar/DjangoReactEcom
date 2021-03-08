@@ -1,7 +1,5 @@
 .logo {
-  max-height: 18px;
   width: auto;
-  margin-top: -3px;
 }
 
 .sticky {
@@ -83,8 +81,8 @@
 }
 
 .top-navbar .mobile-nav {
-  -ms-grid-columns: 1fr auto auto;
-  grid-template-columns: 1fr auto auto;
+  -ms-grid-columns: 1fr auto;
+  grid-template-columns: 1fr auto;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -123,9 +121,9 @@
   right: 0px;
   background-color: #fff;
   height: 100%;
-  width: 100%;
+  width: auto;
   padding: 20px;
-  z-index: 9999;
+  z-index: 99999;
 }
 .menu-top-bar {
   justify-content: space-between;

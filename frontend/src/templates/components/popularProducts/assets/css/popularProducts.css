@@ -55,7 +55,6 @@
 /*  width: 60%;*/
 /*}*/
 
-
 /*.popular-product-content .splide_item button:hover {*/
 /*  background-color: #1f5bff;*/
 /*  color: #fff;*/
@@ -65,8 +64,8 @@
 .popular-product-content .splide_item .review-container {
   margin-bottom: 20px;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .popular-product-content .splide_item .review-container .star .star-img {
@@ -84,10 +83,10 @@
   text-decoration: underline;
 }
 
-@media screen and (max-width: 768px){
-  .popular-product-container{
+@media screen and (max-width: 768px) {
+  .popular-product-container {
     padding: 40px 15px !important;
-    margin: -15px;
+    margin: 0px;
   }
 }
 
