@@ -9,37 +9,17 @@ export const PaymentAndShippingOptions = ({shipping, payment, handleStateChange}
     }
 
     return <div className="payment-method">
-        <p className="text:center form-title">Platebni metoda</p>
+        <p className="text:center form-title">Způsob platby</p>
         <div className="form-payment">
             <CheckoutVariationButtonGroup selected={0} name="payment">
                 <CheckoutVariationButton
                     label="Platba kartou"
-                    price="ZDARMA"
                 />
                 <CheckoutVariationButton
                     label="Na dobírku"
-                    price="49,-"
+                    price="49"
                 />
             </CheckoutVariationButtonGroup>
-            {/*<div className="radio-box">*/}
-            {/*    <RadioInput*/}
-            {/*        label="Na dobírku"*/}
-            {/*        name="payment"*/}
-            {/*        value="1"*/}
-            {/*        checked={payment == 1 ? 'checked' : ''}*/}
-            {/*        handleChange={(e) => handleChange(e)}*/}
-            {/*        price="49"*/}
-            {/*    />*/}
-            {/*</div>*/}
-            {/*<div className="radio-box">*/}
-            {/*    <RadioInput*/}
-            {/*        label="Platba kartou"*/}
-            {/*        name="payment"*/}
-            {/*        value="2"*/}
-            {/*        checked={payment == 2 ? 'checked' : ''}*/}
-            {/*        handleChange={(e) => handleChange(e)}*/}
-            {/*    />*/}
-            {/*</div>*/}
         </div>
     </div>
 }

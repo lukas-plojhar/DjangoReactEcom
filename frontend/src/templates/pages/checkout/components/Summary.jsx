@@ -13,18 +13,18 @@ const Summary = ({items, handleClick, isFormValid}) => {
             {items !== undefined && items.length > 0 && items.map((item, index) => (
                 <div className="bill d:flex flex:row" key={index}>
                     <span>{item.product.name} <b>x {item.quantity}</b></span>
-                    <span>{item.product.salePrice * item.quantity}</span>
+                    <span>{item.product.salePrice * item.quantity},-</span>
                 </div>
             ))}
 
             <div className="bill d:flex flex:row row-bold">
-                <span><b>Mezisoucet </b></span>
-                <span><b>{getTotal()}</b></span>
+                <span><b>Mezisoučet: </b></span>
+                <span><b>{getTotal()},-</b></span>
             </div>
 
             <div className="bill d:flex flex:row row-total">
-                <span><b>Postovne: </b></span>
-                <span><b><span>Ceska posta </span> +89</b></span>
+                <span><b>Poštovné: </b></span>
+                <span><b><span>Česká pošta:  </span> + 89,-</b></span>
             </div>
         </div>
 }

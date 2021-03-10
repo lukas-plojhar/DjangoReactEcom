@@ -1,15 +1,8 @@
 from django.db import models
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
-    #
-    # # Images
-    # main_image = models.ImageField(upload_to='products/', null=True, blank=True, default=None)
-    #
-    # google_remarketing_image = models.ImageField(upload_to='products/', null=True, blank=True, default=None)
-    # facebook_remarketing_image = models.ImageField(upload_to='products/', null=True, blank=True, default=None)
-
     # Text
+    name = models.CharField(max_length=255)
     headline = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     short_description = models.TextField(null=True, blank=True)
@@ -26,7 +19,7 @@ class Product(models.Model):
     is_upsell = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.id}: {self.name}'
+        return f'# {self.id} - {self.name}'
 
 class ProductTab(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, null=False)
@@ -35,10 +28,13 @@ class ProductTab(models.Model):
     content = models.TextField(null=False, blank=False)
 
     def __str__(self):
-        return f'{self.internal_name}'
+        return f'# {self.id} - {self.internal_name}'
 
 class ProductImage(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, null=False)
     image = models.ImageField(upload_to='', null=True, blank=True, default=None)
     is_main = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'# {self.id} - {self.product.name}'
 

@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 
 export const CheckoutVariationButton = ({selected, handleClick, id, label, price}) => {
-    return <div className={selected ? "radio d:inline-block active" : "radio d:inline-block"}
+    return <div className={selected ? "radio active text-center" : "radio text-center"}
                 id={id} onClick={handleClick}>
         {/*{label ? <span className="top-out">{label ? label : ""}</span> : ""}*/}
-        <p className="txt text:center">{label}</p>
-        <p className="d:grid bottom-txt text:center">
-            <b>{price}</b>
-        </p>
+        <span className="text-center">{label} {price ? <span>+{price},-</span> : ""}</span>
+
     </div>
 }
 
@@ -26,7 +24,7 @@ export class CheckoutVariationButtonGroup extends Component {
 
     render() {
         const {selected} = this.state;
-        return <div className="radio-group d:flex flex:row">
+        return <div className="radio-group text-center payment">
             {React.Children.map(this.props.children, (child, i) =>
                 <CheckoutVariationButton
                     id={i}

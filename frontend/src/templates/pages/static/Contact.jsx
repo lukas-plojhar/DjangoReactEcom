@@ -1,6 +1,6 @@
 import React from "react";
 import TopNav from "../../components/topnavbar/nav";
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/Footer";
 
 const Contact = () => {
     return <React.Fragment>

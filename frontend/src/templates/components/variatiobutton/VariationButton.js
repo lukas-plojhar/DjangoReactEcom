@@ -14,19 +14,19 @@ export const VariationButton = ({
   return (
     <div
       className={
-        selected ? "radio d:inline-block active" : "radio d:inline-block"
+        selected ? "radio active" : "radio"
       }
       id={id}
       onClick={handleClick}
     >
-      {label ? <span className="top-out">{label ? label : ""}</span> : ""}
-      <p className="txt text:center variation-button-text">{name}</p>
-      <p className="d:grid bottom-txt text:center">
+        {label ? <span className="top-out">{label}</span> : null}
+      <p className="text-center variation-button-text">{name}</p>
+      <p className="text-center variation-button-price">
         {salePrice ? (
-          <b style={{ textDecoration: "line-through" }}> {salePrice},-</b>
+          <b style={{ textDecoration: "line-through" }}> {salePrice},-<br/></b>
         ) : null}
-        <b className="text:center ">{price},-</b>
-        {secondPrice ? <small>{secondPrice} ,- / ošetření</small> : null}
+        <b className="text-center">{price},-</b>
+
       </p>
     </div>
   );
@@ -47,7 +47,7 @@ export class VariationButtonGroup extends Component {
   render() {
     const { selected } = this.state;
     return (
-      <div className="radio-group d:grid ">
+      <div className="radio-group">
         {React.Children.map(this.props.children, (child, i) => (
           <VariationButton
             id={i}

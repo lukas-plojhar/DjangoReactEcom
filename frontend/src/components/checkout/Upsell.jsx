@@ -54,14 +54,14 @@ class Upsells extends Component {
                 }
             },
             padding: {
-                right: "10rem",
+                right: "3rem",
             },
             perMove: 1,
         }
         return (
             <div className="popular-product-container" style={{backgroundColor: this.props.bg}}>
                 <div className="popular-product-content">
-                    <h2>Ostatní také zakoupili</h2>
+                    <h2 className="text-center">Přidej k objednávce se slevou</h2>
                     <Splide options={options}>
                         {products.map((product, index) => {
                             return <UpsellSlide

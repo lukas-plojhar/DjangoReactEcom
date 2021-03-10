@@ -13,29 +13,25 @@ const Cart = ({items, handleStateChange}) => {
 
     return items ? <div className="product-list">
         <table className="product-list-item">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Produkt</th>
-                <th>Množství</th>
-                <th>Cena celkem</th>
-            </tr>
-            </thead>
             <tbody>
             {
                 items !== undefined && items.length > 0 && items.map((item, index) => (
                     <tr key={index}>
                         <td>
-                            <div className="d:flex flex:row align-center"><img src={item.product.featuredImage}
-                                                                               style={{'maxWidth': 200}}/></div>
+                            <div className="d:flex flex:row align-center">
+                                <img src={item.product.featuredImage}
+                                     style={{'maxWidth': 200}}/></div>
                         </td>
-                        <td><span>{item.product.name}</span></td>
-                        <td><input type="number" value={item.quantity}/></td>
-                        <td><p>
-                            {item.product.regularPrice}<br/>
-                            {item.product.salePrice}
-                        </p>
+                        <td>
+                            <div className="name"> {item.product.name} x <b>{item.quantity}</b></div>
+                            <div className="quantity">
+                                <button name="increase"> +</button>
+                                <button name="decrease"> -</button>
+                            </div>
 
+                            <div className="price">
+                                {item.product.regularPrice} {item.product.salePrice}
+                            </div>
                         </td>
                         <td>
                             <button className="btn-remove" name="remove" value={index}
@@ -48,6 +44,45 @@ const Cart = ({items, handleStateChange}) => {
             </tbody>
         </table>
     </div> : <React.Fragment/>
+
+// return items ? <div className="product-list">
+//     <table className="product-list-item">
+//         <thead>
+//         <tr>
+//             <th></th>
+//             <th>Produkt</th>
+//             <th>Množství</th>
+//             <th>Cena celkem</th>
+//         </tr>
+//         </thead>
+//         <tbody>
+//         {
+//             items !== undefined && items.length > 0 && items.map((item, index) => (
+//                 <tr key={index}>
+//                     <td>
+//                         <div className="d:flex flex:row align-center"><img src={item.product.featuredImage}
+//                                                                            style={{'maxWidth': 200}}/></div>
+//                     </td>
+//                     <td><span>{item.product.name}</span></td>
+//                     <td><input type="number" value={item.quantity}/></td>
+//                     <td><p>
+//                         {item.product.regularPrice}<br/>
+//                         {item.product.salePrice}
+//                     </p>
+//
+//                     </td>
+//                     <td>
+//                         <button className="btn-remove" name="remove" value={index}
+//                                 onClick={e => handleClick(e)}>X
+//                         </button>
+//                     </td>
+//                 </tr>
+//             ))
+//         }
+//         </tbody>
+//     </table>
+// </div> : <React.Fragment/>
+
 }
 
 export default Cart;

@@ -1,58 +1,78 @@
 .radio-group {
-  width: 100%;
-  height: auto;
-  padding: 20px 0px;
+    width: 100%;
+    height: auto;
+    padding: 20px 0px;
+    margin: 0 -5px;
+    text-align: center !important;
 }
 
 .radio-group .radio {
-  position: relative;
-  height: auto;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
-  max-width: 160px;
+    display: inline-block;
+    margin: 0 3px;
+    padding: 0px;
+    position: relative;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 160px;
 }
 
 .radio-group .active {
-  border: 2px solid #1f5bff;
+    border: 2px solid #1f5bff;
 }
 
 .radio-group .active > .txt {
-  background-color: rgba(31, 91, 255, 0.2);
-  border-bottom: 1px solid #1f5bff !important;
+    background-color: rgba(31, 91, 255, 0.2);
+    border-bottom: 1px solid #1f5bff !important;
 }
 
 .radio-group .active > .top-out {
-  background-color: #1f5bff !important;
-  color: #fff !important;
+    background-color: #1f5bff !important;
+    color: #fff !important;
 }
 
 .radio-group .radio .top-out {
-  background-color: #ddd;
-  color: #000;
-  padding: 5px 10px;
-  font-size: 12px;
-  position: absolute;
-  top: -13px;
-  border-radius: 50px;
-  left: 30px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    background-color: #ddd;
+    color: #000;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    top: -13px;
+    border-radius: 50px;
+    left: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .radio-group .radio .txt {
-  border-bottom: 1px solid #ddd;
-  width: 100%;
-  padding: 15px;
-  font-weight: bold;
-  /*font-size: 12px;*/
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    padding: 15px;
+    font-weight: bold;
+    /*font-size: 12px;*/
 }
 
 .radio-group .radio .bottom-txt {
-  padding: 5px 15px;
-  /*font-size: 12px;*/
+    padding: 5px 15px;
+    /*font-size: 12px;*/
 }
 
 p.variation-button-text {
+    padding: 10px !important;
+    background-color: rgba(221, 221, 221, 0.2);
+    text-align: center !important;
+    font-weight: bold;
+    font-size: 80%;
+    border-bottom: 1px solid #ddd !important;
+}
+
+/*Title in variation*/
+.radio.active > .variation-button-text {
+    background-color: rgba(31, 91, 255, 0.2);
+    border-bottom: 1px solid #1f5bff !important;
+}
+
+p.d\:grid.bottom-txt.text\:center > * {
     text-align: center !important;
 }

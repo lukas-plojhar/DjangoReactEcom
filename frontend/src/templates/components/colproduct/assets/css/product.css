@@ -58,9 +58,15 @@
     h1.colproduct-headline {
         text-align: center !important;
     }
+
+    .product-description {
+        padding: 10px 0px !important;
+    }
 }
 
-
+.colproduct-headline{
+    margin-bottom: 5px !important;
+}
 
 
 /*# sourceMappingURL=product.css.map */

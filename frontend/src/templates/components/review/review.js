@@ -56,8 +56,14 @@ export default class review extends Component {
       gap: "1rem",
       pagination: false,
       breakpoints: {
-        640: {
+        420: {
           perPage: 2,
+        },
+        768: {
+          perPage: 2,
+        },
+        1024: {
+          perPage: 3,
         },
       },
     };
