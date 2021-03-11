@@ -128,11 +128,11 @@
 }
 
 .product-list-item td img {
-    height: 60px;
-    width: 60px;
+    height: 130px;
+    width: 130px;
     -o-object-fit: cover;
     object-fit: cover;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .align-center {

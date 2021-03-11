@@ -1,54 +1,59 @@
 import React, {Component} from "react";
 import "./assets/css/product.css";
-import {
-    VariationButton,
-    VariationButtonGroup,
-} from "../variatiobutton/VariationButton";
+import {VariationButtonGroup,} from "../variatiobutton/VariationButton";
 
 // Images
-import productImage1 from "../../../static/img/whitening_strips.png";
-import productImage2 from "../../../static/img/UV_kit.png";
 import {ReactComponent as Star} from "../review/assets/svg/star.svg";
 import {Link} from "react-router-dom";
+import {API} from "../../../Globals";
+import axios from "axios";
 
 class SingleColProduct extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedVariation: 0,
-            id: this.props.productId,
-            name: "Bělicí zubní pásky",
-            description:
-                "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 30 minut. Bělicí\n" +
-                "                    pásky na zuby od Teethy obsahují koncentrovaný gel a jedinečný způsob aplikace\n" +
-                "                    urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás na prvním místě,\n" +
-                "                    bělicí pásky proto vyrábíme přímo v České republice.",
-            content:
-                "Balení obsahuje: 14x horní pásek, 14x dolní pásek, stupnici pro kontrolu bělosti, návod\n" +
-                "                    k použití v českém jazyce",
-            featuredImage:
-                "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
-            rating: 4.8,
-            numberOfReviews: 903,
+            selectedVariation: 1,
+            product: {
+                id: this.props.id,
+            }
         };
+        this.handleVariationClick = this.handleVariationClick.bind(this);
     }
 
+    // Hooks
+    async componentDidMount() {
+        const state = this.state;
+        const url = `${API}/products/${state.product.id}`;
+
+        const data = await axios.get(url).then((response) => response.data);
+        this.setState({
+            product: {
+                id: state.product.id,
+                ...data,
+            },
+        });
+    }
+
+    // Handlers
+    handleVariationClick = (id) => {
+        const state = this.state;
+        state.selectedVariation = id;
+        this.setState(state);
+    }
+
+    // Functions
+
+
     render() {
-        const {
-            id,
-            name,
-            description,
-            content,
-            featuredImage,
-            selectedVariation,
-            rating,
-            numberOfReviews,
-            variations,
-        } = this.state;
+        if (!this.state.product.variations) return <p>loading</p>
+
+        const {selectedVariation, product} = this.state;
+        const {id, name, shortDescription, featuredImage, rating, numberOfReviews, variations,} = product;
+        console.log(API + featuredImage);
         return (
             <div className="product d:grid">
-                <img src={featuredImage} alt="product"/>
+                <img src={API + featuredImage[0].image} alt="product"/>
                 <h1 className="colproduct-headline">{name}</h1>
                 <div className="star-review d:flex flex:row">
                     <div className="d:flex flex:row">
@@ -58,29 +63,19 @@ class SingleColProduct extends Component {
             ({rating}) {numberOfReviews}x
           </span>
                 </div>
-                <p className="product-description">{description}</p>
-                <p className="content-text">{content}</p>
+                <p className="product-description">{shortDescription}</p>
+                <p className="content-text">Balení obsahuje: {variations[selectedVariation].content}</p>
+                {/*<p className="text-center">*/}
+                {/*    <span className="regular-price">{variations[selectedVariation].regularPrice} ,-</span><br/>*/}
+                {/*    <span className="sale-price">{variations[selectedVariation].salePrice} ,-</span><br/>*/}
+                {/*</p>*/}
                 <div className="text-center">
-                    <VariationButtonGroup selected={selectedVariation}>
-                        <VariationButton
-                            name="na 14 dni"
-                            price="499"
-                            secondPrice={false}
-                        />
-                        <VariationButton
-                            selected={true}
-                            label="Oblibene"
-                            name="na 28 dni"
-                            price="799"
-                            secondPrice={false}
-                        />
-                        <VariationButton
-                            name="na 42 dni"
-                            price="999"
-                            secondPrice={false}
-                        />
-                    </VariationButtonGroup>
-
+                    <VariationButtonGroup
+                        selectedVariation={selectedVariation}
+                        variations={variations}
+                        label="Oblíbené"
+                        handleClick={this.handleVariationClick}
+                    />
                     <Link to={`/pokladna/${id}`}>
                         <button className="btn btn-primary">Přidat do košíku</button>
                     </Link>
@@ -90,35 +85,4 @@ class SingleColProduct extends Component {
     }
 }
 
-const colproduct = () => {
-    const variations1 = [
-        {
-            name: "2 tydenni kura",
-            price: "499",
-            secondPrice: false,
-        },
-        {
-            name: "4 tydenni kura",
-            price: "799",
-            secondPrice: false,
-        },
-        {
-            name: "6 tydenni kura",
-            price: "999",
-            secondPrice: false,
-        },
-    ];
-
-    return (
-        <div className="multiple-product-container" id="katalog">
-            <div className="container">
-                <div className="multiple-product-content d:flex flex:col sm:flex:row">
-                    <SingleColProduct productId={1} variations={variations1}/>
-                    <SingleColProduct productId={1} variations={variations1}/>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default colproduct;
+export default SingleColProduct;

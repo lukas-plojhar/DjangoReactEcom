@@ -21,6 +21,7 @@
 
 .radio-group .active {
     border: 2px solid #1f5bff;
+    color: #1f5bff !important;
 }
 
 .radio-group .active > .txt {
@@ -41,7 +42,8 @@
     position: absolute;
     top: -13px;
     border-radius: 50px;
-    left: 30px;
+    left: 27px;
+    width: 80% !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -64,7 +66,7 @@ p.variation-button-text {
     background-color: rgba(221, 221, 221, 0.2);
     text-align: center !important;
     font-weight: 400;
-    font-size: 12px !important;
+    font-size: 14px !important;
     border-bottom: 1px solid #ddd !important;
 }
 

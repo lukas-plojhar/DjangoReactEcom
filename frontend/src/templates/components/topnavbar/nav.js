@@ -31,7 +31,7 @@ export default class nav extends Component {
 
         return (
             <React.Fragment>
-                <Navbar bg="light" expand="lg">
+                <Navbar bg="light" expand="lg" className="py-sm-3 py-1">
                     <Navbar.Brand href="/">
                         <img src={logo} className="logo"/>
                     </Navbar.Brand>

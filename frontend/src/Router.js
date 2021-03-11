@@ -36,7 +36,7 @@ class Router extends Component {
 
                     <Route path="/obchod" component={Shop}/>
                     <Route path="/produkt/:id" component={product}/>
-                    <Route path="/pokladna/:productId" component={checkout}/>
+                    <Route path="/pokladna/:productId?/:variationId?" component={checkout}/>
                     <Route path="/dekujeme/:id" component={Thankyou}/>
                     <Route path="/" component={home}/>
                     <Redirect to="not-found"/>

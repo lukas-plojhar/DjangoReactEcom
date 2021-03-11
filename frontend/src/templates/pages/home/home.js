@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./assets/css/home.css";
 import TopNav from "../../components/topnavbar/nav";
-import ColProduct from "../../components/colproduct/colproduct";
+import SingleColProduct from "../../components/colproduct/colproduct";
 import Usp from "../../components/usp/usp";
 import PopularProducts from "../../components/popularProducts/PopularProducts";
 import Footer from "../../components/footer/Footer";
@@ -75,7 +75,14 @@ export default class home extends Component {
         {/*    return <Product data={product} key={product.id}/>;*/}
         {/*})}*/}
         <Usp />
-        <ColProduct />
+        <div className="multiple-product-container" id="katalog">
+            <div className="container">
+                <div className="multiple-product-content d:flex flex:col sm:flex:row">
+                    <SingleColProduct id="6"/>
+                    {/*<SingleColProduct id={6}/>*/}
+                </div>
+            </div>
+        </div>
         <PopularProducts />
         <Instagram />
         <Review />

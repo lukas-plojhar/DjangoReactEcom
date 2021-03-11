@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "./assets/css/checkout.css";
-import {Link} from "react-router-dom";
 import {API, Website} from "../../../Globals";
 import axios from "axios";
 import Cart from "./components/Cart";
@@ -16,55 +15,26 @@ export default class checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:
-                JSON.parse(localStorage.getItem(Website)) === null
-                    ? {
-                        customer: {},
-                        items: [],
-                        shipping: "1",
-                        payment: "1",
-                    }
-                    : JSON.parse(localStorage.getItem(Website)),
+            data: JSON.parse(localStorage.getItem(Website)) === null ? {
+                customer: {},
+                items: [],
+                shipping: "1",
+                payment: "1",
+            } : JSON.parse(localStorage.getItem(Website)),
             errors: {},
         };
+
+        this.getTotal = this.getTotal.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
     // Hooks
-    async componentDidMount() {
-        let {items} = this.state.data;
+    componentDidMount() {
+        if (!this.props.match.params.productId || !this.props.match.params.variationId) return;
+
         let productId = this.props.match.params.productId;
-
-        // Updating items in carts
-        if (productId) {
-            const config = {
-                // 'headers': {
-                //     'Access-Control-Allow-Origin': '*'
-                // }
-            };
-            const newProduct = await axios
-                .get(`${API}/products/${productId}`, config)
-                .then((response) => response.data);
-            const duplicates = items.filter(
-                (item) => item.product.id === newProduct.id
-            );
-            if (duplicates.length > 0) {
-                items.forEach((item) => {
-                    if (item.product.id === newProduct.id) {
-                        item.quantity++;
-                    }
-                });
-            } else {
-                items.push({
-                    product: newProduct,
-                    quantity: 1,
-                });
-            }
-        }
-
-        // Saving the data
-        const {data} = this.state;
-        data.items = items;
-        this.setState({data});
+        let variationId = this.props.match.params.variationId;
+        this.addToCart(productId, variationId);
     }
 
     componentDidUpdate() {
@@ -77,7 +47,9 @@ export default class checkout extends Component {
         let total = 0;
 
         items.forEach(item => {
-            total += item.quantity * item.product.salePrice;
+            item.product.variations.forEach(variation => {
+                if (variation.variationId == item.variationId) total += variation.salePrice;
+            })
         });
 
         total += 89; // shipping
@@ -86,9 +58,44 @@ export default class checkout extends Component {
         return total;
     }
 
+    async addToCart(productId, variationId) {
+        console.log(productId, variationId);
+        let {items} = this.state.data;
 
+        // Is already in cart?
+        if (items) {
+            const duplicates = items.filter(
+                (item) => item.variationId == variationId
+            );
 
-    // Handlers for changes
+            if (duplicates.length > 0) {
+                items.forEach((item) => {
+                    if (item.variationId == variationId) item.quantity++;
+                });
+            } else {
+                const config = {
+                    // 'headers': {
+                    //     'Access-Control-Allow-Origin': '*'
+                    // }
+                };
+                const product = await axios
+                    .get(`${API}/products/${productId}`, config)
+                    .then((response) => response.data);
+
+                items.push({
+                    product: product,
+                    quantity: 1,
+                    variationId: variationId
+                });
+            }
+        }
+        // Saving the data
+        const {data} = this.state;
+        data.items = items;
+        this.setState({data});
+    }
+
+    // Handlers
     handleCartStateChange(e) {
         const {data} = this.state;
         data.items = e;
@@ -137,35 +144,9 @@ export default class checkout extends Component {
         this.setState({data});
     }
 
-    // Cart handlers
-    async addToCart(id) {
-        const {items} = this.state.data;
-        const isInCart = items.filter((item) => item.product.id == id).length;
-
-        if (!isInCart) {
-            items.push({
-                product: await axios
-                    .get(`${API}/products/${id}`)
-                    .then((response) => response.data),
-                quantity: 1,
-            });
-        } else {
-            items.forEach((item) => {
-                if (item.product.id == id) {
-                    item.quantity++;
-                    return;
-                }
-            });
-        }
-
-        // Saving the data
-        const {data} = this.state;
-        data.items = items;
-        this.setState({data});
-    }
-
     render() {
         const {data} = this.state;
+        if (!data) return <React.Fragment/>
         return (
             <div>
                 <section className="checkout-container">
@@ -177,7 +158,7 @@ export default class checkout extends Component {
                                 items={data.items}
                                 handleStateChange={(e) => this.handleCartStateChange(e)}
                             />
-                            <Upsells addToCart={(e) => this.addToCart(e)}/>
+                            <Upsells addToCart={this.addToCart}/>
                             <div className="form-container d:grid">
                                 <div className="left-form">
                                     <Form

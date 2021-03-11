@@ -15,13 +15,17 @@ class ProductTabSerializer(serializers.ModelSerializer):
 
 
 class ProductVariationSerializer(serializers.ModelSerializer):
+    productId = serializers.SerializerMethodField()
+    variationId = serializers.IntegerField(source='id')
     regularPrice = serializers.IntegerField(source='regular_price')
     salePrice = serializers.IntegerField(source='sale_price')
 
     class Meta:
         model = ProductVariation
-        fields = ('id', 'name', 'description', 'content', 'regularPrice', 'salePrice')
+        fields = ('variationId', 'productId', 'name', 'description', 'content', 'regularPrice', 'salePrice')
 
+    def get_productId(self, obj):
+        return obj.product.id;
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField()

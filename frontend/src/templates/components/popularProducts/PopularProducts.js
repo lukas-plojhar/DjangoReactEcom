@@ -15,25 +15,24 @@ const ProductSlide = ({
                       }) => {
     return (
         <SplideSlide>
-            <div className="splide_item d:grid">
+            <div className="splide_item">
                 <div className="img-container">
                     <img src={image} alt="slider"/>
                 </div>
                 <h3>{name}</h3>
-                <div className="review-container d:flex flex:row">
+                <div className="review-container">
                     <div className="star d:flex flex:row">
                         <Star className="star-img"/>
-                        <span className="rv-span">
-              {rating} / ({numberOfReview})
-            </span>
+                        <span className="rv-span">{rating} / ({numberOfReview})</span>
                     </div>
                 </div>
                 <p>{description}</p>
-                <del>{regularPrice} ,-</del>
-                <span>
-          <b>{salePrice} ,-</b>
-        </span>
-                <button className="btn-underline">více informací</button>
+                <p className="text-center">
+                    <span className="regular-price">{regularPrice} ,-</span><br/>
+                    <span className="sale-price">{salePrice} ,-</span><br/>
+                    <button className="btn-underline">více informací</button>
+                </p>
+
             </div>
         </SplideSlide>
     );
@@ -86,7 +85,7 @@ export default class PopularProducts extends Component {
         // Splide slider options
         const options = {
             rewind: true,
-            perPage: 4,
+            perPage: 3,
             gap: "1rem",
             pagination: false,
             arrows: false,
@@ -107,11 +106,11 @@ export default class PopularProducts extends Component {
 
         return (
             <div
-                className="popular-product-container"
+                className="popular-product-container container"
                 style={{backgroundColor: this.props.bg}}
             >
-                <div className="popular-product-content">
-                    <h2 className="text-center mb-4">
+                <div className="popular-product-content col-12">
+                    <h2 className="text-center text-sm-left mb-4">
                         Ostatní také zakoupili
                     </h2>
                     <Splide options={options}>

@@ -20,7 +20,7 @@
     line-height: 1.4;
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
     font-family: "Roboto" !important;
 }
 
@@ -32,15 +32,15 @@ small {
 
 h1 {
     /*font-size: 36px !important;*/
-    font-size: 32px !important;
-    font-weight: 400 !important;
+    font-size: 30px !important;
+    font-weight: 500 !important;
     letter-spacing: 0.25px;
 }
 
 h2 {
-    font-size: 24px !important;
-    /*font-size: 22px !important;*/
-    font-weight: 400 !important;
+    /*font-size: 24px !important;*/
+    font-size: 22px !important;
+    font-weight: 500 !important;
     color: #1f5bff;
 }
 
@@ -51,39 +51,19 @@ h3 {
 
 button {
     margin: 0.5rem 0 !important;
-    font-size: 14px !important;
+    /*font-size: 14px !important;*/
+    font-size: 16px !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
     text-align: center;
     letter-spacing: 1.25px;
 }
 
-/*del {*/
-/*    position: relative;*/
-/*    display: inline-block !important;*/
-/*}*/
-
-/*del:before {*/
-/*    position: absolute;*/
-/*    content: "";*/
-/*    left: -6%;*/
-/*    top: 50%;*/
-/*    right: 0;*/
-/*    border-top: 2px solid;*/
-/*    border-color: inherit;*/
-/*    width: 100%;*/
-/*    -webkit-transform: rotate(-20deg);*/
-/*    -moz-transform: rotate(-20deg);*/
-/*    -ms-transform: rotate(-20deg);*/
-/*    -o-transform: rotate(-20deg);*/
-/*    transform: rotate(-20deg);*/
-/*}*/
-
 .btn-primary {
     min-width: 210px;
+    min-height: 58px;
     /*max-width: 60%;*/
     max-width: 100%;
-    min-height: 58px;
     border-radius: 2em !important;
     background: #1f5bff !important;
     color: #fff;
@@ -91,19 +71,50 @@ button {
 }
 
 .btn-underline {
-    min-width: 0;
-    max-width: 150px;
-    min-height: 20px;
+    max-width: 220px;
+    min-width: 170px;
+    min-height: 58px;
     padding: 7px 0px;
     margin: 30px 0 !important;
     font-size: 14px !important;
     text-align: center;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     letter-spacing: 1.25px;
     color: #1f5bff;
     background: none;
     border: 2px solid #1f5bff;
     border-radius: 2rem;
+}
+
+span.regular-price:before {
+    position: absolute;
+    content: "";
+    left: -6%;
+    top: 50%;
+    right: 0;
+    border-top: 2px solid;
+    border-color: inherit;
+    width: 100%;
+    -webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+}
+
+span.regular-price {
+    position: relative;
+    display: inline-block !important;
+    font-weight: 100;
+    font-size: 30px;
+    padding-bottom: 0px;
+    color: gray;
+}
+
+span.sale-price {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1f5bff;
 }
 
 @media screen and (min-width: 769px) {
@@ -517,7 +528,7 @@ button {
  * SHOULD BE IN BOTTOM
  */
 @media screen and (max-width: 768px) {
-    .product-description{
+    .product-description {
         padding: 0px !important;
     }
 

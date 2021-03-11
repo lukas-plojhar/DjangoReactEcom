@@ -22,34 +22,37 @@ export default class product extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedVariation: 1,
             product: {
                 id: props.match.params.id,
             },
-            selectedVariation: null,
         };
         this.handleVariationClick = this.handleVariationClick.bind(this);
     }
 
     // Hooks
     async componentDidMount(props) {
-        const {product} = this.state;
-        const url = `${API}/products/${product.id}`;
+        const state = this.state;
+        const url = `${API}/products/${state.product.id}`;
         const data = await axios.get(url).then((response) => response.data);
-        this.setState({
-            product: {
-                id: product.id,
-                ...data,
-            },
-        });
+        state.product = {
+            id: product.id,
+            ...data
+        };
+
+        if (state.product.variations.length == 1) {
+            state.selectedVariation = 0;
+        }
+
+        this.setState(state);
     }
 
     // Handlers
     handleVariationClick = (id) => {
         const state = this.state;
         state.selectedVariation = id;
-        this.setState({state});
-
-        console.log(id);
+        this.setState(state);
+        // console.log(id);
     }
 
     render() {
@@ -87,11 +90,11 @@ export default class product extends Component {
                 <Navbar/>
                 <section className="single-product-container">
                     <div className="container">
-                        <div className="single-product-content d:flex flex:row">
-                            <div className="img-container d:none sm:d:flex">
+                        <div className="row mt-2">
+                            <div className="img-container col-12 col-md-6 d-none d-md-block">
                                 <ThumbnailSlider images={images}/>
                             </div>
-                            <div className="context-container">
+                            <div className="context-container col-12 col-md-6">
                                 <h1 className="product-name">{name}</h1>
                                 <div className="star-review d:flex flex:row">
                                     <div className="d:flex flex:row">
@@ -99,41 +102,24 @@ export default class product extends Component {
                                     </div>
                                     <span className="rv-span">({rating}) / {numberOfReviews} hodnocení</span>
                                 </div>
-                                <div className="mobile-slider d:grid sm:d:none">
+                                <div className="mobile-slider d-md-none">
                                     <ThumbnailSlider images={images}/>
                                 </div>
                                 <div className="product-intro">
                                     <p>{shortDescription}</p>
                                 </div>
-                                <p>
+                                <p className="text-center text-md-left">
                                     <small>
-                                        Balení obsahuje:
+                                        Balení obsahuje: {variations[selectedVariation].content}
                                     </small>
                                 </p>
-
-
-
                                 <VariationButtonGroup
-                                    selected={selectedVariation}
+                                    selectedVariation={selectedVariation}
                                     variations={variations}
                                     label="Oblibene"
                                     handleClick={this.handleVariationClick}
                                 />
-                                    {/*{*/}
-                                    {/*    variations.map((variation, index) => {*/}
-                                    {/*        return <VariationButton*/}
-                                    {/*            key={index}*/}
-                                    {/*            selected={variation.selected ? true : false}*/}
-                                    {/*            name={variation.name}*/}
-                                    {/*            regularPrice={variation.regularPrice}*/}
-                                    {/*            salePrice={variation.salePrice}*/}
-                                    {/*            description={variation.description}*/}
-                                    {/*        />*/}
-                                    {/*    })*/}
-                                    {/*}*/}
-
-
-                                <Link to={`/pokladna/${id}`}>
+                                <Link to={`/pokladna/${id}/${product.variations[selectedVariation].variationId}`}>
                                     <button className="add-to-cart">Přidat do košíku</button>
                                 </Link>
                                 <HeurekaBadge/>
@@ -141,11 +127,13 @@ export default class product extends Component {
                         </div>
 
                         <Tabs>
-                            <TabList>
-                                {tab.map((tab) => (
-                                    <Tab>{tab.name}</Tab>
-                                ))}
-                            </TabList>
+                            <div className="text-md-left text-center">
+                                <TabList>
+                                    {tab.map((tab) => (
+                                        <Tab>{tab.name}</Tab>
+                                    ))}
+                                </TabList>
+                            </div>
 
                             {tab.map((tab) => {
                                 const markup = {__html: tab.content};
