@@ -90,7 +90,7 @@
 @media screen and (max-width: 768px) {
     .popular-product-container {
         padding: 40px 15px !important;
-        margin: 0px -15px !important;
+        /*margin: 0px -15px !important;*/
     }
 
     .splide{
