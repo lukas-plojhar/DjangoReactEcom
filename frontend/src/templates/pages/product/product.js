@@ -25,8 +25,9 @@ export default class product extends Component {
             product: {
                 id: props.match.params.id,
             },
-            selectedVariation: 1,
+            selectedVariation: null,
         };
+        this.handleVariationClick = this.handleVariationClick.bind(this);
     }
 
     // Hooks
@@ -42,6 +43,15 @@ export default class product extends Component {
         });
     }
 
+    // Handlers
+    handleVariationClick = (id) => {
+        const state = this.state;
+        state.selectedVariation = id;
+        this.setState({state});
+
+        console.log(id);
+    }
+
     render() {
         if (!this.state.product.name) return <React.Fragment/>;
 
@@ -50,15 +60,13 @@ export default class product extends Component {
         const {
             id,
             name,
-            description,
             shortDescription,
             featuredImage,
             imageGallery,
-            regularPrice,
-            salePrice,
             rating,
             numberOfReviews,
             tab,
+            variations
         } = product;
 
 
@@ -99,32 +107,32 @@ export default class product extends Component {
                                 </div>
                                 <p>
                                     <small>
-                                        Balení obsahuje: {(selectedVariation + 1) * 14}x horní
-                                        pásek, {(selectedVariation + 1) * 14}x dolní pásek, stupnici
-                                        pro kontrolu bělosti, návod k použití v českém jazyce
+                                        Balení obsahuje:
                                     </small>
                                 </p>
-                                <VariationButtonGroup selected={selectedVariation}>
-                                    <VariationButton
-                                        name="2 tydenni kura"
-                                        price={regularPrice}
-                                        salePrice={salePrice}
-                                        secondPrice={36}
-                                    />
-                                    <VariationButton
-                                        label="Oblibene"
-                                        name="4 tydenni kura"
-                                        price={799}
-                                        salePrice={1399}
-                                        secondPrice={28}
-                                    />
-                                    <VariationButton
-                                        name="6 tydenni kura"
-                                        price={999}
-                                        salePrice={1999}
-                                        secondPrice={24}
-                                    />
-                                </VariationButtonGroup>
+
+
+
+                                <VariationButtonGroup
+                                    selected={selectedVariation}
+                                    variations={variations}
+                                    label="Oblibene"
+                                    handleClick={this.handleVariationClick}
+                                />
+                                    {/*{*/}
+                                    {/*    variations.map((variation, index) => {*/}
+                                    {/*        return <VariationButton*/}
+                                    {/*            key={index}*/}
+                                    {/*            selected={variation.selected ? true : false}*/}
+                                    {/*            name={variation.name}*/}
+                                    {/*            regularPrice={variation.regularPrice}*/}
+                                    {/*            salePrice={variation.salePrice}*/}
+                                    {/*            description={variation.description}*/}
+                                    {/*        />*/}
+                                    {/*    })*/}
+                                    {/*}*/}
+
+
                                 <Link to={`/pokladna/${id}`}>
                                     <button className="add-to-cart">Přidat do košíku</button>
                                 </Link>

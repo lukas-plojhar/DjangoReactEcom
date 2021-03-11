@@ -1,4 +1,4 @@
-from .models import Product, ProductImage, ProductTab
+from .models import Product, ProductVariation, ProductImage, ProductTab
 from rest_framework import serializers
 
 
@@ -14,13 +14,21 @@ class ProductTabSerializer(serializers.ModelSerializer):
         fields = ('name', 'content')
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    name = serializers.CharField()
+class ProductVariationSerializer(serializers.ModelSerializer):
     regularPrice = serializers.IntegerField(source='regular_price')
     salePrice = serializers.IntegerField(source='sale_price')
+
+    class Meta:
+        model = ProductVariation
+        fields = ('id', 'name', 'description', 'content', 'regularPrice', 'salePrice')
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
     shortDescription = serializers.CharField(source='short_description')
     numberOfReviews = serializers.CharField(source='number_of_reviews')
     stock = serializers.SerializerMethodField()
+    variations = serializers.SerializerMethodField()
 
     # Custom fields
     featuredImage = serializers.SerializerMethodField()
@@ -30,11 +38,8 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = (
-            'regular_price',
-            'sale_price',
             'description',
             'short_description',
-            'export_name',
             'is_upsell',
             'number_of_reviews'
         )
@@ -55,3 +60,7 @@ class ProductSerializer(serializers.ModelSerializer):
         tabs.append(ProductTab(name="Popis", content=obj.description))
         tabs.extend(list(ProductTab.objects.filter(product=obj)))
         return ProductTabSerializer(tabs, many=True).data
+
+    def get_variations(self, obj):
+        variations = list(ProductVariation.objects.filter(product__id=obj.id).order_by('sale_price'))
+        return ProductVariationSerializer(variations, many=True).data

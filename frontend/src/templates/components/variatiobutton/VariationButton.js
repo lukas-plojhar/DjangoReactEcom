@@ -1,66 +1,58 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "./assets/css/VariationButton.css";
 
 export const VariationButton = ({
-  selected,
-  handleClick,
-  id,
-  label,
-  name,
-  price,
-  salePrice,
-  secondPrice,
-}) => {
-  return (
-    <div
-      className={
-        selected ? "radio active" : "radio"
-      }
-      id={id}
-      onClick={handleClick}
-    >
-        {label ? <span className="top-out">{label}</span> : null}
-      <p className="text-center variation-button-text">{name}</p>
-      <p className="text-center variation-button-price">
-        {salePrice ? (
-          <b style={{ textDecoration: "line-through" }}> {salePrice},-<br/></b>
-        ) : null}
-        <b className="text-center">{price},-</b>
+                                    selected,
+                                    handleClick,
+                                    id,
+                                    label,
+                                    name,
+                                    regularPrice,
+                                    salePrice
+                                }) => {
+    return (
+        <div className={selected ? "radio active" : "radio"}
+             onClick={() => handleClick(id)}
+        >
 
-      </p>
-    </div>
-  );
+            {label ? <span className="top-out">{label}</span> : null}
+            <p className="text-center variation-button-text">{name}</p>
+            <p className="text-center variation-button-price">
+                <b style={{textDecoration: "line-through"}}> {regularPrice},-<br/></b>
+                <b className="text-center">{salePrice},-</b>
+            </p>
+        </div>
+    );
 };
 
 export class VariationButtonGroup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: this.props.selected || 1,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: this.props.selected,
+            variations: this.props.variations
+        };
+    }
 
-  handleClick = (index) => {
-    this.setState({ selected: index });
-  };
-
-  render() {
-    const { selected } = this.state;
-    return (
-      <div className="radio-group">
-        {React.Children.map(this.props.children, (child, i) => (
-          <VariationButton
-            id={i}
-            selected={i == selected ? true : false}
-            label={child.props.label}
-            name={child.props.name}
-            price={child.props.price}
-            salePrice={child.props.salePrice}
-            secondPrice={child.props.secondPrice}
-            handleClick={() => this.handleClick(i)}
-          />
-        ))}
-      </div>
-    );
-  }
+    render() {
+        const {selected, variations} = this.state;
+        return (
+            <div className="radio-group">
+                {
+                    variations.map((variation, index) => {
+                        return <VariationButton
+                            key={index}
+                            id={index}
+                            selected={index == selected}
+                            name={variation.name}
+                            regularPrice={variation.regularPrice}
+                            salePrice={variation.salePrice}
+                            description={variation.description}
+                            handleClick={this.props.handleClick}
+                        />
+                    })
+                }
+            </div>
+        );
+    }
 }
