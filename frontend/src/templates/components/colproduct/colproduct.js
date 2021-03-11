@@ -59,6 +59,7 @@ class SingleColProduct extends Component {
           </span>
                 </div>
                 <p className="product-description">{description}</p>
+                <p className="content-text">{content}</p>
                 <div className="text-center">
                     <VariationButtonGroup selected={selectedVariation}>
                         <VariationButton
@@ -79,7 +80,7 @@ class SingleColProduct extends Component {
                             secondPrice={false}
                         />
                     </VariationButtonGroup>
-                    <p className="text-center content-text">{content}</p>
+
                     <Link to={`/pokladna/${id}`}>
                         <button className="btn btn-primary">Přidat do košíku</button>
                     </Link>

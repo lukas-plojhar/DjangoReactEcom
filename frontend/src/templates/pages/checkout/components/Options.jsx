@@ -9,7 +9,7 @@ export const PaymentAndShippingOptions = ({shipping, payment, handleStateChange}
     }
 
     return <div className="payment-method">
-        <p className="text:center form-title">Způsob platby</p>
+        <h2 className="text-center">Způsob platby</h2>
         <div className="form-payment">
             <CheckoutVariationButtonGroup selected={0} name="payment">
                 <CheckoutVariationButton

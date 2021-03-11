@@ -1,3 +1,16 @@
+.usp-headline {
+    font-size: 18px;
+}
+
+.usp-subheadline {
+    color: #212529;
+    margin-bottom: 0px;
+}
+
+.usp-icon {
+    max-width: 80px;
+}
+
 .usp-container {
     width: 100%;
     padding: 60px 0px;

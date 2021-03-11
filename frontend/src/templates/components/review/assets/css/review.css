@@ -123,8 +123,8 @@
 
 .review-avatar {
     display: inline-block;
-    max-width: 130px;
-    margin-left: -13px;
+    max-width: 95px;
+    margin-left: 0px;
 }
 
 @media screen and (max-width: 768px){

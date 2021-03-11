@@ -22,9 +22,9 @@ const Product = ({id, price, imageLeft, title, headline, description, image}) =>
                     <div className="product-details d:grid">
                         <div className="content">
                             <Link to={`/produkt/${id}`}>
-                                <h1>{title}</h1>
+                                <h2>{title}</h2>
                             </Link>
-                            <h6>{headline}</h6>
+                            <h3>{headline}</h3>
                             <p>{description}</p>
                             <h3>již od {price} ,-</h3>
                             <Link to={`/produkt/${id}`}>

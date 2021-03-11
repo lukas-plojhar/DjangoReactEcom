@@ -71,6 +71,23 @@ export default class checkout extends Component {
         localStorage.setItem("teethycz", JSON.stringify(this.state.data));
     }
 
+    // Functions
+    getTotal = () => {
+        const {items} = this.state.data;
+        let total = 0;
+
+        items.forEach(item => {
+            total += item.quantity * item.product.salePrice;
+        });
+
+        total += 89; // shipping
+        total += 49; // payment
+
+        return total;
+    }
+
+
+
     // Handlers for changes
     handleCartStateChange(e) {
         const {data} = this.state;
@@ -154,7 +171,8 @@ export default class checkout extends Component {
                 <section className="checkout-container">
                     <div className="container my-4">
                         <div className="checkout-content">
-                            <p className="checkout-title">KOŠÍK</p>
+                            {/*<p className="checkout-title">KOŠÍK</p>*/}
+                            <h2 className="text-center">Košík</h2>
                             <Cart
                                 items={data.items}
                                 handleStateChange={(e) => this.handleCartStateChange(e)}
@@ -169,8 +187,8 @@ export default class checkout extends Component {
                                 </div>
                                 <div className="right-form">
                                     <div className="bill-data">
-                                        {/*<p className="text:center form-title">REKAPITULACE</p>*/}
-                                        <p className="checkout-title mt-4">OBJEDNÁVKA</p>
+                                        {/*<p className="checkout-title mt-4">OBJEDNÁVKA</p>*/}
+                                        <h2 className="text-center">Objednávka</h2>
                                         <Summary items={data.items}/>
                                     </div>
                                     <PaymentAndShippingOptions
@@ -180,9 +198,8 @@ export default class checkout extends Component {
                                             this.handlePaymentShippingChange(e)
                                         }
                                     />
-                                    <div className="total-pay d:flex flex:row">
-                                        <span><b>Celkem</b></span>
-                                        <span><b>total</b></span>
+                                    <div className="total-pay">
+                                        <h3 className="text-center">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.getTotal()},-</h3>
                                     </div>
                                     <div className="text-center">
                                         <button

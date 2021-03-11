@@ -19,9 +19,7 @@ const ProductSlide = ({
                 <div className="img-container">
                     <img src={image} alt="slider"/>
                 </div>
-                <a href="/" className="d:block">
-                    {name}
-                </a>
+                <h3>{name}</h3>
                 <div className="review-container d:flex flex:row">
                     <div className="star d:flex flex:row">
                         <Star className="star-img"/>
@@ -113,7 +111,7 @@ export default class PopularProducts extends Component {
                 style={{backgroundColor: this.props.bg}}
             >
                 <div className="popular-product-content">
-                    <h2 className="text-center mb-4 font-weight-bold">
+                    <h2 className="text-center mb-4">
                         Ostatní také zakoupili
                     </h2>
                     <Splide options={options}>

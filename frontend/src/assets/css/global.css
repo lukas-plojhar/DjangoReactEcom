@@ -16,30 +16,46 @@
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 400;
     font-size: 16px;
-    /*font-font: Nunito;*/
     text-align: left;
-    line-height: 1.42;
+    line-height: 1.4;
+}
+
+h1,h2,h3,h4 {
+    font-family: "Roboto" !important;
+}
+
+small {
+    font-size: 14px !important;
 }
 
 /* LUKAS EDIT */
 
 h1 {
+    /*font-size: 36px !important;*/
     font-size: 32px !important;
-    font-weight: 900 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.25px;
 }
 
 h2 {
-    font-size: 22px !important;
+    font-size: 24px !important;
+    /*font-size: 22px !important;*/
     font-weight: 400 !important;
+    color: #1f5bff;
+}
+
+h3 {
+    font-size: 16px !important;
+    letter-spacing: 0.15px !important;
 }
 
 button {
-    margin: 1.5rem 0 !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
+    margin: 0.5rem 0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
     text-transform: uppercase !important;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 1.25px;
 }
 
 /*del {*/
@@ -65,7 +81,8 @@ button {
 
 .btn-primary {
     min-width: 210px;
-    max-width: 60%;
+    /*max-width: 60%;*/
+    max-width: 100%;
     min-height: 58px;
     border-radius: 2em !important;
     background: #1f5bff !important;
@@ -79,9 +96,10 @@ button {
     min-height: 20px;
     padding: 7px 0px;
     margin: 30px 0 !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     text-align: center;
-    font-weight: 900 !important;
+    font-weight: 500 !important;
+    letter-spacing: 1.25px;
     color: #1f5bff;
     background: none;
     border: 2px solid #1f5bff;
@@ -539,11 +557,6 @@ button {
         padding-top: 20px !important;
     }
 
-    .multiple-product-content .product h1 {
-        font-size: 36px !important;
-        text-align: left !important;
-    }
-
     .multiple-product-content .product p {
         /*padding: 10px !important;*/
     }
@@ -581,10 +594,6 @@ button {
     .popular-product-content .splide_item button {
         font-size: 12px !important;
         min-height: 48px;
-    }
-
-    .footer-content {
-        padding-top: 50px !important;
     }
 
     .footer-content .footer-menu {

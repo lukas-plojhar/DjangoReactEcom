@@ -65,7 +65,13 @@
 }
 
 .bill-data {
-    margin-bottom: 20px;
+    background: rgb(248, 249, 250) !important;
+    padding: 20px 15px 20px 15px;
+    margin: 0px -15px 30px -15px;
+}
+
+.row-total {
+    border: none !important;
 }
 
 .radio-box {
@@ -91,8 +97,8 @@
 }
 
 .payment-method {
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
+    /*padding-bottom: 15px;*/
+    /*border-bottom: 1px solid #ddd;*/
 }
 
 .total-pay {
@@ -295,6 +301,7 @@
         padding-right: 0px !important;
         border-right: none !important;
         height: auto !important;
+        margin-bottom: 30px;
     }
 
     .input-with-label input {
@@ -310,7 +317,7 @@
 
 .payment > .radio {
     width: 48% !important;
-    padding: 30px 0;
+    padding: 20px 0;
 }
 
 .payment > .radio.active {
@@ -359,9 +366,10 @@
     margin: 0 5px 0 0 !important;
 }
 
-.btn-order {
-    width: 100%;
-    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.5) !important
+.btn-payment {
+    font-size: 13px !important;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
 }
 
 /*# sourceMappingURL=checkout.css.map */

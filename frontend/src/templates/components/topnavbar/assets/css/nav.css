@@ -3,6 +3,10 @@
   max-width: 90px;
 }
 
+.nav-link {
+  color: #212529 !important;
+}
+
 .sticky {
   position: fixed;
   top: 0px;

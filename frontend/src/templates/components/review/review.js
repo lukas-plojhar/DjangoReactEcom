@@ -75,10 +75,10 @@ export default class review extends Component {
       >
         <div className="container">
           <div className="review-content">
-            <div className="top-header d:flex flex:row">
-              <h1 className="text:center sm:text:left review-headline">
+            <div className="top-header">
+              <h2 className="text-center review-headline">
                 Ohlasy našich zákazníků
-              </h1>
+              </h2>
               {/*<div className="right-header d:grid">*/}
               {/*  <span className="d:block">*/}
               {/*    Více než <b>1,000</b> hodnocení*/}
