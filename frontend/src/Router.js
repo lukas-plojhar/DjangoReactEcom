@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
 
-
 // Pages
 import home from "./templates/pages/home/home";
 import product from "./templates/pages/product/product";

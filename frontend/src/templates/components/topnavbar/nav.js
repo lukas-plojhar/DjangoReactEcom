@@ -45,7 +45,7 @@ export default class nav extends Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                {/* <nav id="navbar" className="top-navbar">
+                {/* <nav id="navigation" className="top-navigation">
           <div className="container">
             <div className="nav d:none sm:d:grid ">
               <Link to="/">
