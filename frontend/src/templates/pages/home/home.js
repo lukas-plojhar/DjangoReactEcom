@@ -48,16 +48,16 @@ export default class home extends Component {
                   </p>
                   <div className="row">
                     <div className="col-12 col-sm-6 text-center">
-                      <Link to="/obchod">
+                      <Link to="/#katalog">
                         <button className="btn btn-primary">
                           Chci bílé zuby
                         </button>
                       </Link>
                     </div>
                     <div className="col-12 col-sm-6 text-center mobile-hide">
-                      <a href="/#katalog">
+                      <Link to="/obchod">
                         <button className="btn-underline">zjistit více</button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -79,7 +79,8 @@ export default class home extends Component {
             <div className="container">
                 <div className="multiple-product-content d:flex flex:col sm:flex:row">
                     <SingleColProduct id="6"/>
-                    {/*<SingleColProduct id={6}/>*/}
+                    <hr className="d-md-none mb-5"/>
+                    <SingleColProduct id="1"/>
                 </div>
             </div>
         </div>

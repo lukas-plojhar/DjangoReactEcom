@@ -367,6 +367,10 @@ div.context-container > h1 {
     .react-tabs__tab-list {
         text-align: center;
     }
+
+    .context-container .product-intro {
+        margin-top: 10px !important;
+    }
 }
 
 

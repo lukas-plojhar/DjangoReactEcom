@@ -26,13 +26,14 @@ export class CheckoutVariationButtonGroup extends Component {
         const {selected} = this.state;
         return <div className="radio-group text-center payment ">
             {React.Children.map(this.props.children, (child, i) =>
-                <CheckoutVariationButton
-                    id={i}
-                    selected={i == selected ? true : false}
-                    label={child.props.label}
-                    price={child.props.price}
-                    handleClick={() => this.handleClick(i)}
-                />)}
+                <div className={i == selected ? "radio active text-center" : "radio text-center"}
+                     id={i} onClick={() => this.handleClick(i)}>
+                    {/*{child.props.label ? <span className="top-out">{child.props.label ? child.props.label : ""}</span> : ""}*/}
+                    <span className="text-center btn-payment">{child.props.label} {child.props.price ?
+                        <span>+{child.props.price},-</span> : ""}</span>
+
+                </div>
+            )}
         </div>
     }
 }

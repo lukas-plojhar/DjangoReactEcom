@@ -33,10 +33,10 @@ const RadioInput = ({label, name, value, checked, handleChange, price}) => {
 
                 <label className="radio-button">
                     <div className="col-8 px-0 d-inline-block">
-                        {label}
+                        {label}<br/>
                     </div>
                     <div className="col-4 d-inline-block text-right">
-                        <b>{price ? `${price},-` : ''}</b>
+
                     </div>
                     <input
                         onChange={handleChange}

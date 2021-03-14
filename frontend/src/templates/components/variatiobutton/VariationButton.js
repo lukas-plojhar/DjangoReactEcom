@@ -20,8 +20,8 @@ export const VariationButton = ({
             <p className="text-center variation-button-price">
                 {/*<b style={{textDecoration: "line-through"}}> {regularPrice},-<br/></b>*/}
                 {/*<b className="text-center">{id+1}x </b>{salePrice / (id+1)},-*/}
-                <span className="regular-price" style={{fontSize: 20}}>{regularPrice} ,-</span><br/>
-                <span className="sale-price" style={{fontSize: 16}}>{salePrice} ,-</span><br/>
+                {/*<span className="regular-price" style={{fontSize: 20}}>{regularPrice} ,-</span><br/>*/}
+                <span className="sale-price" style={{fontSize: 16}}><b>{id + 1}x</b> {salePrice/id} ,-</span><br/>
             </p>
         </div>
     );

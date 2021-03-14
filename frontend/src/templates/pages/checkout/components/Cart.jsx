@@ -1,17 +1,12 @@
-import React, {Component} from "react";
-import axios from 'axios';
+import React from "react";
 import {API} from "../../../../Globals";
+import {CSSTransition, TransitionGroup,} from 'react-transition-group';
+
 
 const Cart = ({items, handleStateChange}) => {
     // Functions
     const getVariationName = (item) => {
-        let {variationId, product} = item;
-        let name;
-
-        product.variations.forEach(variation => {
-            if (variation.variationId == variationId) name = variation.name;
-        });
-        return name;
+        return item.product.variations[item.variationId].name;
     }
 
     const removeItem = (index) => {
@@ -32,47 +27,46 @@ const Cart = ({items, handleStateChange}) => {
     }
 
     const getItemPrice = (item) => {
-        let price = 0;
-
-        item.product.variations.forEach(variation => {
-            if (variation.variationId == item.variationId) price = item.quantity * variation.salePrice;
-        });
-
-        return price;
+        return item.product.variations[item.variationId].salePrice;
     }
 
     return items ? <div className="product-list">
         <table className="product-list-item">
             <tbody>
-            {
-                items !== undefined && items.length > 0 && items.map((item, index) => (
-                    <tr key={index}>
-                        <td>
-                            <div className="d:flex flex:row align-center">
-                                <img src={API + item.product.featuredImage[0].image}
-                                     style={{'maxWidth': 200}}/></div>
-                        </td>
-                        <td>
-                            <div className="name">
-                                {item.product.name} x <b>{item.quantity}</b><br/>
-                                {getVariationName(item)}<br/>
-                                {getItemPrice(item)},-
-                            </div>
-                            <div className="quantity">
-                                <button name="decrease" onClick={() => decreaseQuantity(index)}> -</button>
-                                <button name="increase" onClick={() => increaseQuantity(index)}> +</button>
-                            </div>
+            <TransitionGroup>
+                {items.map((item, index) => (
+                    <CSSTransition timeout={350} classNames="item" key={index}>
+                        <div>
+                            <tr>
+                                <td>
+                                    <div className="d:flex flex:row align-center">
+                                        <img src={API + item.product.featuredImage[0].image}
+                                             style={{'maxWidth': 200}}/></div>
+                                </td>
+                                <td>
+                                    <div className="name">
+                                        {item.product.name} x <b>{item.quantity}</b><br/>
+                                        {getVariationName(item)}<br/>
+                                        {getItemPrice(item)},-
+                                    </div>
+                                    <div className="quantity">
+                                        <button name="decrease" onClick={() => decreaseQuantity(index)}> -</button>
+                                        <button name="increase" onClick={() => increaseQuantity(index)}> +</button>
+                                    </div>
 
-                            <div className="price">
-                                {item.product.regularPrice} {item.product.salePrice}
-                            </div>
-                        </td>
-                        <td>
-                            <button className="btn-remove" onClick={() => removeItem(index)}>X</button>
-                        </td>
-                    </tr>
-                ))
-            }
+                                    <div className="price">
+                                        {item.product.regularPrice} {item.product.salePrice} / ks
+                                    </div>
+                                </td>
+                                <td>
+                                    <button className="btn-remove" onClick={() => removeItem(index)}>X</button>
+                                </td>
+                            </tr>
+                        </div>
+                    </CSSTransition>
+                ))}
+                {}
+            </TransitionGroup>
             </tbody>
         </table>
     </div> : <React.Fragment/>

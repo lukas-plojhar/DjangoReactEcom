@@ -33,10 +33,18 @@
     grid-column-gap: 20px;
 }
 
+.input-with-label {
+    margin-bottom: 15px;
+}
+
+.input-group {
+    padding: 10px 0;
+}
+
 .input-with-label label {
     font-weight: bold;
     /*font-size: 14px;*/
-    margin-bottom: 10px;
+    margin: 0 0 5px 2px;
 }
 
 .input-with-label input {
@@ -66,7 +74,7 @@
 
 .bill-data {
     background: rgb(248, 249, 250) !important;
-    padding: 20px 15px 20px 15px;
+    padding: 40px 15px 40px 15px;
     margin: 0px -15px 30px -15px;
 }
 
@@ -159,6 +167,19 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+p.input-error-text {
+    color: red !important;
+    font-size: 13px !important;
+    margin-top: 10px;
+}
+
+p.input-error-text:before {
+    content: "X";
+    color: red !important;
+    font-size: 13px !important;
+    margin: 0 5px 0 2px;
 }
 
 @media screen and (max-width: 768px) {
@@ -301,7 +322,7 @@
         padding-right: 0px !important;
         border-right: none !important;
         height: auto !important;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     .input-with-label input {
@@ -342,7 +363,7 @@
     color: #666666;
 }
 
-.name{
+.name {
     margin-bottom: 15px;
 }
 
@@ -370,6 +391,10 @@
     font-size: 13px !important;
     letter-spacing: 1.25px;
     text-transform: uppercase;
+}
+
+.upsell-container {
+    margin: 0px -15px !important;
 }
 
 /*# sourceMappingURL=checkout.css.map */

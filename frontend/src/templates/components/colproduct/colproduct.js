@@ -65,10 +65,10 @@ class SingleColProduct extends Component {
                 </div>
                 <p className="product-description">{shortDescription}</p>
                 <p className="content-text">Balení obsahuje: {variations[selectedVariation].content}</p>
-                {/*<p className="text-center">*/}
-                {/*    <span className="regular-price">{variations[selectedVariation].regularPrice} ,-</span><br/>*/}
-                {/*    <span className="sale-price">{variations[selectedVariation].salePrice} ,-</span><br/>*/}
-                {/*</p>*/}
+                <p className="text-center">
+                    <span className="regular-price">{variations[selectedVariation].regularPrice} ,-</span><br/>
+                    <span className="sale-price">{variations[selectedVariation].salePrice} ,-</span><br/>
+                </p>
                 <div className="text-center">
                     <VariationButtonGroup
                         selectedVariation={selectedVariation}
@@ -76,7 +76,7 @@ class SingleColProduct extends Component {
                         label="Oblíbené"
                         handleClick={this.handleVariationClick}
                     />
-                    <Link to={`/pokladna/${id}`}>
+                    <Link to={`/pokladna/${id}/${selectedVariation}`}>
                         <button className="btn btn-primary">Přidat do košíku</button>
                     </Link>
                 </div>

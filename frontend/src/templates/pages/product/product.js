@@ -17,6 +17,8 @@ import HeurekaBadge from "./components/HeurekaBadge";
 import PopularProducts from "../../components/popularProducts/PopularProducts";
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import Skeleton from "react-loading-skeleton";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 export default class product extends Component {
     constructor(props) {
@@ -40,7 +42,7 @@ export default class product extends Component {
             ...data
         };
 
-        if (state.product.variations.length == 1) {
+        if (state.product.variations.length === 1) {
             state.selectedVariation = 0;
         }
 
@@ -56,7 +58,7 @@ export default class product extends Component {
     }
 
     render() {
-        if (!this.state.product.name) return <React.Fragment/>;
+        if (!this.state.product.variations) return <React.Fragment/>;
 
         // Data
         const {selectedVariation, product} = this.state;
@@ -95,31 +97,41 @@ export default class product extends Component {
                                 <ThumbnailSlider images={images}/>
                             </div>
                             <div className="context-container col-12 col-md-6">
-                                <h1 className="product-name">{name}</h1>
+                                <h1 className="product-name">{name || <Skeleton/>}</h1>
                                 <div className="star-review d:flex flex:row">
                                     <div className="d:flex flex:row">
                                         <Star className="star-icon"/>
                                     </div>
-                                    <span className="rv-span">({rating}) / {numberOfReviews} hodnocení</span>
+                                    <span className="rv-span">({rating || <Skeleton/>}) / {numberOfReviews ||
+                                    <Skeleton/>} hodnocení</span>
                                 </div>
                                 <div className="mobile-slider d-md-none">
                                     <ThumbnailSlider images={images}/>
                                 </div>
                                 <div className="product-intro">
-                                    <p>{shortDescription}</p>
+                                    <p>{shortDescription || <Skeleton/>}</p>
                                 </div>
-                                <p className="text-center text-md-left">
-                                    <small>
-                                        Balení obsahuje: {variations[selectedVariation].content}
-                                    </small>
-                                </p>
+                                <TransitionGroup>
+                                    <CSSTransition key={variations[selectedVariation].content}
+                                                   timeout={350}
+                                                   classNames="replace">
+                                        <div>
+                                            <p className="text-left">
+                                                <small>
+                                                    Balení obsahuje: {variations[selectedVariation].content ||
+                                                <Skeleton/>}
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </CSSTransition>
+                                </TransitionGroup>
                                 <VariationButtonGroup
                                     selectedVariation={selectedVariation}
                                     variations={variations}
                                     label="Oblibene"
                                     handleClick={this.handleVariationClick}
                                 />
-                                <Link to={`/pokladna/${id}/${product.variations[selectedVariation].variationId}`}>
+                                <Link to={`/pokladna/${id}/${selectedVariation}`}>
                                     <button className="add-to-cart">Přidat do košíku</button>
                                 </Link>
                                 <HeurekaBadge/>
@@ -130,7 +142,7 @@ export default class product extends Component {
                             <div className="text-md-left text-center">
                                 <TabList>
                                     {tab.map((tab) => (
-                                        <Tab>{tab.name}</Tab>
+                                        <Tab>{tab.name || <Skeleton/>}</Tab>
                                     ))}
                                 </TabList>
                             </div>

@@ -6,22 +6,14 @@ const Summary = ({items, handleClick, isFormValid}) => {
         let total = 0;
 
         items.forEach(item => {
-            item.product.variations.forEach(variation => {
-                if (variation.variationId == item.variationId) total += variation.salePrice;
-            })
+            total += item.product.variations[item.variationId].salePrice * item.quantity;
         });
 
         return total;
     }
 
     const getProductPrice = (item) => {
-        let price = 0;
-
-        item.product.variations.forEach(variation => {
-            if (variation.variationId == item.variationId) price = variation.salePrice;
-        });
-
-        return price;
+        return item.product.variations[item.variationId].salePrice * item.quantity;
     }
 
     return <div className="bill-rows">

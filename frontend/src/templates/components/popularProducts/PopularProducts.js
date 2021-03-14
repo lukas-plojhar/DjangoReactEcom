@@ -3,40 +3,7 @@ import "./assets/css/popularProducts.css";
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import {ReactComponent as Star} from "./assets/svg/star.svg";
-
-const ProductSlide = ({
-                          image,
-                          name,
-                          regularPrice,
-                          salePrice,
-                          rating,
-                          numberOfReview,
-                          description
-                      }) => {
-    return (
-        <SplideSlide>
-            <div className="splide_item">
-                <div className="img-container">
-                    <img src={image} alt="slider"/>
-                </div>
-                <h3>{name}</h3>
-                <div className="review-container">
-                    <div className="star d:flex flex:row">
-                        <Star className="star-img"/>
-                        <span className="rv-span">{rating} / ({numberOfReview})</span>
-                    </div>
-                </div>
-                <p>{description}</p>
-                <p className="text-center">
-                    <span className="regular-price">{regularPrice} ,-</span><br/>
-                    <span className="sale-price">{salePrice} ,-</span><br/>
-                    <button className="btn-underline">více informací</button>
-                </p>
-
-            </div>
-        </SplideSlide>
-    );
-};
+import {Link} from "react-router-dom";
 
 export default class PopularProducts extends Component {
     constructor(props) {
@@ -48,8 +15,9 @@ export default class PopularProducts extends Component {
                     name: "Belici zubni pudr",
                     regularPrice: 499,
                     salePrice: 299,
-                    featuredImage:
-                        "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                    featuredImage: [
+                        "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png"
+                    ],
                     shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
                 },
                 {
@@ -57,8 +25,9 @@ export default class PopularProducts extends Component {
                     name: "Belici zubni pero",
                     regularPrice: 299,
                     salePrice: 149,
-                    featuredImage:
+                    featuredImage: [
                         "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                    ],
                     shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
                 },
                 {
@@ -66,8 +35,9 @@ export default class PopularProducts extends Component {
                     name: "Belici zubni pero",
                     regularPrice: 299,
                     salePrice: 149,
-                    featuredImage:
+                    featuredImage: [
                         "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                    ],
                     shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
                 },
             ],
@@ -86,46 +56,61 @@ export default class PopularProducts extends Component {
         const options = {
             rewind: true,
             perPage: 3,
-            gap: "1rem",
+            // gap: "1rem",
             pagination: false,
             arrows: false,
             breakpoints: {
                 768: {
-                    perPage: 1,
-                    gap: "0rem",
+                    perPage: 2,
+                    // gap: "0rem",
                 },
                 1024: {
                     perPage: 2,
                 },
             },
             padding: {
-                right: "3rem",
+                // right: "3rem",
             },
             perMove: 1,
         };
 
+        if (products.length == 0) return <React.Fragment/>
         return (
             <div
                 className="popular-product-container container"
                 style={{backgroundColor: this.props.bg}}
             >
-                <div className="popular-product-content col-12">
-                    <h2 className="text-center text-sm-left mb-4">
+                <div className="popular-product-content pt-4">
+                    <h1 className="text-center text-sm-left mb-4">
                         Ostatní také zakoupili
-                    </h2>
+                    </h1>
                     <Splide options={options}>
-                        {products.map((product, index) => {
+                        {products.map((product, i) => {
                             return (
-                                <ProductSlide
-                                    key={index}
-                                    image={product.featuredImage}
-                                    name={product.name}
-                                    description={product.shortDescription}
-                                    regularPrice={product.regularPrice}
-                                    salePrice={product.salePrice}
-                                    rating={product.rating || 4.8}
-                                    numberOfReview={product.numberOfReviews || 905}
-                                />
+                                <SplideSlide>
+                                    <div className="splide_item" key={i}>
+                                        <div className="img-container">
+                                            <img src={product.featuredImage[0]} alt="slider"/>
+                                        </div>
+                                        <h3>{product.name}</h3>
+                                        <div className="review-container">
+                                            <div className="star d:flex flex:row">
+                                                <Star className="star-img"/>
+                                                <span
+                                                    className="rv-span">{product.rating || 4.8} / ({product.numberOfReview || 905})</span>
+                                            </div>
+                                        </div>
+                                        <p>{product.shortDescription}</p>
+                                        <p className="text-center">
+                                            <span className="regular-price">{product.regularPrice} ,-</span><br/>
+                                            <span className="sale-price">{product.salePrice} ,-</span><br/>
+                                            <a href={`/produkt/${product.id}`}>
+                                                <button className="btn-underline">více informací</button>
+                                            </a>
+                                        </p>
+
+                                    </div>
+                                </SplideSlide>
                             );
                         })}
                     </Splide>

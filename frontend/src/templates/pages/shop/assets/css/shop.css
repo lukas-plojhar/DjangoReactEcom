@@ -39,15 +39,7 @@
     color: #fff;
     text-decoration: none;
     /*font-size: 21px;*/
-}
-
-.product-content .product-details .content a:hover {
-    color: #1f5bff;
-    border: 2px solid #1f5bff;
-    background-color: #fff;
-    /*font-size: 18px;*/
-    font-weight: 600;
-    padding: 15px 30px;
+    transition: 0.3s;
 }
 
 .product-content .product-img img {
@@ -63,10 +55,10 @@
 }
 
 .shop-container {
-        padding: 40px 0 !important;
-    }
+    padding: 40px 0 !important;
+}
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .shop-container {
         padding: 20px 0 !important;
     }

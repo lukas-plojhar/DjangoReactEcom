@@ -25,15 +25,16 @@ export default class checkout extends Component {
         };
 
         this.getTotal = this.getTotal.bind(this);
+        this.getSubtotal = this.getSubtotal.bind(this);
         this.addToCart = this.addToCart.bind(this);
     }
 
     // Hooks
     componentDidMount() {
-        if (!this.props.match.params.productId || !this.props.match.params.variationId) return;
+        if (!this.props.match.params.productId) return;
 
         let productId = this.props.match.params.productId;
-        let variationId = this.props.match.params.variationId;
+        let variationId = this.props.match.params.variationId || 0;
         this.addToCart(productId, variationId);
     }
 
@@ -46,50 +47,67 @@ export default class checkout extends Component {
         const {items} = this.state.data;
         let total = 0;
 
-        items.forEach(item => {
-            item.product.variations.forEach(variation => {
-                if (variation.variationId == item.variationId) total += variation.salePrice;
-            })
-        });
+        if (items.length > 0) {
+            items.forEach(item => {
+                total += item.product.variations[item.variationId].salePrice * item.quantity;
+            });
 
-        total += 89; // shipping
-        total += 49; // payment
+            total += 89; // shipping
+            total += 49; // payment
 
-        return total;
+            return total;
+        }
+
     }
 
-    async addToCart(productId, variationId) {
-        console.log(productId, variationId);
+    getSubtotal = () => {
+        const {items} = this.state.data;
+        let total = 0;
+
+        if (items.length > 0) {
+            items.forEach(item => {
+                total += item.product.variations[item.variationId].salePrice * item.quantity;
+            });
+
+            return total;
+        }
+    }
+
+    async addToCart(productId, variationId = 0) {
+        console.log(productId + " , " + variationId);
         let {items} = this.state.data;
+        let isInCart = false;
 
-        // Is already in cart?
-        if (items) {
-            const duplicates = items.filter(
-                (item) => item.variationId == variationId
-            );
-
-            if (duplicates.length > 0) {
-                items.forEach((item) => {
-                    if (item.variationId == variationId) item.quantity++;
-                });
-            } else {
-                const config = {
-                    // 'headers': {
-                    //     'Access-Control-Allow-Origin': '*'
-                    // }
-                };
-                const product = await axios
-                    .get(`${API}/products/${productId}`, config)
-                    .then((response) => response.data);
-
-                items.push({
-                    product: product,
-                    quantity: 1,
-                    variationId: variationId
-                });
+        for (let i = 0; i < items.length; i++) {
+            console.log('Searching ...');
+            if (items[i].product.id == productId && items[i].variationId == variationId) {
+                items[i].quantity++;
+                isInCart = true;
+                console.log('Match found');
+                break;
             }
         }
-        // Saving the data
+
+        if (!isInCart) {
+            console.log('Fetching API ...');
+            const config = {
+                // 'headers': {
+                //     'Access-Control-Allow-Origin': '*'
+                // }
+            };
+            const product = await axios
+                .get(`${API}/products/${productId}`, config)
+                .then((response) => response.data);
+
+            items.push({
+                product: product,
+                quantity: 1,
+                variationId: variationId
+            });
+        }
+
+        // Save data
+        console.log('Saving results');
         const {data} = this.state;
         data.items = items;
         this.setState({data});
@@ -144,9 +162,12 @@ export default class checkout extends Component {
         this.setState({data});
     }
 
+    // Rendering
     render() {
-        const {data} = this.state;
-        if (!data) return <React.Fragment/>
+        const {data, errors} = this.state;
+        const {items, customer, shipping, payment} = data;
+        if (data.items.length == 0) return <React.Fragment/>
+        if (!data.items.length) return <React.Fragment/>
         return (
             <div>
                 <section className="checkout-container">
@@ -154,38 +175,60 @@ export default class checkout extends Component {
                         <div className="checkout-content">
                             {/*<p className="checkout-title">KOŠÍK</p>*/}
                             <h2 className="text-center">Košík</h2>
+
                             <Cart
-                                items={data.items}
+                                items={items}
                                 handleStateChange={(e) => this.handleCartStateChange(e)}
                             />
+
                             <Upsells addToCart={this.addToCart}/>
+
                             <div className="form-container d:grid">
                                 <div className="left-form">
+                                    <h2 className="text-center">Doručovací adresa</h2>
                                     <Form
-                                        customer={data.customer}
+                                        customer={customer}
                                         handleChange={(e) => this.handleFormChange(e)}
                                     />
                                 </div>
+
                                 <div className="right-form">
                                     <div className="bill-data">
-                                        {/*<p className="checkout-title mt-4">OBJEDNÁVKA</p>*/}
                                         <h2 className="text-center">Objednávka</h2>
-                                        <Summary items={data.items}/>
+                                        <div className="bill-rows">
+                                            {items.map((item, index) => (
+                                                <div className="bill d:flex flex:row" key={index}>
+                                                    <span>{item.product.name} <b>x {item.quantity}</b></span>
+                                                    <span>{item.product.variations[item.variationId].salePrice * item.quantity},-</span>
+                                                </div>
+                                            ))}
+                                            <div className="bill d:flex flex:row row-bold">
+                                                <span><b>Mezisoučet: </b></span>
+                                                <span><b>{this.getSubtotal()},-</b></span>
+                                            </div>
+
+                                            <div className="bill d:flex flex:row row-total">
+                                                <span><b>Poštovné: </b></span>
+                                                <span><b><span>Česká pošta:  </span> + 89,-</b></span>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <PaymentAndShippingOptions
-                                        shipping={data.shipping}
-                                        payment={data.payment}
+                                        shipping={shipping}
+                                        payment={payment}
                                         handleStateChange={(e) =>
                                             this.handlePaymentShippingChange(e)
                                         }
                                     />
                                     <div className="total-pay">
-                                        <h3 className="text-center">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {this.getTotal()},-</h3>
+                                        <h3 className="text-center">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()},-</h3>
                                     </div>
                                     <div className="text-center">
                                         <button
                                             className="btn btn-primary btn-order"
                                             onClick={(e) => this.handleNewOrder(e)}
+                                            disabled={errors.length == 0}
                                         >
                                             OBJEDNAT
                                         </button>
