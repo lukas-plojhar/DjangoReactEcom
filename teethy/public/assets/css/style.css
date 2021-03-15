@@ -1,9 +1,11 @@
+/* Bootstrap override */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Poppins" !important;
     background: -webkit-linear-gradient(315deg, #3d7aef, #2b4be4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .btn {
     font-family: "Poppins" !important;
     font-weight: 300;
@@ -16,10 +18,52 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 
-/*Propsat do templatu
+.navbar {
+    padding: 0.75rem 1rem;
+}
 
-line height: 1.15 v body
+.navbar-toggler {
+    font-size: 1rem;
+}
 
+/* Custom classes */
+.section-rounded {
+    padding: 0 15px;
+}
 
+.bg-gradient {
+    background: linear-gradient(315deg, #3d7aef, #2b4be4);
+}
 
-*/
+.bg-rounded {
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body > section.section-rounded > div > div > div > p, h3, h4 {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    font-weight: 300;
+}
+
+/*Image Slider*/
+.image-gallery {
+    margin-bottom: 2rem;
+}
+
+.image-gallery-image {
+    border-radius: 1rem;
+}
+
+.image-gallery-thumbnail-image {
+    border-radius: 0.25rem;
+}
+
+.image-gallery-thumbnail.active {
+    border: 3px solid #2b4be4;
+    border-radius: 0.5rem;
+}
+
+.image-gallery-slide-wrapper {
+    margin-bottom: 1rem;
+}

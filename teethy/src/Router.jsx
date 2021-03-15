@@ -3,7 +3,7 @@ import {Route, Switch, BrowserRouter} from "react-router-dom";
 import Navigation from "./common/Navigation";
 import Homepage from "./homepage/Homepage";
 import SingleProductPage from "./product/SingleProductPage";
-import Footer from "./common/Footer";
+import {BigFooter} from "./common/Footer";
 
 class Router extends Component {
     render() {
@@ -25,8 +25,7 @@ class Router extends Component {
                         <Route path="/" component={Homepage}/>
                     </Switch>
                 </BrowserRouter>
-                <Footer/>
-
+                <BigFooter/>
                 </body>
             </React.Fragment>
         );

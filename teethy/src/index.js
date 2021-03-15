@@ -4,7 +4,8 @@ import reportWebVitals from './reportWebVitals';
 import Router from "./Router";
 
 // CSS imports
-import "react-image-gallery/styles/css/image-gallery.css"
+import "react-image-gallery/styles/css/image-gallery.css";
+import 'swiper/swiper.scss';
 
 ReactDOM.render(<Router/>, document.getElementById('root'));
 

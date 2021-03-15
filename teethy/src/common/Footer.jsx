@@ -1,26 +1,34 @@
 import React from 'react';
+import {ProductCarousel, ReviewCarousel} from "./Carousel";
 
-const Footer = () => {
-    return <footer className="footer-clean mt-3">
+// Footer
+export const Footer = () => {
+    return <footer className="footer-clean mt-1">
         <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-sm-4 col-md-3 item">
+            <div className="row text-left">
+                <div className="col-6 col-md-4">
+                    <h3>something</h3>
                     <ul>
                         <li><a href="#">Web design</a></li>
                         <li><a href="#">Development</a></li>
                         <li><a href="#">Hosting</a></li>
                     </ul>
                 </div>
-                <div className="col-sm-4 col-md-3 item">
-                    <h3>Careers</h3>
+                <div className="col-6 col-md-4">
+                    <h3>something</h3>
                     <ul>
-                        <li><a href="#">Job openings</a></li>
-                        <li><a href="#">Employee success</a></li>
-                        <li><a href="#">Benefits</a></li>
+                        <li><a href="#">Web design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Hosting</a></li>
                     </ul>
                 </div>
-                <div className="col-lg-3 item social"><a href="#"><i className="icon ion-social-facebook"></i></a><a
-                    href="#"><i className="icon ion-social-instagram"></i></a>
+                <div className="col-12 col-md-4 social">
+                    <a href="#">
+                        <i className="icon ion-social-facebook"></i>
+                    </a>
+                    <a href="#">
+                        <i className="icon ion-social-instagram"></i>
+                    </a>
                     <p className="copyright">Teethy.cz © 2021</p>
                 </div>
             </div>
@@ -30,4 +38,28 @@ const Footer = () => {
     </footer>
 }
 
-export default Footer;
+// Footer with reviews and products
+export const BigFooter = () => {
+    return <React.Fragment>
+        {/*Related products*/}
+        <section className="bg-light text-center py-2 py-md-3">
+            <div className="container">
+                <div className="row">
+                    <ProductCarousel items={null}/>
+                </div>
+            </div>
+        </section>
+
+        {/*Reviews*/}
+        <section className="bg-gradient text-center py-2 py-md-3">
+            <div className="container">
+                <div className="row">
+                    <ReviewCarousel items={null}/>
+                </div>
+            </div>
+        </section>
+
+        {/*Regular footer*/}
+        <Footer/>
+    </React.Fragment>
+}

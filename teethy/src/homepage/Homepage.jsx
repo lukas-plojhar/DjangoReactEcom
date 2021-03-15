@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import Skeleton from "react-loading-skeleton";
+import VariationsButtonGroup from "../common/VariationsButtonGroup";
 
 const Homepage = () => {
     const images = [
@@ -19,17 +20,15 @@ const Homepage = () => {
     ];
 
     return <React.Fragment>
-        <section className="py-2 my-2">
+        <section className="py-1 my-1 py-md-2 my-md-2">
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 text-center">
-                        <h1>Chceš úsměv jako<br/>hollywoodská
-                            hvězda?</h1>
-                        <p>Vrať svým zubům jejich přirozenou bělost a<br/>pevnost.
-                            Jednoduše, rychle a za pár korun.</p>
-                        <div className="row mt-2 mb-3">
+                        <h1>Chceš úsměv jako hollywoodská hvězda?</h1>
+                        <p>Vrať svým zubům jejich přirozenou bělost a pevnost. Jednoduše, rychle a za pár korun.</p>
+                        <div className="row mt-2 mb-2 mb-md-3">
                             <div className="col">
-                                <button className="btn btn-primary mr-1" type="button">Mam zajem</button>
+                                <button className="btn btn-primary mr-md-1" type="button">Mám zájem</button>
                                 <button className="btn btn-link" type="button">zjistit vice</button>
                             </div>
                         </div>
@@ -41,9 +40,9 @@ const Homepage = () => {
         </section>
 
 
-        <section className="text-center py-2 my-2 bg-light">
-            <div className="container">
-                <div className="row my-2">
+        <section className="text-center py-1 my-2 section-rounded">
+            <div className="container bg-gradient bg-rounded pt-2 pb-3 p-md-3">
+                <div className="row py-2">
                     <div className="col">
                         <h4 className="text-center"><strong>K zubaři už nemusíš. Do jediné krabičky jsme vložili
                             vše, co tvé zuby potřebují: koncentrovaný gel plný minerálů a přírodních extraktů i UV
@@ -77,71 +76,7 @@ const Homepage = () => {
         <section className="py-2 my-2">
             <div className="container text-left text-center text-md-center text-lg-left text-xl-left">
                 <div className="row">
-                    <div className="col col-12- col-md-6">
-
-                        <ImageGallery
-                            items={images || <Skeleton/>}
-                            thumbnailPosition="bottom"
-                            lazyLoad={true}
-                            showNav={true}
-                            showPlayButton={false}
-                            showFullscreenButton={false}
-                            useBrowserFullscreen={false}
-                        />
-
-                        <h3 className="text-center text-md-left"><strong>Sada na bělení
-                            zubů
-                            s UV světlem</strong><br/></h3>
-                        <p className="text-center text-md-left">Získej bílé zuby jako z
-                            plakátu – jednoduše, bez bolesti a za pouhých 16 minut. Bělicí sada od iDentu obsahuje
-                            koncentrovaný gel a profesionální UV světlo urychlující vstřebávání účinných látek. Kvalita
-                            a
-                            výsledky jsou pro nás na prvním místě, celou bělicí sadu proto vyrábíme přímo v České
-                            republice.</p><small className="text-center text-md-left">Sada obsahuje: náustek se 16
-                        diodami z lékařského silikonu, tři bělicí
-                        pera
-                        o objemu 2 ml, adaptér pro Android a iPhone (microUSB, USB-C, Apple Lightning), stupnice pro
-                        kontrolu bělosti, návod k použití v češtině</small>
-                        <div className="btn-group d-block mt-2" role="group">
-                            <button className="btn btn-primary" type="button">Button 1</button>
-                            <button className="btn btn-primary" type="button">Button 2</button>
-                            <button className="btn btn-primary" type="button">Button 2</button>
-                        </div>
-                        <button className="btn btn-primary d-block mt-3" type="button">Button</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section className="bg-light text-center py-3">
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <div className="carousel slide" data-ride="carousel" id="carousel-2">
-                            <div className="carousel-inner">
-                                <div className="carousel-item active"><img className="w-100 d-block"
-                                                                           src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
-                                                                           alt="Slide Image"/></div>
-                                <div className="carousel-item"><img className="w-100 d-block"
-                                                                    src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
-                                                                    alt="Slide Image"/></div>
-                                <div className="carousel-item"><img className="w-100 d-block"
-                                                                    src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
-                                                                    alt="Slide Image"/></div>
-                            </div>
-                            <div><a className="carousel-control-prev" href="/" role="button"
-                                    data-slide="prev"><span className="carousel-control-prev-icon"/><span
-                                className="sr-only">Previous</span></a><a className="carousel-control-next"
-                                                                          href="/" role="button"
-                                                                          data-slide="next"><span
-                                className="carousel-control-next-icon"/><span className="sr-only">Next</span></a>
-                            </div>
-                            <ol className="carousel-indicators">
-                                <li data-target="#carousel-2" data-slide-to="0" className="active"/>
-                                <li data-target="#carousel-2" data-slide-to="1"/>
-                                <li data-target="#carousel-2" data-slide-to="2"/>
-                            </ol>
-                        </div>
-                    </div>
+                    <SingleProductColumn/>
                 </div>
             </div>
         </section>
@@ -149,3 +84,101 @@ const Homepage = () => {
 }
 
 export default Homepage;
+
+// Component for column product
+const SingleProductColumn = () => {
+    const product = {
+        "id": 1,
+        "name": "Sada na bělení zubů",
+        "shortDescription": "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 16 minut. Bělicí sada od iDentu obsahuje koncentrovaný gel a profesionální UV světlo urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás na prvním místě, celou bělicí sadu proto vyrábíme přímo v České republice.",
+        "numberOfReviews": "903",
+        "stock": true,
+        "variations": [
+            {
+                "variationId": 6,
+                "productId": 1,
+                "name": "na 2 týdny",
+                "description": "",
+                "content": "1x UV náustek z lékařského silikonu, 3x 2ml bělicí pera",
+                "regularPrice": 2999,
+                "salePrice": 1399
+            },
+            {
+                "variationId": 7,
+                "productId": 1,
+                "name": "na 4 týdny",
+                "description": "",
+                "content": "1x UV náustek z lékařského silikonu, 6x 2 ml bělicí pera",
+                "regularPrice": 3999,
+                "salePrice": 1999
+            },
+            {
+                "variationId": 8,
+                "productId": 1,
+                "name": "na 6 týdnů",
+                "description": "asd",
+                "content": "1x UV náustek z lékařského silikonu, 9x 2 ml bělicí pera",
+                "regularPrice": 4999,
+                "salePrice": 2499
+            }
+        ],
+        "featuredImage": [
+            {
+                "image": "/images/ident1.png"
+            }
+        ],
+        "imageGallery": [
+            {
+                "image": "/images/ident2.png"
+            },
+            {
+                "image": "/images/ident3.jpeg"
+            },
+            {
+                "image": "/images/ident4.png"
+            }
+        ],
+        "tab": [
+            {
+                "name": "Popis",
+                "content": "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 16 minut. Bělicí sada od iDentu obsahuje koncentrovaný gel a profesionální UV světlo urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás na prvním místě, celou bělicí sadu proto vyrábíme přímo v České republice."
+            },
+            {
+                "name": "Obsah baleni",
+                "content": "asdaddßcvvvvvvbadasd"
+            }
+        ],
+        "headline": "Profesionalni pece za par korun",
+        "rating": "4.8"
+    };
+    const {featuredImage, imageGallery, name, shortDescription, variations, rating, numberOfReview} = product;
+    const images = [{
+        original: `${process.env.REACT_APP_URL}${featuredImage[0].image}`,
+        thumbnail: `${process.env.REACT_APP_URL}${featuredImage[0].image}`,
+    }]
+
+    const handleClick = (e) => {
+        alert(e.target.value);
+    }
+
+    return <div className="col col-12- col-md-6">
+        <ImageGallery
+            items={images || <Skeleton/>}
+            thumbnailPosition="bottom"
+            lazyLoad={true}
+            showNav={true}
+            showPlayButton={false}
+            showFullscreenButton={false}
+            useBrowserFullscreen={false}
+        />
+
+        <h3 className="text-center text-md-left"><strong>{name}</strong><br/></h3>
+        <p className="text-center text-md-left">{shortDescription}</p>
+
+        <VariationsButtonGroup
+            variations={variations}
+            handleClick={handleClick}
+
+        />
+    </div>
+}
