@@ -5,13 +5,13 @@ const Navigation = () => {
     return <Navbar variant={'light'} expand={'md'} bg={'light'}>
         <Container>
             <Navbar.Brand href="/">
-                <img src='#'/>
+                {/*<img src='https://teethy.cz/wp-content/uploads/2018/08/teethy.png'/>*/}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse>
-                <Nav activeKey="/home" onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
+                <Nav activeKey="/" onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
                     <Nav.Item>
-                        <Nav.Link href="/home">Active</Nav.Link>
+                        <Nav.Link href="/">Active</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link eventKey="link-1">Link</Nav.Link>

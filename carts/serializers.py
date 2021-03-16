@@ -25,8 +25,8 @@ class CartSerializer(serializers.Serializer):
     def get_total(self, instance):
         total = 0
         items = CartItem.objects.filter(cart__id=instance.id)
-        for item in items:
-            total += item.product.sale_price
+        # for item in items:
+        #     total += item.product.sale_price
 
         return total
 

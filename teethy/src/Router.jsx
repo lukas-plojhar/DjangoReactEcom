@@ -4,6 +4,7 @@ import Navigation from "./common/Navigation";
 import Homepage from "./homepage/Homepage";
 import ShopPage from "./shop/Shop";
 import SingleProductPage from "./product/SingleProductPage";
+import CheckoutPage from "./checkout/CheckoutPage";
 
 class Router extends Component {
     render() {
@@ -20,6 +21,7 @@ class Router extends Component {
                         {/*<Route path="/produkt/:id" component={product}/>*/}
                         {/*<Route path="/pokladna/:productId?/:variationId?" component={checkout}/>*/}
                         {/*<Route path="/dekujeme/:id" component={Thankyou}/>*/}
+                        <Route path="/pokladna" component={CheckoutPage}/>
                         <Route path="/produkt/:id" component={SingleProductPage}/>
                         <Route path="/obchod" component={ShopPage}/>
                         <Route path="/" component={Homepage}/>

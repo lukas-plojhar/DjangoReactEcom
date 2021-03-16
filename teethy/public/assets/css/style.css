@@ -22,20 +22,22 @@ img {
     background-image: linear-gradient(135deg, #3d7aef, #2b4be4) !important;
 }
 
-
-.navbar {
-    padding: 0.75rem 1rem;
+.form-control {
+    padding: 0.75rem 1rem !important;
 }
 
-.navbar-toggler {
-    font-size: 1rem;
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: .75rem 1.5rem !important;
+    }
+
+    .navbar-toggler {
+        font-size: 1rem;
+    }
 }
+
 
 /* Custom classes */
-.section-rounded {
-    padding: 0 15px;
-}
-
 .bg-gradient {
     background: linear-gradient(315deg, #3d7aef, #2b4be4);
 }
@@ -45,8 +47,17 @@ img {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/*body > section.section-rounded > div > div > div > p, h3, h4 {*/
-.font-white{
+.btn-single {
+    padding: 2px 0 0 2px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+}
+
+.section-rounded {
+    padding: 0 15px;
+}
+
+.font-white {
     color: white !important;
     -webkit-text-fill-color: white !important;
     font-weight: 300;

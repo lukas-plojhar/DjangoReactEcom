@@ -1,43 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import axios from "axios";
 
 export const ProductCarousel = ({items}) => {
-    const products = [
-        {
-            "id": 4,
-            "name": "Belici zubni pudr",
-            "shortDescription": null,
-            "numberOfReviews": "0",
-            "stock": false,
-            "variations": [
-                {
-                    "variationId": 4,
-                    "productId": 4,
-                    "name": "30g",
-                    "description": "",
-                    "content": "30 gramů pudru, návod",
-                    "regularPrice": 399,
-                    "salePrice": 199
-                }
-            ],
-            "featuredImage": [
-                {
-                    "image": "/images/doza_produktovka.jpg"
-                }
-            ],
-            "imageGallery": [],
-            "tab": [
-                {
-                    "name": "Popis",
-                    "content": null
-                }
-            ],
-            "headline": null,
-            "rating": "5.0"
-        }
-    ];
+    const [products, setProducts] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
+    useEffect(async () => {
+        const data = await axios.get(`${process.env.REACT_APP_URL}/products/upsells`).then(response => response.data);
+        setProducts(data);
+        setIsLoading(false);
+    }, []);
 
+    if (isLoading) return <p>Loading ...</p>
     return <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -47,10 +22,14 @@ export const ProductCarousel = ({items}) => {
             products.map((product, i) => {
                 return <React.Fragment>
                     <SwiperSlide>
-                        <div className="col text-left" key={i}>
-                            <img src={product.featuredImage[0].image} alt=""/>
+                        <div className="text-center text-md-left" key={i}>
+                            <img src={`${process.env.REACT_APP_URL}${product.featuredImage}`} alt=""/>
                             <h4>{product.name}</h4>
                             <p>{product.shortDescription}</p>
+                            <p>
+                                {product.variations[0].regularPrice || ''}<br/>
+                                {product.variations[0].salePrice}
+                            </p>
                             <button className="btn btn-primary btn-sm">Pridat do kosiku</button>
                         </div>
                     </SwiperSlide>
@@ -93,9 +72,9 @@ export const ReviewCarousel = ({items}) => {
             itemsDummy.map((review, i) => {
                 return <SwiperSlide>
                     <div className="col text-left" key={i}>
-                        <span>{review.source}</span>
-                        <h6>{review.name}</h6>
-                        <p>{review.description}</p>
+                        <span className="font-white">{review.source}</span>
+                        <h6 className="font-white">{review.name}</h6>
+                        <p className="font-white">{review.description}</p>
                     </div>
                 </SwiperSlide>
             })

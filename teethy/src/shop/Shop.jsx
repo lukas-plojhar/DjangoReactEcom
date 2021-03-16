@@ -141,7 +141,7 @@ const ShopPage = () => {
                 return <section className={"py-2 my-2 py-md-2 my-md-2 " + (index % 2 === 1 ? "bg-light" : "")}>
                     <div className="container">
                         <div className="row">
-                            <div className={"col-12 col-md-6 text-center text-md-left " + (index % 2 === 1 ? "order-md-1" : "")}>
+                            <div className={"col-12 col-md-6 text-center text-md-left align-self-center " + (index % 2 === 1 ? "order-md-1" : "")}>
                                 <h1>Chceš úsměv jako hollywoodská hvězda?</h1>
                                 <Stars/>
                                 <p>Vrať svým zubům jejich přirozenou bělost a pevnost. Jednoduše, rychle a za pár
@@ -158,7 +158,7 @@ const ShopPage = () => {
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
-                                <img src={process.env.REACT_APP_URL + product.featuredImage[0].image}/>
+                                <img src={process.env.REACT_APP_URL + product.featuredImage}/>
                             </div>
                         </div>
                     </div>

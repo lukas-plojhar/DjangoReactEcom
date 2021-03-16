@@ -3,6 +3,7 @@ from django.db import models
 class CartItem(models.Model):
     cart = models.ForeignKey('carts.cart', on_delete=models.PROTECT, null=False)
     product = models.ForeignKey('products.product', on_delete=models.PROTECT, null=False)
+    variation = models.ForeignKey('products.productvariation', on_delete=models.PROTECT, null=False)
     quantity = models.IntegerField()
 
     # @property

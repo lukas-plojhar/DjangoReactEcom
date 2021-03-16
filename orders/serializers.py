@@ -7,13 +7,13 @@ from customers.serializers import CustomerSerializer
 class OrderSerializer(serializers.ModelSerializer):
     cart = CartSerializer()
     customer = CustomerSerializer()
-    state = serializers.CharField(source='get_state_display')
+    # state = serializers.CharField(source='get_state_display')
     created = serializers.DateTimeField(format='%d.%m.%Y %H:%M', read_only=True)
-    updated = serializers.DateTimeField(format='%d.%m.%Y %H:%M', read_only=True)
+    # updated = serializers.DateTimeField(format='%d.%m.%Y %H:%M', read_only=True)
 
     class Meta:
         model = Order
-        fields = '__all__'
+        exclude = ['state','updated']
 
 
 

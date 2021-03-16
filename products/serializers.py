@@ -15,14 +15,14 @@ class ProductTabSerializer(serializers.ModelSerializer):
 
 
 class ProductVariationSerializer(serializers.ModelSerializer):
-    productId = serializers.SerializerMethodField()
-    variationId = serializers.IntegerField(source='id')
+    # productId = serializers.SerializerMethodField()
+    # variationId = serializers.IntegerField(source='id')
     regularPrice = serializers.IntegerField(source='regular_price')
     salePrice = serializers.IntegerField(source='sale_price')
 
     class Meta:
         model = ProductVariation
-        fields = ('variationId', 'productId', 'name', 'description', 'content', 'regularPrice', 'salePrice')
+        fields = ('name', 'description', 'content', 'regularPrice', 'salePrice')
 
     def get_productId(self, obj):
         return obj.product.id;
@@ -31,7 +31,7 @@ class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField()
     shortDescription = serializers.CharField(source='short_description')
     numberOfReviews = serializers.CharField(source='number_of_reviews')
-    stock = serializers.SerializerMethodField()
+    # stock = serializers.SerializerMethodField()
     variations = serializers.SerializerMethodField()
 
     # Custom fields
@@ -45,7 +45,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'description',
             'short_description',
             'is_upsell',
-            'number_of_reviews'
+            'number_of_reviews',
+            'stock'
         )
 
     def get_stock(self, obj):
@@ -53,11 +54,18 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_featuredImage(self, obj):
         images = list(ProductImage.objects.filter(product=obj).filter(is_main=True))
-        return ProductImageSerializer(images, many=True).data
+        data = ProductImageSerializer(images[0]).data
+        return data['image']
 
     def get_imageGallery(self, obj):
         images = list(ProductImage.objects.filter(product=obj).filter(is_main=False))
-        return ProductImageSerializer(images, many=True).data
+        data = ProductImageSerializer(images, many=True).data
+
+        images = list()
+        for image in list(data):
+            images.append(image['image'])
+
+        return images
 
     def get_tab(self, obj):
         tabs = list()

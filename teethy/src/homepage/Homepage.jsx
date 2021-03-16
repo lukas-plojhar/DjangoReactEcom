@@ -24,7 +24,7 @@ const Homepage = () => {
         <section className="py-1 my-1 py-md-2 my-md-2">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 text-center">
+                    <div className="col-md-6 text-center align-self-center">
                         <h1>Chceš úsměv jako hollywoodská hvězda?</h1>
                         <p>Vrať svým zubům jejich přirozenou bělost a pevnost. Jednoduše, rychle a za pár korun.</p>
                         <div className="row mt-2 mb-2 mb-md-3">
