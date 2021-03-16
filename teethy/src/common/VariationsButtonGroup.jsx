@@ -5,7 +5,7 @@ const VariationsButtonGroup = ({variations, handleClick}) => {
 
     return <React.Fragment>
         {/*Content*/}
-        <small className="text-center text-md-left">{variations[selected].content}</small>
+        <small className="text-center text-md-left">Balení obsahuje: {variations[selected].content}</small>
 
         {/*Group of variation buttons*/}
         <div className="text-center">

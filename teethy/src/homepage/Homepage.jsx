@@ -2,6 +2,7 @@ import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import Skeleton from "react-loading-skeleton";
 import VariationsButtonGroup from "../common/VariationsButtonGroup";
+import {BigFooter} from "../common/Footer";
 
 const Homepage = () => {
     const images = [
@@ -44,7 +45,8 @@ const Homepage = () => {
             <div className="container bg-gradient bg-rounded pt-2 pb-3 p-md-3">
                 <div className="row py-2">
                     <div className="col">
-                        <h4 className="text-center"><strong>K zubaři už nemusíš. Do jediné krabičky jsme vložili
+                        <h4 className="text-center font-white"><strong>K zubaři už nemusíš. Do jediné krabičky jsme
+                            vložili
                             vše, co tvé zuby potřebují: koncentrovaný gel plný minerálů a přírodních extraktů i UV
                             světlo, které používají zubní lékaři. Už po pár aplikacích budou tvé zuby až o 6 stupňů
                             bělejší.</strong>
@@ -52,23 +54,20 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col align-self-center col-12 col-md-4"><i className="fa fa-star"></i>
-                        <h3><strong>Pohodlně</strong><br/></h3>
+                    <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
+                        <h3 className="font-white"><strong>Pohodlně</strong><br/></h3>
                         <p>Jde to i bez zubaře. Sadu na domácí bělení zubů můžeš použít kdykoliv. Jednoduše, bezbolestně
-                            a
-                            rychle – aplikace ti nezabere víc než 16 minut denně.</p>
+                            a rychle – aplikace ti nezabere víc než 16 minut denně.</p>
                     </div>
-                    <div className="col align-self-center col-12 col-md-4"><i className="fa fa-star"></i>
-                        <h3><strong>Levně</strong><br/></h3>
+                    <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
+                        <h3 className="font-white"><strong>Levně</strong><br/></h3>
                         <p>Kvalita něco stojí. Ale nemusí to být tisícovky. Získej péči jako od zubaře a ušetři při tom
-                            až
-                            4500,- oproti běžným cenám v ordinacích zubních lékařů.</p>
+                            až 4500,- oproti běžným cenám v ordinacích zubních lékařů.</p>
                     </div>
-                    <div className="col align-self-center col-12 col-md-4"><i className="fa fa-star"></i>
-                        <h3><strong>Spolehlivě</strong><br/></h3>
+                    <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
+                        <h3 className="font-white"><strong>Spolehlivě</strong><br/></h3>
                         <p>Výsledek uvidíš okamžitě. Speciální gel v kombinaci s UV světlem tvé zuby vybělí, díky
-                            extraktům
-                            z aloe a heřmánku navíc účinně posílí zubní sklovinu.</p>
+                            extraktům z aloe a heřmánku navíc účinně posílí zubní sklovinu.</p>
                     </div>
                 </div>
             </div>
@@ -80,6 +79,7 @@ const Homepage = () => {
                 </div>
             </div>
         </section>
+        <BigFooter/>
     </React.Fragment>
 }
 
@@ -172,7 +172,11 @@ const SingleProductColumn = () => {
             useBrowserFullscreen={false}
         />
 
-        <h3 className="text-center text-md-left"><strong>{name}</strong><br/></h3>
+        <h3 className="text-center text-md-left">
+            <strong>{name}</strong><br/>
+            <span className="stars">4.8/5.0</span>
+        </h3>
+
         <p className="text-center text-md-left">{shortDescription}</p>
 
         <VariationsButtonGroup
@@ -180,5 +184,6 @@ const SingleProductColumn = () => {
             handleClick={handleClick}
 
         />
+        <p className="text-center mt-1">Ihned k odeslání!<br/><span className="text-muted">Od 89,-</span></p>
     </div>
 }

@@ -6,6 +6,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     -webkit-text-fill-color: transparent;
 }
 
+img {
+    border-radius: 1rem;
+    width: 100%;
+}
+
 .btn {
     font-family: "Poppins" !important;
     font-weight: 300;
@@ -40,7 +45,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-body > section.section-rounded > div > div > div > p, h3, h4 {
+/*body > section.section-rounded > div > div > div > p, h3, h4 {*/
+.font-white{
     color: white !important;
     -webkit-text-fill-color: white !important;
     font-weight: 300;

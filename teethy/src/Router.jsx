@@ -2,14 +2,13 @@ import React, {Component} from "react";
 import {Route, Switch, BrowserRouter} from "react-router-dom";
 import Navigation from "./common/Navigation";
 import Homepage from "./homepage/Homepage";
+import ShopPage from "./shop/Shop";
 import SingleProductPage from "./product/SingleProductPage";
-import {BigFooter} from "./common/Footer";
 
 class Router extends Component {
     render() {
         return (
             <React.Fragment>
-                <body>
                 <BrowserRouter>
                     <Navigation/>
                     <Switch>
@@ -21,12 +20,11 @@ class Router extends Component {
                         {/*<Route path="/produkt/:id" component={product}/>*/}
                         {/*<Route path="/pokladna/:productId?/:variationId?" component={checkout}/>*/}
                         {/*<Route path="/dekujeme/:id" component={Thankyou}/>*/}
-                        <Route path="/produkt" component={SingleProductPage}/>
+                        <Route path="/produkt/:id" component={SingleProductPage}/>
+                        <Route path="/obchod" component={ShopPage}/>
                         <Route path="/" component={Homepage}/>
                     </Switch>
                 </BrowserRouter>
-                <BigFooter/>
-                </body>
             </React.Fragment>
         );
     }
