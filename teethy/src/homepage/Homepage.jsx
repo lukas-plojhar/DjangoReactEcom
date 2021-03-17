@@ -1,25 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ImageGallery from 'react-image-gallery';
-import Skeleton from "react-loading-skeleton";
 import VariationsButtonGroup from "../common/VariationsButtonGroup";
+import Stars from "../common/Stars";
 import {BigFooter} from "../common/Footer";
+import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Homepage = () => {
-    const images = [
-        {
-            original: 'https://picsum.photos/id/1018/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1018/250/150/',
-        },
-        {
-            original: 'https://picsum.photos/id/1015/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1015/250/150/',
-        },
-        {
-            original: 'https://picsum.photos/id/1019/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1019/250/150/',
-        },
-    ];
-
     return <React.Fragment>
         <section className="py-1 my-1 py-md-2 my-md-2">
             <div className="container">
@@ -34,48 +21,56 @@ const Homepage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6"><img src="assets/img/4-min-1-min%20(1).png"
-                                                   loading="eager" width={'100%'}/></div>
+                    <div className="col-md-6">
+                        <img src="assets/img/4-min-1-min%20(1).png"/>
+                    </div>
                 </div>
             </div>
         </section>
 
-
-        <section className="text-center py-1 my-2 section-rounded">
+        {/*USP sekce*/}
+        <section className="text-center py-1 my-0 my-md-2 section-rounded">
             <div className="container bg-gradient bg-rounded pt-2 pb-3 p-md-3">
                 <div className="row py-2">
                     <div className="col">
-                        <h4 className="text-center font-white"><strong>K zubaři už nemusíš. Do jediné krabičky jsme
-                            vložili
-                            vše, co tvé zuby potřebují: koncentrovaný gel plný minerálů a přírodních extraktů i UV
-                            světlo, které používají zubní lékaři. Už po pár aplikacích budou tvé zuby až o 6 stupňů
+                        <h4 className="text-center font-white"><strong>
+                            K zubaři už nemusíš. Do jediné krabičky jsme
+                            vložili vše, co tvé zuby potřebují: koncentrovaný gel plný minerálů a přírodních extraktů i
+                            UV světlo, které používají zubní lékaři. Už po pár aplikacích budou tvé zuby až o 6 stupňů
                             bělejší.</strong>
                         </h4>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
-                        <h3 className="font-white"><strong>Pohodlně</strong><br/></h3>
+                        <h3 className="font-white"><strong>Pohodlně</strong></h3>
                         <p>Jde to i bez zubaře. Sadu na domácí bělení zubů můžeš použít kdykoliv. Jednoduše, bezbolestně
                             a rychle – aplikace ti nezabere víc než 16 minut denně.</p>
                     </div>
                     <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
-                        <h3 className="font-white"><strong>Levně</strong><br/></h3>
+                        <h3 className="font-white"><strong>Levně</strong></h3>
                         <p>Kvalita něco stojí. Ale nemusí to být tisícovky. Získej péči jako od zubaře a ušetři při tom
                             až 4500,- oproti běžným cenám v ordinacích zubních lékařů.</p>
                     </div>
                     <div className="col align-self-center col-12 col-md-4 font-white"><i className="fa fa-star"></i>
-                        <h3 className="font-white"><strong>Spolehlivě</strong><br/></h3>
+                        <h3 className="font-white"><strong>Spolehlivě</strong></h3>
                         <p>Výsledek uvidíš okamžitě. Speciální gel v kombinaci s UV světlem tvé zuby vybělí, díky
                             extraktům z aloe a heřmánku navíc účinně posílí zubní sklovinu.</p>
                     </div>
                 </div>
             </div>
         </section>
-        <section className="py-2 my-2">
+
+        {/*Produktova sekce*/}
+        <section className="py-1 my-1 py-md-2 my-md-2">
             <div className="container text-left text-center text-md-center text-lg-left text-xl-left">
                 <div className="row">
-                    <SingleProductColumn/>
+                    <div className="col col-12- col-md-6 mb-3">
+                        <SingleProductColumn id="1"/>
+                    </div>
+                    <div className="col col-12- col-md-6">
+                        <SingleProductColumn id="6"/>
+                    </div>
                 </div>
             </div>
         </section>
@@ -86,104 +81,59 @@ const Homepage = () => {
 export default Homepage;
 
 // Component for column product
-const SingleProductColumn = () => {
-    const product = {
-        "id": 1,
-        "name": "Sada na bělení zubů",
-        "shortDescription": "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 16 minut. Bělicí sada od iDentu obsahuje koncentrovaný gel a profesionální UV světlo urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás na prvním místě, celou bělicí sadu proto vyrábíme přímo v České republice.",
-        "numberOfReviews": "903",
-        "stock": true,
-        "variations": [
-            {
-                "variationId": 6,
-                "productId": 1,
-                "name": "na 2 týdny",
-                "description": "",
-                "content": "1x UV náustek z lékařského silikonu, 3x 2ml bělicí pera",
-                "regularPrice": 2999,
-                "salePrice": 1399
-            },
-            {
-                "variationId": 7,
-                "productId": 1,
-                "name": "na 4 týdny",
-                "description": "",
-                "content": "1x UV náustek z lékařského silikonu, 6x 2 ml bělicí pera",
-                "regularPrice": 3999,
-                "salePrice": 1999
-            },
-            {
-                "variationId": 8,
-                "productId": 1,
-                "name": "na 6 týdnů",
-                "description": "asd",
-                "content": "1x UV náustek z lékařského silikonu, 9x 2 ml bělicí pera",
-                "regularPrice": 4999,
-                "salePrice": 2499
-            }
-        ],
-        "featuredImage": [
-            {
-                "image": "/images/ident1.png"
-            }
-        ],
-        "imageGallery": [
-            {
-                "image": "/images/ident2.png"
-            },
-            {
-                "image": "/images/ident3.jpeg"
-            },
-            {
-                "image": "/images/ident4.png"
-            }
-        ],
-        "tab": [
-            {
-                "name": "Popis",
-                "content": "Získej bílé zuby jako z plakátu – jednoduše, bez bolesti a za pouhých 16 minut. Bělicí sada od iDentu obsahuje koncentrovaný gel a profesionální UV světlo urychlující vstřebávání účinných látek. Kvalita a výsledky jsou pro nás na prvním místě, celou bělicí sadu proto vyrábíme přímo v České republice."
-            },
-            {
-                "name": "Obsah baleni",
-                "content": "asdaddßcvvvvvvbadasd"
-            }
-        ],
-        "headline": "Profesionalni pece za par korun",
-        "rating": "4.8"
-    };
-    const {featuredImage, imageGallery, name, shortDescription, variations, rating, numberOfReview} = product;
-    const images = [{
-        original: `${process.env.REACT_APP_URL}${featuredImage[0].image}`,
-        thumbnail: `${process.env.REACT_APP_URL}${featuredImage[0].image}`,
-    }]
+const SingleProductColumn = ({id}) => {
+    const [product, setProduct] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleClick = (e) => {
-        alert(e.target.value);
-    }
 
-    return <div className="col col-12- col-md-6">
+    useEffect(async () => {
+        const data = await axios.get(`${process.env.REACT_APP_URL}/products/${id}`).then(response => response.data);
+        setProduct(data)
+        setIsLoading(false);
+    });
+
+    if (isLoading) return <p>Loading ...</p>;
+
+    // Data
+    const {featuredImage, imageGallery, name, shortDescription, variations, rating, numberOfReviews} = product;
+    const images = [];
+    images.push({
+        original: `${process.env.REACT_APP_URL}${featuredImage}`,
+        thumbnail: `${process.env.REACT_APP_URL}${featuredImage}`,
+    });
+
+    imageGallery.forEach(image => images.push({
+        original: `${process.env.REACT_APP_URL}${image}`,
+        thumbnail: `${process.env.REACT_APP_URL}${image}`,
+    }));
+
+    return <React.Fragment>
         <ImageGallery
-            items={images || <Skeleton/>}
+            items={images}
             thumbnailPosition="bottom"
             lazyLoad={true}
-            showNav={true}
+            showNav={false}
             showPlayButton={false}
             showFullscreenButton={false}
             useBrowserFullscreen={false}
         />
 
-        <h3 className="text-center text-md-left">
-            <strong>{name}</strong><br/>
-            <span className="stars">4.8/5.0</span>
-        </h3>
+        <Link to={`/produkt/${id}`}>
+            <h3 className="text-center text-md-left mb-1">
+                <strong>{name}</strong>
+            </h3>
+        </Link>
+
+        <Stars rating={rating} numberOfReview={numberOfReviews}/>
 
         <p className="text-center text-md-left">{shortDescription}</p>
 
         <VariationsButtonGroup
+            id={id}
             variations={variations}
-            handleClick={handleClick}
-
         />
-        <p className="text-center mt-1">Ihned k odeslání!<br/><span className="text-muted">Od 89,-</span></p>
-    </div>
+
+        <p className="text-center mt-1">Ihned k odeslání!<br/><span
+            className="text-muted">od 89{process.env.REACT_APP_CURRENCY}</span></p>
+    </React.Fragment>
 }

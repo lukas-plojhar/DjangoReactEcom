@@ -1,83 +1,146 @@
 import React, {useState, useEffect} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import {Splide, SplideSlide} from "@splidejs/react-splide";
+import {Link} from "react-router-dom";
 import axios from "axios";
 
+
 export const ProductCarousel = ({items}) => {
-    const [products, setProducts] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    // Data
+    const [products, setProducts] = useState(
+        [
+            {
+                id: 4,
+                name: "Belici zubni pudr",
+                regularPrice: 499,
+                salePrice: 299,
+                featuredImage: "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
+            },
+            {
+                id: 5,
+                name: "Belici zubni pero",
+                regularPrice: 299,
+                salePrice: 149,
+                featuredImage: "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
+            },
+            {
+                id: 5,
+                name: "Belici zubni pero",
+                regularPrice: 299,
+                salePrice: 149,
+                featuredImage: "https://teethy.cz/wp-content/uploads/2021/03/produkt1-teethy.png",
+                shortDescription: "Vhodny k dobeleni hure dostupnych mist.",
+            },
+        ]
+    );
 
-    useEffect(async () => {
-        const data = await axios.get(`${process.env.REACT_APP_URL}/products/upsells`).then(response => response.data);
-        setProducts(data);
-        setIsLoading(false);
-    }, []);
+    // Splide slider options
+    const options = {
+        rewind: true,
+        perPage: 3,
+        // gap: "1rem",
+        pagination: false,
+        arrows: false,
+        breakpoints: {
+            768: {
+                perPage: 1,
+                // gap: "0rem",
+            },
+            1024: {
+                perPage: 2,
+            },
+        },
+        padding: {
+            right: "3rem",
+        },
+        perMove: 1,
+    };
 
-    if (isLoading) return <p>Loading ...</p>
-    return <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        onSlideChange={() => console.log('')}
-        onSwiper={(swiper) => console.log(swiper)}>
-        {
-            products.map((product, i) => {
-                return <React.Fragment>
-                    <SwiperSlide>
-                        <div className="text-center text-md-left" key={i}>
-                            <img src={`${process.env.REACT_APP_URL}${product.featuredImage}`} alt=""/>
-                            <h4>{product.name}</h4>
-                            <p>{product.shortDescription}</p>
-                            <p>
-                                {product.variations[0].regularPrice || ''}<br/>
-                                {product.variations[0].salePrice}
-                            </p>
-                            <button className="btn btn-primary btn-sm">Pridat do kosiku</button>
-                        </div>
-                    </SwiperSlide>
-                </React.Fragment>
-            })
-        }
-    </Swiper>
+    return <div className="col-12 px-1">
+        <Splide options={options}>
+            {products.map((product, i) =>
+                <SplideSlide key={i}>
+                    <Link to={`/produkt/${product.id}`}>
+                        <img src={product.featuredImage} className="mb-1"/>
+                        <h4 className="mb-1">{product.name}</h4>
+                    </Link>
+                    <p>{product.shortDescription}</p>
+                    <p className="text-center">
+                        <h4 className="d-inline-block strikethrough mb-1">{product.regularPrice}{process.env.REACT_APP_CURRENCY}</h4>
+                        <h6 className="mb-2" style={{fontWeight: 'bolder'}}>{product.salePrice}{process.env.REACT_APP_CURRENCY}</h6>
+                        <Link to={`/produkt/${product.id}`}>
+                            <button className="btn-sm btn-outline-primary">zjistit více</button>
+                        </Link>
+                    </p>
+                </SplideSlide>
+            )
+            }
+        </Splide>
+    </div>
 }
 
-export const ReviewCarousel = ({items}) => {
-    const itemsDummy = [
+export const ReviewCarousel = () => {
+    const [reviews, setReviews] = useState([
         {
+            image: 'https://ident-system.cz/wp-content/uploads/2020/12/ins4.png',
             source: 'Heureka',
             description: 'asdasdasd',
             name: 'Jan Novak'
         },
         {
+            image: 'https://ident-system.cz/wp-content/uploads/2020/12/ins4.png',
             source: 'Heureka',
             description: 'asdasasdasddasd',
             name: 'Janasd Novak'
         },
         {
+            image: 'https://ident-system.cz/wp-content/uploads/2020/12/ins4.png',
             source: 'Heureka',
             description: 'asdaasdasdasdsdasd',
             name: 'Jan Novasdak'
         },
         {
+            image: 'https://ident-system.cz/wp-content/uploads/2020/12/ins4.png',
             source: 'Heureka',
             description: 'asdaasdasdasdsdasd',
             name: 'Jan Novasdak'
         },
-    ];
+    ]);
 
-    return <Swiper
-        spaceBetween={50}
-        slidesPerView={4}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}>
-        {
-            itemsDummy.map((review, i) => {
-                return <SwiperSlide>
-                    <div className="col text-left" key={i}>
-                        <span className="font-white">{review.source}</span>
-                        <h6 className="font-white">{review.name}</h6>
-                        <p className="font-white">{review.description}</p>
-                    </div>
-                </SwiperSlide>
-            })
-        }
-    </Swiper>
+    const options = {
+        rewind: true,
+        perPage: 4,
+        gap: "1rem",
+        pagination: false,
+        arrows: false,
+        breakpoints: {
+            768: {
+                perPage: 1,
+                gap: "0rem",
+            },
+            1024: {
+                perPage: 3,
+            },
+        },
+        padding: {
+            right: "3rem",
+        },
+        perMove: 1,
+    };
+
+    return <div className="col-12 px-1">
+        <Splide options={options}>
+            {reviews.map((review, i) =>
+                <SplideSlide key={i}>
+                    <img src={review.image} className="bg-shadow mb-2"/>
+                    <span className="font-white">{review.source}</span>
+                    <h6 className="font-white">{review.name}</h6>
+                    <p className="font-white">{review.description}</p>
+                </SplideSlide>
+            )
+            }
+        </Splide>
+    </div>
 }

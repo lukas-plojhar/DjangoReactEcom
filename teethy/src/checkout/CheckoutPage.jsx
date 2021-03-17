@@ -28,7 +28,6 @@ var schema = {
     postcode: Joi.number().required().label(locale.postcode),
 };
 
-
 // Empty data template
 const emptyTemplate = {
     cart: {
@@ -41,6 +40,7 @@ class CheckoutPage extends Component {
     constructor(props) {
         super(props);
         this.state = ({
+            isLoading: true,
             data: localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE)
                 ? JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE))
                 : emptyTemplate,
@@ -76,7 +76,6 @@ class CheckoutPage extends Component {
 
             // Fetch product
             if (isLoading) {
-                console.log(`${process.env.REACT_APP_URL}/products/${params.productId}`);
                 const product = await axios(`${process.env.REACT_APP_URL}/products/${params.productId}`).then(response => response.data);
                 cart.items.push({
                     product: product,
@@ -87,7 +86,7 @@ class CheckoutPage extends Component {
         }
 
         // Save new state
-        this.setState({data})
+        this.setState({data, isLoading});
     }
 
     componentDidUpdate() {
@@ -163,12 +162,13 @@ class CheckoutPage extends Component {
     }
 
     render() {
+        if (this.state.isLoading) return <p>Loading ... </p>
+
         // Destructualization of cart
         const {data, errors} = this.state;
         const {cart, customer} = data;
         const {items} = cart;
 
-        if (!items) return <p>Loading ... </p>
         return <React.Fragment>
             {/*Cart*/}
             <section>
@@ -198,7 +198,7 @@ class CheckoutPage extends Component {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="col-6 col-md-8 col-lg-10">
+                                <div className="col-6 col-md-8 col-lg-10 mt-1">
                                     <div className="d-block">
                                         <Link to={`/produkt/${id}`}>
                                             <h4 className="d-inline-block mb-1">{name}</h4>

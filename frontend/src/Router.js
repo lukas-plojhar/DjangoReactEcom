@@ -41,7 +41,7 @@ export default Router;
 //         return (
 //             <BrowserRouter>
 //                 <Switch>
-//                     <Route path="/obchodni-podminky" component={TermsOfUse}/>
+//                     <Route path="/obchodni-podminky" component={TermsOfUsePage}/>
 //                     <Route path="/reklamacni-rad" component={RefundPolicy}/>
 //                     <Route path="/kontakt" component={Contact}/>
 //
