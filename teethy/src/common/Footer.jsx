@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 // Footer
 export const Footer = () => {
-    return <footer className="footer-clean mt-1">
+    return <footer className="footer-clean mt-2 bg-light">
         <div className="container">
             <div className="row text-left">
                 <div className="col-6 col-md-4">
@@ -27,13 +27,13 @@ export const Footer = () => {
                         <li><Link to={`/reklamacni-rad`}>Reklamační řád</Link></li>
                     </ul>
                 </div>
-                <div className="col-12 col-md-4 social">
+                <div className="col-12 col-md-4 social text-left mt-2 mt-md-0">
                     <h3>Sociální média</h3>
-                    <a href={`https://facebook.com/${process.env.REACT_APP_WEBSITE_SOCIAL_FACEBOOK}`}>
-                        <i className="icon ion-social-facebook"></i>
+                    <a href={`https://facebook.com/${process.env.REACT_APP_WEBSITE_SOCIAL_FACEBOOK}`} className="mx-2">
+                        <img src={`/assets/img/icon_fb.svg`} style={{maxWidth: 40}}/>
                     </a>
-                    <a href={`https://instagram.com/${process.env.REACT_APP_WEBSITE_SOCIAL_INSTAGRAM}`}>
-                        <i className="icon ion-social-instagram"></i>
+                    <a href={`https://instagram.com/${process.env.REACT_APP_WEBSITE_SOCIAL_INSTAGRAM}`} className="mx-2">
+                        <img src={`/assets/img/icon_ig.svg`} style={{maxWidth: 40}}/>
                     </a>
                     <p className="copyright">{process.env.REACT_APP_WEBSITE_NAME}© 2021</p>
                 </div>

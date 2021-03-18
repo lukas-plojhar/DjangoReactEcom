@@ -1,8 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import React, {useState} from 'react';
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import {Link} from "react-router-dom";
-import axios from "axios";
 
 
 export const ProductCarousel = ({items}) => {
@@ -71,7 +69,7 @@ export const ProductCarousel = ({items}) => {
                         <h4 className="d-inline-block strikethrough mb-1">{product.regularPrice}{process.env.REACT_APP_CURRENCY}</h4>
                         <h6 className="mb-2" style={{fontWeight: 'bolder'}}>{product.salePrice}{process.env.REACT_APP_CURRENCY}</h6>
                         <Link to={`/produkt/${product.id}`}>
-                            <button className="btn-sm btn-outline-primary">zjistit více</button>
+                            <button className="btn-sm btn-outline-seondary">zjistit více</button>
                         </Link>
                     </p>
                 </SplideSlide>

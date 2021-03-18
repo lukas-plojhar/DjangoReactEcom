@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import axios from "axios";
 
 import ImageGallery from "react-image-gallery";
 import VariationsButtonGroup from "../common/VariationsButtonGroup";
-import {Tabs, Tab, Nav} from "react-bootstrap";
+import {Tab, Nav} from "react-bootstrap";
 import Stars from "../common/Stars";
+import HeurekaBadge from "../common/HeurekaBadge";
 import {BigFooter} from "../common/Footer";
 
 
@@ -13,7 +14,6 @@ const SingleProductPage = () => {
     const [product, setProduct] = useState({product: {}});
     const [isLoading, setisLoading] = useState(true);
     const params = useParams();
-    const history = useHistory();
 
     // Fetch data
     useEffect(async () => {
@@ -60,7 +60,7 @@ const SingleProductPage = () => {
 
                     {/*Description - right side*/}
                     <div className="col-12 col-md-6 text-center text-md-left mb-2 py-md-1 my-md-1">
-                        <h2 className="mb-1">{name}</h2>
+                        <h2 className="mb-0">{name}</h2>
                         <Stars rating={rating} numberOfReviews={numberOfReviews}/>
                         <p>{shortDescription}</p>
                         <VariationsButtonGroup id={id} variations={variations}/>
@@ -94,26 +94,3 @@ const SingleProductPage = () => {
 }
 
 export default SingleProductPage;
-
-const HeurekaBadge = () => {
-    // return <div
-    //     className="d-flex d-xl-flex justify-content-center align-items-center justify-content-lg-start justify-content-xl-start align-items-xl-center mt-2">
-    //     <img src="https://www.drevoobchod.cz/wp-content/uploads/2020/09/Bez-n%C3%A1zvu-2.jpg"/>
-    //     {/*<p className="d-xl-flex">HEUREKA</p>*/}
-    // </div>
-    return <React.Fragment>
-        <div className="d-block text-center">
-            <div className="d-inline-block" style={{maxWidth: '5.1rem'}}>
-                <img
-                    src="https://i2.wp.com/wcdemo.mergadoshop.com/wp-content/uploads/2020/03/overeno_zakazniky_gold_1.png"/>
-            </div>
-            <div className="d-inline-block text-left ml-1 ml-md-2" style={{position: 'relative', top: '0.7rem'}}>
-                <small>
-                    <strong className="font-green">99 % lidí nás doporučuje</strong><br/>
-                    100 % lidí dorazilo zboží včas<br/>
-                    1,9 dne je průměrná doba dodání
-                </small>
-            </div>
-        </div>
-    </React.Fragment>
-}

@@ -34,9 +34,9 @@ const VariationsButtonGroup = ({id, variations}) => {
 
             {/*Price*/}
             <div className="b-block text-center mt-1">
-                <h1 className="d-inline-block strikethrough my-1"
-                    style={{textDecoration: 'line-through'}}>{variations[selected].regularPrice}{process.env.REACT_APP_CURRENCY}</h1>
-                <h3 className="mb-2">{variations[selected].salePrice}{process.env.REACT_APP_CURRENCY}</h3>
+                <h2 className="d-inline-block strikethrough my-1"
+                    style={{textDecoration: 'line-through'}}>{variations[selected].regularPrice}{process.env.REACT_APP_CURRENCY}</h2>
+                <h4 className="mb-2" style={{fontWeight: 700}}>{variations[selected].salePrice}{process.env.REACT_APP_CURRENCY}</h4>
             </div>
 
             {/*Group of variation buttons*/}
@@ -46,7 +46,7 @@ const VariationsButtonGroup = ({id, variations}) => {
                         return <button key={index}
                                        className={
                                            `btn-sm ` +
-                                           (selected === index ? 'btn-primary ' : 'btn-outline-primary ') +
+                                           (selected === index ? 'btn-primary ' : 'btn-outline-secondary ') +
                                            (index !== 2 ? 'mr-1' : ' mr-0')
                                        }
                                        type="button"
@@ -56,7 +56,7 @@ const VariationsButtonGroup = ({id, variations}) => {
 
                 {/*Add to cart button*/}
                 <Link to={`/pokladna/?productId=${id}&variationId=${selected}`}>
-                    <button className="btn-lg btn-primary bg-shadow mb-1" type="button">Přidat do košíku</button>
+                    <button className="btn btn-primary mb-1" type="button">Přidat do košíku</button>
                 </Link>
             </div>
         </React.Fragment>

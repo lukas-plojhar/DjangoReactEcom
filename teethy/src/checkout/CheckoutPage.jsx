@@ -7,7 +7,7 @@ import Joi from "joi-browser";
 import {ProductCarousel} from "../common/Carousel";
 
 // Translated input labels
-var locale = {
+let locale = {
     firstName: "Křestní jméno",
     lastName: "Příjmení",
     email: "E-mailová adresa",
@@ -18,20 +18,24 @@ var locale = {
 };
 
 // Validation schema for Joi
-var schema = {
+let schema = {
     firstName: Joi.string().required().label(locale.firstName),
     lastName: Joi.string().required().label(locale.lastName),
     email: Joi.string().email({minDomainAtoms: 2}).required().label(locale.email),
-    phone: Joi.string().min(9).required().label(locale.phone),
+    phone: Joi.string().min(8).required().label(locale.phone),
     address: Joi.string().required().label(locale.address),
     city: Joi.string().required().label(locale.city),
-    postcode: Joi.number().required().label(locale.postcode),
+    postcode: Joi.number().min(4).max(6).required().label(locale.postcode)
 };
+
+let fields = ['email', 'phone', 'firstName', 'lastName', 'address', 'city', 'postcode'];
+
 
 // Empty data template
 const emptyTemplate = {
     cart: {
-        items: []
+        items: [],
+        shipping: "cod",
     },
     customer: {},
 }
@@ -41,17 +45,19 @@ class CheckoutPage extends Component {
         super(props);
         this.state = ({
             isLoading: true,
+            params: qs.parse(this.props.location.search),
             data: localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE)
                 ? JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE))
                 : emptyTemplate,
-            params: qs.parse(this.props.location.search),
-            errors: {}
+            errors: {},
         });
 
         this.handleIncrease = this.handleIncrease.bind(this);
         this.handleDecrease = this.handleDecrease.bind(this);
         this.handleOrder = this.handleOrder.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleShippingChange = this.handleShippingChange.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
+        this.handleFormBlur = this.handleFormBlur.bind(this);
 
         this.getTotal = this.getTotal.bind(this);
         this.getSubTotal = this.getSubTotal.bind(this);
@@ -96,9 +102,8 @@ class CheckoutPage extends Component {
     // Functions
     validateProperty(name, value) {
         const object = {[name]: value};
-        const schema = {[name]: schema[name]};
-        const {error} = Joi.validate(object, schema);
-        console.log(error);
+        const schemaLocal = {[name]: schema[name]};
+        const {error} = Joi.validate(object, schemaLocal);
         return error ? error.details[0].message : null;
     };
 
@@ -123,29 +128,56 @@ class CheckoutPage extends Component {
         this.setState(state);
     }
 
-    handleChange(e) {
-        const {data} = this.state;
-        data.customer[e.target.name] = e.target.value;
-        this.setState({data});
-        // console.log(e);
-        // const data = {...this.state.data};
-        // const errors = {...this.state.errors};
-        // const errorMessage = this.validateProperty(e.target.name, e.target.value);
-        // if (errorMessage) errors[e.name] = errorMessage;
-        // else delete errors[e.name];
-        //
-        // data[e.name] = e.value;
-        //
-        // this.setState({data, errors});
+    handleShippingChange(e) {
+        const state = this.state;
+        state.data.cart.shipping = e.target.id;
+        this.setState(state);
+    }
+
+    handleFormChange(e) {
+        const {name, value} = e.target;
+        const {data, errors} = this.state;
+        const {customer} = data;
+
+        // Change
+        customer[name] = value;
+
+        // Validation
+        const errorMessage = this.validateProperty(name, value);
+        if (!errorMessage) delete errors[name];
+
+        this.setState({data, errors});
+    }
+
+    handleFormBlur(e) {
+        const {name, value} = e.target;
+        const {errors} = this.state;
+
+        // Validation
+        const errorMessage = this.validateProperty(name, value);
+        if (errorMessage) errors[name] = 'Zkontrolujte tento údaj.';
+        else delete errors[name];
+
+        this.setState({errors});
     }
 
     handleOrder() {
-        alert('new order');
+        const {errors, data} = this.state;
+        if (Object.keys(errors).length === 0 && Object.keys(data.customer).length === 7) alert('order sent');
+
+        else alert('order NOT sent');
+
     }
 
     // Functions
     getTotal() {
-        return 'lorem';
+        const {shipping} = this.state.data.cart;
+        let total = this.getSubTotal();
+
+        total += parseInt(process.env.REACT_APP_WEBSITE_SHIPPING);
+        if (shipping == "cod") total += parseInt(process.env.REACT_APP_WEBSITE_COD);
+
+        return total;
     }
 
     getSubTotal() {
@@ -167,13 +199,13 @@ class CheckoutPage extends Component {
         // Destructualization of cart
         const {data, errors} = this.state;
         const {cart, customer} = data;
-        const {items} = cart;
+        const {items, shipping} = cart;
 
         return <React.Fragment>
             {/*Cart*/}
             <section>
                 <div className="container pt-1 mt-1 py-md-2 my-md-2">
-                    <h3 className="text-center">Kosik</h3>
+                    <h4 className="text-center">Košík</h4>
                     {/*Items*/}
                     {
                         items.map((item, index) => {
@@ -235,107 +267,39 @@ class CheckoutPage extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h3 className="text-center">Pridej k objednavce se slevou</h3>
+                            <h4 className="text-center">Přidej k objednávce se slevou</h4>
                             <ProductCarousel/>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/*Virtual upsells*/}
-            {/*https://getbootstrap.com/docs/5.0/forms/checks-radios/*/}
-            {/*<section className="bg-light py-2 mt-2">*/}
-            {/*    <div className="container">*/}
-            {/*        <div className="row">*/}
-            {/*            <div className="col-12">*/}
-            {/*                <div className="form-check form-switch">*/}
-            {/*                    <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault">*/}
-            {/*                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault"/>Default switch*/}
-            {/*                        checkbox input</label>*/}
-            {/*                </div>*/}
-            {/*                <div className="form-check form-switch">*/}
-            {/*                    <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked"*/}
-            {/*                           checked/>*/}
-            {/*                    <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Checked switch*/}
-            {/*                        checkbox input</label>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
-
-
             {/*Address form*/}
-            <section>
+            <section className="pb-2">
                 <div className="container">
                     <div className="row py-2 my-2">
 
                         {/*Form - left side*/}
                         <div className="col-12 col-md-6">
-                            <h3 className="text-center">Dorucovaci adresa</h3>
+                            <h4 className="text-center">Doručovací adresa</h4>
                             <form>
-                                <Input
-                                    name="email"
-                                    value={customer.email}
-                                    label={locale.email}
-                                    onChange={this.handleChange}
-                                    error={errors.email}
-                                    required
-                                />
-
-                                <Input
-                                    name="phone"
-                                    value={customer.phone}
-                                    label={locale.phone}
-                                    onChange={this.handleChange}
-                                    error={errors.phone}
-                                />
-
-                                <Input
-                                    name="firstName"
-                                    value={customer.firstName}
-                                    label={locale.firstName}
-                                    onChange={this.handleChange}
-                                    error={errors.firstName}
-                                />
-
-                                <Input
-                                    name="lastName"
-                                    value={customer.lastName}
-                                    label={locale.lastName}
-                                    onChange={this.handleChange}
-                                    error={errors.lastName}
-                                />
-
-                                <Input
-                                    name="address"
-                                    value={customer.address}
-                                    label={locale.address}
-                                    onChange={this.handleChange}
-                                    error={errors.address}
-                                />
-
-                                <Input
-                                    name="city"
-                                    value={customer.city}
-                                    label={locale.city}
-                                    onChange={this.handleChange}
-                                    error={errors.city}
-                                />
-
-                                <Input
-                                    name="postcode"
-                                    value={customer.postcode}
-                                    label={locale.postcode}
-                                    onChange={this.handleChange}
-                                    error={errors.postcode}
-                                />
+                                {fields.map((field, i) =>
+                                    <Input
+                                        key={i}
+                                        name={field}
+                                        value={customer[field]}
+                                        label={locale[field]}
+                                        onChange={this.handleFormChange}
+                                        onBlur={this.handleFormBlur}
+                                        error={errors[field]}
+                                    />
+                                )}
                             </form>
                         </div>
 
                         {/*Summary - right side*/}
                         <div className="col-12 col-md-6">
-                            <h3 className="text-center">Souhrn</h3>
+                            <h4 className="text-center">Souhrn</h4>
                             {items.map((item, index) =>
                                 <SummaryRow left={`${item.product.name} x ${item.quantity}`}
                                             right={`${item.product.variations[item.variationId].salePrice * item.quantity}${process.env.REACT_APP_CURRENCY}`}
@@ -350,30 +314,52 @@ class CheckoutPage extends Component {
 
 
                             {/*Payment and shipping selection*/}
-                            <button className="btn btn-outline-secondary">Dobirka +49Kc</button>
-                            <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault"
-                                       id="flexRadioDefault1"/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    Default radio
-                                </label>
+                            <React.Fragment>
+                                <hr/>
+                                <h4 className="text-center">Platební metoda</h4>
+                                {/*COD*/}
+                                <div className="d-block my-1 clearfix">
+                                    <p className={`d-inline-block float-left`}>
+                                        <input id="cod"
+                                               type="radio"
+                                               className="input-radio mr-2"
+                                               name="payment_method"
+                                               checked={shipping == 'cod'}
+                                               onChange={(e) => this.handleShippingChange(e)}
+                                        />
+                                        <label htmlFor="cod">Dobírku</label>
+                                    </p>
+
+                                    <p className="d-inline-block float-right mr-2">+&nbsp;{process.env.REACT_APP_WEBSITE_COD}{process.env.REACT_APP_CURRENCY}</p>
+
+                                </div>
+
+                                {/*CC*/}
+                                <div className="d-block my-1 clearfix">
+                                    <p className="d-inline-block float-left">
+                                        <input id="cc"
+                                               type="radio"
+                                               className="input-radio mr-2"
+                                               name="payment_method"
+                                               checked={shipping == 'cc'}
+                                               onChange={(e) => this.handleShippingChange(e)}
+                                        />
+                                        <label htmlFor="cc">Platba kartou</label>
+                                    </p>
+                                    <small className="d-inline-block float-right mr-2">zdarma</small>
+                                </div>
+
+
+                            </React.Fragment>
+
+                            {/*Order button*/
+                            }
+                            <div className="d-block text-center">
+                                <h3 className="mt-2">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()}{process.env.REACT_APP_CURRENCY}</h3>
+                                <button className="btn btn-primary"
+                                        onClick={this.handleOrder}>Objednat
+                                </button>
                             </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault"
-                                       id="flexRadioDefault2" checked/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                    Default checked radio
-                                </label>
-                            </div>
-                            <hr/>
-
-
-                            {/*Order button*/}
-                            <h4 className="mt-2">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()}</h4>
-                            <button className="btn btn-primary"
-                                    onClick={this.handleOrder}>Objednat
-                            </button>
-
                         </div>
                     </div>
                 </div>
@@ -383,29 +369,41 @@ class CheckoutPage extends Component {
     }
 }
 
-const Input = ({name, label, value, onChange, error}) => {
+// Component for form
+const Input = ({name, label, value, onChange, onBlur, error}) => {
     return (
         <div className="form-group">
+            {!error && value && <img src="/assets/img/icon_check.svg" style={{width: 16, marginRight: 5}}/>}
             <label htmlFor={name}>{label}</label>
+
             <input type="text"
                    className="form-control"
                    id={name}
                    name={name}
                    value={value}
                    onChange={onChange}
-                   aria-label={label}
+                   onBlur={onBlur}
             />
-            {error && <div className="alert alert-danger">{error}</div>}
+            <div className="d-block">
+                {error && <img src="/assets/img/icon_cross.svg" style={{width: 16, marginRight: 5, marginBottom: 2}}/>}
+                {error && <small className="alert-danger" style={{background: 'white'}}>{error}</small>}
+            </div>
+
+
         </div>
     )
 };
 
+// Component for summary
 const SummaryRow = ({left, right}) => {
-    return <div className="d-block my-1" style={{clear: 'both'}}>
+    return <div className="d-block my-1 clearfix">
         <p className="d-inline-block float-left">{left}</p>
         <p className="d-inline-block float-right mr-2">{right}</p>
     </div>
 }
+
+// Component for shipping radio buttons
+
 
 //
 //

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 const Navigation = () => {
     return <Navbar variant={'light'} expand={'md'} bg={'light'}>
-
+        <Container>
             <Navbar.Brand href="/">
                 <img src="https://teethy.cz/wp-content/uploads/2018/08/teethy.png"/>
             </Navbar.Brand>
@@ -12,7 +12,7 @@ const Navigation = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
             <Navbar.Collapse>
-                <Nav className="justify-content-end" activeKey="/obchod" onSelect="">
+                <Nav className="justify-content-end">
 
                     <Nav.Item>
                         <Nav.Link href="/produkt/1">Sada na bělení zubů</Nav.Link>
@@ -30,12 +30,12 @@ const Navigation = () => {
                         <Nav.Link href="/kontakt">Kontakt</Nav.Link>
                     </Nav.Item>
 
-                    <Nav.Item>
-                        <button className="btn btn-outline-primary">Koupit</button>
-                    </Nav.Item>
-
+                    {/*<Nav.Item>*/}
+                    {/*    <button className="btn btn-outline-primary">Koupit</button>*/}
+                    {/*</Nav.Item>*/}
                 </Nav>
             </Navbar.Collapse>
+        </Container>
     </Navbar>
 }
 
