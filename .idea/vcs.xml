@@ -4,5 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/frontend" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/frontend/identcz-fe" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/teethy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/teethy/identcz-fe" vcs="Git" />
   </component>
 </project>
