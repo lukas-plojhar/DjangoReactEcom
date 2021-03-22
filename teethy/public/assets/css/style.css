@@ -1,10 +1,14 @@
 /* Bootstrap override */
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Poppins" !important;
+    font-family: "Nunito", sans-serif !important;
     letter-spacing: 1px !important;
     background: -webkit-linear-gradient(315deg, #3d7aef, #2b4be4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+body {
+    font-family: "Nunito Sans", sans-serif !important;
 }
 
 /*Nutno dodat do SCSS templatu*/
@@ -15,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 b, strong {
-    font-weight: 500 !important;
+    font-weight: 700 !important;
 }
 
 .btn {
@@ -31,8 +35,8 @@ img {
 }
 
 .btn, .btn-lg {
-    font-family: "Poppins" !important;
-    font-weight: 500;
+    font-family: "Nunito" !important;
+    font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
@@ -292,3 +296,39 @@ img {
 .image-gallery-slide-wrapper {
     margin-bottom: 1rem;
 }
+
+/*!*Stripe form*!*/
+/*.StripeElement {*/
+/*  margin: 15px auto;*/
+/*  padding: 10px 12px;*/
+/*  color: #32325d;*/
+/*  background-color: white;*/
+/*  border: 1px solid transparent;*/
+/*  border-radius: 4px;*/
+/*}*/
+
+/*.StripeElement--webkit-autofill {*/
+/*  background-color: #fefde5 !important;*/
+/*}*/
+
+/*.btn-pay {*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*  border: none;*/
+/*  background: linear-gradient(*/
+/*    135deg,*/
+/*    rgb(49, 0, 62) 0%,*/
+/*    rgb(195, 40, 110) 100%*/
+/*  );*/
+/*  color: #fff;*/
+/*  padding: 10px;*/
+/*  font-size: 18px;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.stripe {*/
+/*  font-family: sans-serif;*/
+/*  height: 100vh;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/

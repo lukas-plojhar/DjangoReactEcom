@@ -5,6 +5,7 @@ import {Footer} from "../common/Footer";
 import axios from "axios";
 import Joi from "joi-browser";
 import {ProductCarousel} from "../common/Carousel";
+import InjectedStripeGatewayForm, {StripeGateway} from "./StripeGateway";
 
 // Translated input labels
 let locale = {
@@ -88,6 +89,7 @@ class CheckoutPage extends Component {
                     quantity: 1,
                     variationId: params.variationId || 0
                 });
+                isLoading = false;
             }
         }
 
@@ -317,6 +319,7 @@ class CheckoutPage extends Component {
                             <React.Fragment>
                                 <hr/>
                                 <h4 className="text-center">Platební metoda</h4>
+
                                 {/*COD*/}
                                 <div className="d-block my-1 clearfix">
                                     <p className={`d-inline-block float-left`}>
@@ -349,6 +352,10 @@ class CheckoutPage extends Component {
                                     <small className="d-inline-block float-right mr-2">zdarma</small>
                                 </div>
 
+                                {/*<StripeGateway/>*/}
+                                <div className="stripe">
+                                    <InjectedStripeGatewayForm/>
+                                </div>
 
                             </React.Fragment>
 

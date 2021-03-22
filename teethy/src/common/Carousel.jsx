@@ -67,7 +67,8 @@ export const ProductCarousel = ({items}) => {
                     <p>{product.shortDescription}</p>
                     <p className="text-center">
                         <h4 className="d-inline-block strikethrough mb-1">{product.regularPrice}{process.env.REACT_APP_CURRENCY}</h4>
-                        <h6 className="mb-2" style={{fontWeight: 'bolder'}}>{product.salePrice}{process.env.REACT_APP_CURRENCY}</h6>
+                        <h6 className="mb-2"
+                            style={{fontWeight: 'bolder'}}>{product.salePrice}{process.env.REACT_APP_CURRENCY}</h6>
                         <Link to={`/produkt/${product.id}`}>
                             <button className="btn-sm btn-outline-seondary">zjistit více</button>
                         </Link>
@@ -123,7 +124,7 @@ export const ReviewCarousel = () => {
             },
         },
         padding: {
-            right: "3rem",
+            right: "4rem",
         },
         perMove: 1,
     };
@@ -132,10 +133,12 @@ export const ReviewCarousel = () => {
         <Splide options={options}>
             {reviews.map((review, i) =>
                 <SplideSlide key={i}>
-                    <img src={review.image} className="bg-shadow mb-2"/>
-                    <span className="font-white">{review.source}</span>
-                    <h6 className="font-white">{review.name}</h6>
-                    <p className="font-white">{review.description}</p>
+                    <Link to='/recenze'>
+                        <img src={review.image} className="bg-shadow mb-2"/>
+                        <span className="font-white">{review.source}</span>
+                        <h6 className="font-white">{review.name}</h6>
+                        <p className="font-white">{review.description}</p>
+                    </Link>
                 </SplideSlide>
             )
             }

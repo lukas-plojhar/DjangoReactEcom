@@ -6,8 +6,11 @@ import {BigFooter} from "../common/Footer";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import HeurekaBadge from "../common/HeurekaBadge";
+import ModelVideo from 'react-modal-video';
+import {ReviewCarousel} from "../common/Carousel";
 
 const Homepage = () => {
+    const [isOpen, setOpen] = useState(false);
     return <React.Fragment>
         <section className="py-1 my-1 py-md-2 my-md-2">
             <div className="container">
@@ -83,8 +86,34 @@ const Homepage = () => {
                 </div>
             </div>
         </section>
+
+        {/*Lovely hair video*/}
+        <section className="bg-light text-center py-2 py-md-3">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-4 text-center text-md-left align-self-center">
+                        <h2 className="mb-0 mb-md-2">Co na iDent říká
+                            Petra LovelyHair?</h2>
+                        <p className="mb-2">„Fakt to pomohlo. Vybělilo to o nějakých šest tónů… stoprocentně! Používala
+                            jsem iDent deset dní.</p>
+                        <button className="btn btn-primary d-none d-md-block" onClick={() => setOpen(true)}>Přehrát video</button>
+                    </div>
+                    <div className="col-12 col-md-8 text-center text-md-left">
+                        <ModelVideo channel='youtube' autoplay isOpen={isOpen} videoId="TBDQfddxlW8" start={422}
+                                    onClose={() => setOpen(false)}/>
+                        <img src={`/assets/img/lovelyhair.png`} className="mb-2 bg-rounded"
+                             onClick={() => setOpen(true)}/>
+                        <button className="btn-sm btn-primary d-block d-md-none" onClick={() => setOpen(true)}>Přehrát video</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/*Sliders and Footer*/}
         <BigFooter/>
     </React.Fragment>
+
+
 }
 
 export default Homepage;
