@@ -5,7 +5,7 @@ import {Footer} from "../common/Footer";
 import axios from "axios";
 import Joi from "joi-browser";
 import {ProductCarousel} from "../common/Carousel";
-import InjectedStripeGatewayForm, {StripeGateway} from "./StripeGateway";
+import InjectedStripeGatewayForm from "./StripeGateway";
 
 // Translated input labels
 let locale = {
@@ -353,9 +353,7 @@ class CheckoutPage extends Component {
                                 </div>
 
                                 {/*<StripeGateway/>*/}
-                                <div className="stripe">
-                                    <InjectedStripeGatewayForm/>
-                                </div>
+                                <InjectedStripeGatewayForm/>
 
                             </React.Fragment>
 

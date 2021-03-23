@@ -1,8 +1,9 @@
 from rest_framework import views, generics
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 from rest_framework.response import Response
-import json, csv
+import json, csv, stripe, requests
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Order
 from .serializers import OrderSerializer
@@ -94,17 +95,35 @@ class OrderUpdateAPIView(views.APIView):
         return Response(status=HTTP_200_OK)
 
 
-# GET /orders/export
-# Exports all orders that should be sent
-# Format: 62011306;Jana;Paulusova;Stare Dobrkovice;Cesky Krumlov;38101;jana.paulusova@gmail.com;732447971;0;"2 ID ";DR;0.5;7000;7+41;FO
-def export_new_orders(request):
-    orders = Order.objects.filter(state=Order.OrderState.NEW)
-    response = HttpResponse(content_type='text/csv')
+# POST /orders/intent/
+@csrf_exempt
+def intent(request):
+    stripe.api_key = "sk_test_ovtvbkz7ot73WZ8ICgDga0MA"
 
-    # CZ
-    writer = csv.writer(response, dialect=CeskaPostaDialect)
-    ceskaposta_static = ['DR', '0.5', '7000', '7+41', 'FO']
-    for order in orders:
-        writer.writerow(order.export_as_list(static=ceskaposta_static))
+    intent = stripe.PaymentIntent.create(
+        amount=100000,
+        currency='czk',
+        payment_method_types=['card'],
+        statement_descriptor='TEETHY or something'
+    )
 
-    return response
+    print(intent.client_secret)
+
+    return HttpResponse(json.dumps(intent.client_secret))
+
+
+# POST /orders/charge
+@csrf_exempt
+def charge(request):
+    stripe.api_key = "sk_test_ovtvbkz7ot73WZ8ICgDga0MA"
+
+    charge = stripe.Charge.create(
+        amount=100000,
+        currency='czk',
+        description='Example charge',
+        source=json.loads(request.body),
+    )
+
+    print(charge)
+
+    return HttpResponse('OK')
