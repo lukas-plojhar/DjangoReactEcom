@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import qs from 'query-string';
 import {Link} from 'react-router-dom';
 import {Footer} from "../common/Footer";
+import {Button, Collapse} from 'react-bootstrap';
 import axios from "axios";
 import Joi from "joi-browser";
 import {ProductCarousel} from "../common/Carousel";
@@ -351,9 +352,12 @@ class CheckoutPage extends Component {
                                     </p>
                                     <small className="d-inline-block float-right mr-2">zdarma</small>
                                 </div>
-
-                                {/*<StripeGateway/>*/}
-                                <InjectedStripeGatewayForm/>
+                                <Collapse in={shipping == 'cc'}>
+                                    <div id="example-collapse-text">
+                                        asdasdas
+                                        <InjectedStripeGatewayForm/>
+                                    </div>
+                                </Collapse>
 
                             </React.Fragment>
 
