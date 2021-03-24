@@ -98,16 +98,15 @@ class OrderUpdateAPIView(views.APIView):
 # POST /orders/intent/
 @csrf_exempt
 def intent(request):
+    data = json.loads(request.body)
     stripe.api_key = "sk_test_ovtvbkz7ot73WZ8ICgDga0MA"
 
     intent = stripe.PaymentIntent.create(
-        amount=100000,
-        currency='czk',
+        amount=str(data['amount']) + '00',
+        currency=data['currency'],
         payment_method_types=['card'],
         statement_descriptor='TEETHY or something'
     )
-
-    print(intent.client_secret)
 
     return HttpResponse(json.dumps(intent.client_secret))
 

@@ -2,11 +2,12 @@ import React, {Component} from "react";
 import qs from 'query-string';
 import {Link} from 'react-router-dom';
 import {Footer} from "../common/Footer";
-import {Button, Collapse} from 'react-bootstrap';
+import {Collapse} from 'react-bootstrap';
 import axios from "axios";
 import Joi from "joi-browser";
-import {ProductCarousel} from "../common/Carousel";
+import {UpsellCarousel} from "../common/Carousel";
 import InjectedStripeGatewayForm from "./StripeGateway";
+
 
 // Translated input labels
 let locale = {
@@ -56,10 +57,13 @@ class CheckoutPage extends Component {
 
         this.handleIncrease = this.handleIncrease.bind(this);
         this.handleDecrease = this.handleDecrease.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleOrder = this.handleOrder.bind(this);
         this.handleShippingChange = this.handleShippingChange.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handleFormBlur = this.handleFormBlur.bind(this);
+
+        this.addToCart = this.addToCart.bind(this);
 
         this.getTotal = this.getTotal.bind(this);
         this.getSubTotal = this.getSubTotal.bind(this);
@@ -67,35 +71,11 @@ class CheckoutPage extends Component {
 
     // Hooks
     async componentDidMount() {
-        const {data, params} = this.state;
-        const {cart} = data;
-
-        let isLoading = true;
-        if (params.variationId && params.variationId > 2) params.variationId = 0; // Integrity check
-        if (params.productId) {
-
-            // Search cart for match
-            cart.items.forEach((item, index) => {
-                if (item.product.id == params.productId && item.variationId == params.variationId) {
-                    cart.items[index].quantity++;
-                    isLoading = false;
-                }
-            })
-
-            // Fetch product
-            if (isLoading) {
-                const product = await axios(`${process.env.REACT_APP_URL}/products/${params.productId}`).then(response => response.data);
-                cart.items.push({
-                    product: product,
-                    quantity: 1,
-                    variationId: params.variationId || 0
-                });
-                isLoading = false;
-            }
+        const {params} = this.state;
+        if (Object.keys(params).length > 0) {
+            this.addToCart(params.productId, params.variationId);
         }
-
-        // Save new state
-        this.setState({data, isLoading});
+        this.setState({isLoading: false});
     }
 
     componentDidUpdate() {
@@ -110,9 +90,39 @@ class CheckoutPage extends Component {
         return error ? error.details[0].message : null;
     };
 
-    //Handlers
-    handleRemove() {
-        console.log('remove item ');
+    async addToCart(productId, variationId = 0) {
+        const {data} = this.state;
+        const {cart} = this.state.data;
+
+        let isLoading = true;
+        // Search cart for match
+        cart.items.forEach((item, index) => {
+            if (item.product.id == productId && item.variationId == variationId) {
+                cart.items[index].quantity++;
+                isLoading = false;
+            }
+        })
+
+        // Fetch product
+        if (isLoading) {
+            const product = await axios(`${process.env.REACT_APP_URL}/products/${productId}`).then(response => response.data);
+            cart.items.push({
+                product: product,
+                quantity: 1,
+                variationId: variationId
+            });
+            isLoading = false;
+        }
+
+        // Save new state
+        this.setState({data});
+    }
+
+    // Handlers
+    handleDelete(index) {
+        const {data} = this.state;
+        data.cart.items = data.cart.items.splice(index - 1, 1);
+        this.setState({data});
     }
 
     handleIncrease(index) {
@@ -164,12 +174,13 @@ class CheckoutPage extends Component {
         this.setState({errors});
     }
 
-    handleOrder() {
+    async handleOrder(e) {
+        e.preventDefault();
         const {errors, data} = this.state;
-        if (Object.keys(errors).length === 0 && Object.keys(data.customer).length === 7) alert('order sent');
+        const {customer, cart} = data;
+        const {shipping} = cart;
 
-        else alert('order NOT sent');
-
+        console.log('make order');
     }
 
     // Functions
@@ -204,6 +215,8 @@ class CheckoutPage extends Component {
         const {cart, customer} = data;
         const {items, shipping} = cart;
 
+        const isDisabled = !(Object.keys(errors).length === 0 && Object.keys(data.customer).length === 7);
+
         return <React.Fragment>
             {/*Cart*/}
             <section>
@@ -216,48 +229,41 @@ class CheckoutPage extends Component {
                             const {id, name, featuredImage, variations} = product;
                             const variation = variations[variationId];
                             return <div className="row mb-2" key={index}>
-                                <div className="col-6 col-md-4 col-lg-2 text-center">
+                                <div className="col-12 col-md-6 col-lg-2 text-center align-self-center">
                                     <Link to={`/produkt/${id}`}>
                                         <img src={`${process.env.REACT_APP_URL}${featuredImage}`}/>
                                     </Link>
-                                    {/*Quantity buttons for mobile*/}
-                                    <div className="text-center mt-2 d-md-none">
-                                        <button className="btn btn-outline-secondary d-inline-block btn-single"
-                                                type="button"
-                                                onClick={() => this.handleDecrease(index)}>-
-                                        </button>
-                                        <p className="d-inline-block mx-1 font-weight-bold">{quantity} ks</p>
-                                        <button className="btn btn-outline-secondary d-inline-block btn-single"
-                                                type="button"
-                                                onClick={() => this.handleIncrease(index)}>+
-                                        </button>
-                                    </div>
                                 </div>
-                                <div className="col-6 col-md-8 col-lg-10 mt-1">
+                                <div className="col-12 col-md-6 col-lg-10 mt-1">
                                     <div className="d-block">
                                         <Link to={`/produkt/${id}`}>
-                                            <h4 className="d-inline-block mb-1">{name}</h4>
+                                            <h6 className="mb-1 d-inline-block">{name}</h6>
                                         </Link>
-                                        {/*REMOVE BUTTON*/}
+                                        {/*Remove button*/}
+                                        <img src="/assets/img/icon_remove.svg"
+                                             className="mb-1 d-inline-block"
+                                             style={{maxWidth: '1.1rem', marginLeft: 10, marginTop: 6}}
+                                             onClick={() => this.handleDelete(index)}/>
+
+                                        {/*Variation description*/}
+                                        <small
+                                            className="mb-1 d-block"
+                                            style={{color: 'black'}}>
+                                            - {variation.name}<br/>
+                                            - {variation.content}
+                                        </small>
                                     </div>
-                                    <p>
-                                        {variation.name}<br/>
-                                        {/*<small>{variation.content}</small>*/}
-                                    </p>
-                                    {/*Quantity buttons for desktop*/}
-                                    <div className="text-left mt-2 d-none d-md-block">
-                                        <button className="btn btn-outline-secondary d-inline-block btn-single"
-                                                type="button"
-                                                onClick={() => this.handleDecrease(index)}>-
-                                        </button>
-                                        <p className="d-inline-block mx-1 font-weight-bold">{quantity} ks</p>
-                                        <button className="btn btn-outline-secondary d-inline-block btn-single"
-                                                type="button"
-                                                onClick={() => this.handleIncrease(index)}>+
-                                        </button>
+
+                                    {/*Quantity buttons*/}
+                                    <div className="my-1">
+                                        <img src="/assets/img/icon_minus.svg" style={{maxWidth: '1.25rem'}}
+                                             onClick={() => this.handleDecrease(index)}/>
+                                        <p className="d-inline-block font-weight-bold"
+                                           style={{margin: '5px'}}>{quantity} ks</p>
+                                        <img src="/assets/img/icon_plus.svg" style={{maxWidth: '1.25rem'}}
+                                             onClick={() => this.handleIncrease(index)}/>
                                     </div>
-                                    <hr className="d-lg-none"/>
-                                    <p>Cena: {variation.regularPrice * quantity}</p>
+                                    <p>Cena: {variation.salePrice * quantity}{process.env.REACT_APP_CURRENCY}</p>
                                 </div>
                             </div>
                         })
@@ -271,7 +277,7 @@ class CheckoutPage extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h4 className="text-center">Přidej k objednávce se slevou</h4>
-                            <ProductCarousel/>
+                            <UpsellCarousel buttonText="Přidat do košíku" handleClick={this.addToCart}/>
                         </div>
                     </div>
                 </div>
@@ -301,7 +307,7 @@ class CheckoutPage extends Component {
                         </div>
 
                         {/*Summary - right side*/}
-                        <div className="col-12 col-md-6">
+                        <div className="col-12 col-md-6 mt-2">
                             <h4 className="text-center">Souhrn</h4>
                             {items.map((item, index) =>
                                 <SummaryRow left={`${item.product.name} x ${item.quantity}`}
@@ -309,17 +315,20 @@ class CheckoutPage extends Component {
                                             key={index}/>
                             )}
 
-                            <SummaryRow left={`Postovne`}
-                                        right={`${this.getShippingCost()}${process.env.REACT_APP_CURRENCY}`}/>
+                            <SummaryRow left={`Poštovné`}
+                                        right={`${this.getShippingCost()}${process.env.REACT_APP_CURRENCY}`}
+                                        icon="/assets/img/icon_gls.png"
+                                        boldText={true}
+                            />
 
-                            <SummaryRow left={`Mezisoucet`}
-                                        right={`${this.getSubTotal()}${process.env.REACT_APP_CURRENCY}`}/>
+                            {/*<SummaryRow left={`Mezisoučet`}*/}
+                            {/*            right={`${this.getSubTotal()}${process.env.REACT_APP_CURRENCY}`}/>*/}
 
 
                             {/*Payment and shipping selection*/}
                             <React.Fragment>
                                 <hr/>
-                                <h4 className="text-center">Platební metoda</h4>
+                                <h4 className="text-center mt-2">Platební metoda</h4>
 
                                 {/*COD*/}
                                 <div className="d-block my-1 clearfix">
@@ -352,23 +361,29 @@ class CheckoutPage extends Component {
                                     </p>
                                     <small className="d-inline-block float-right mr-2">zdarma</small>
                                 </div>
-                                <Collapse in={shipping == 'cc'}>
-                                    <div id="example-collapse-text">
-                                        asdasdas
-                                        <InjectedStripeGatewayForm/>
+
+                                {/* Collapsibles for payments */}
+                                <Collapse in={shipping == 'cod'}>
+                                    <div id="cod">
+                                        <div className="d-block text-center">
+                                            <h3 className="mt-2">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()}{process.env.REACT_APP_CURRENCY}</h3>
+                                            <button className="btn btn-primary"
+                                                    onClick={this.handleOrder}
+                                                    disabled={isDisabled}
+                                            >Objednat
+                                            </button>
+                                        </div>
                                     </div>
                                 </Collapse>
 
+                                <Collapse in={shipping == 'cc'}>
+                                    <div id="cc">
+                                        <InjectedStripeGatewayForm total={this.getTotal()}
+                                                                   isDisabled={isDisabled}/>
+                                    </div>
+                                </Collapse>w
                             </React.Fragment>
 
-                            {/*Order button*/
-                            }
-                            <div className="d-block text-center">
-                                <h3 className="mt-2">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()}{process.env.REACT_APP_CURRENCY}</h3>
-                                <button className="btn btn-primary"
-                                        onClick={this.handleOrder}>Objednat
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -379,145 +394,43 @@ class CheckoutPage extends Component {
 }
 
 // Component for form
-const Input = ({name, label, value, onChange, onBlur, error}) => {
-    return (
-        <div className="form-group">
-            {!error && value && <img src="/assets/img/icon_check.svg" style={{width: 16, marginRight: 5}}/>}
-            <label htmlFor={name}>{label}</label>
+const
+    Input = ({name, label, value, onChange, onBlur, error}) => {
+        return (
+            <div className="form-group">
+                {!error && value && <img src="/assets/img/icon_check.svg" style={{width: 16, marginRight: 5}}/>}
+                <label htmlFor={name}>{label}</label>
 
-            <input type="text"
-                   className="form-control"
-                   id={name}
-                   name={name}
-                   value={value}
-                   onChange={onChange}
-                   onBlur={onBlur}
-            />
-            <div className="d-block">
-                {error && <img src="/assets/img/icon_cross.svg" style={{width: 16, marginRight: 5, marginBottom: 2}}/>}
-                {error && <small className="alert-danger" style={{background: 'white'}}>{error}</small>}
+                <input type="text"
+                       className="form-control"
+                       id={name}
+                       name={name}
+                       value={value}
+                       onChange={onChange}
+                       onBlur={onBlur}
+                />
+                <div className="d-block">
+                    {error &&
+                    <img src="/assets/img/icon_cross.svg" style={{width: 16, marginRight: 5, marginBottom: 2}}/>}
+                    {error && <small className="alert-danger" style={{background: 'white'}}>{error}</small>}
+                </div>
+
+
             </div>
-
-
-        </div>
-    )
-};
+        )
+    };
 
 // Component for summary
-const SummaryRow = ({left, right}) => {
-    return <div className="d-block my-1 clearfix">
-        <p className="d-inline-block float-left">{left}</p>
-        <p className="d-inline-block float-right mr-2">{right}</p>
-    </div>
-}
+const
+    SummaryRow = ({left, right, icon, boldText}) => {
+        return <div className={`d-block my-1 clearfix ` + (boldText && 'font-weight-bold')}>
+            <p className="d-inline-block float-left">{left}</p>
+            {icon && <img src={icon} style={{maxWidth: 60, marginLeft: 10, marginTop: -9}}
+                          className="d-inline-block float-left"/>}
+            <p className="d-inline-block float-right mr-2">{right}</p>
+        </div>
+    }
 
-// Component for shipping radio buttons
-
-
-//
-//
-// const CheckoutPage = () => {
-//
-//     const [isLoading, setIsLoading] = useState(true);
-//     const [state, setState] = useState(localStorage.getItem(process.env.REACT_APP_LOCALSTORAGE) || emptyTemplate);
-//
-//     useEffect(() => {
-//         async function fetchData() {
-//             console.log(state);
-//             if (params.productId) {
-//
-//                 // Search cart for match
-//                 state.cart.items.forEach(item => {
-//                     console.log('iteration')
-//                     if (item.product.id == params.productId && item.variationId == params.variationId) {
-//                         state.item.quantity++;
-//                         setIsLoading(false);
-//                     }
-//                 })
-//
-//                 // Fetch product
-//                 if (isLoading) {
-//                     const data = await axios(`${process.env.REACT_APP_URL}/products/${params.productId}`).then(response => response.data);
-//                     state.cart.items.push(JSON.parse(data));
-//                 }
-//             }
-//             // Save new state
-//             setState(state);
-//         }
-//     }, []);
-//
-//     // Handlers
-//     const handleIncrease = () => {
-//         console.log('increment');
-//     }
-//
-//     const handleDecrease = () => {
-//         console.log('decrease');
-//     }
-//
-//     const handleOrder = () => {
-//         alert('new order');
-//     }
-//
-//     return <React.Fragment>
-//
-//         {/*Cart*/}
-//         <section>
-//             <div className="container">
-//                 <div className="row pt-1 mt-1 py-md-2 my-md-2">
-//
-//                     {/*Items*/}
-//                     <div className="col-4 text-center">
-//                         {/*<img src={`${process.env.REACT_APP_URL}${item.featuredImage}`}/>*/}
-//                     </div>
-//                     <div className="col-8">
-//                         <h3 className="d-inline-block">Product name</h3>
-//                         <button className="btn btn-outline-secondary d-inline-block ml-2 btn-single" type="button">x
-//                         </button>
-//                         <p>product variation</p>
-//                         <div className="text-left">
-//                             <button className="btn btn-outline-secondary d-inline-block btn-single" type="button"
-//                                     onClick={handleDecrease}>-
-//                             </button>
-//                             <p className="d-inline-block mx-1 font-weight-bold">1 ks</p>
-//                             <button className="btn btn-outline-secondary d-inline-block btn-single" type="button"
-//                                     onClick={handleIncrease}>+
-//                             </button>
-//                         </div>
-//                         <p>
-//                             cena
-//                         </p>
-//                     </div>
-//
-//                 </div>
-//             </div>
-//         </section>
-//         <hr/>
-//         <section>
-//             <div className="container">
-//                 <div className="row py-2 my-2">
-//
-//                     {/*Form - left side*/}
-//                     <div className="col-12 col-md-6">
-//                         <form><input type="text" className="form-control"/><input type="text" className="form-control"/><input
-//                             type="text" className="form-control"/><input type="text" className="form-control"/></form>
-//                     </div>
-//
-//                     {/*Summary - right side*/}
-//                     <div className="col-12 col-md-6">
-//                         <div>
-//                             <p className="d-inline-block float-left">Paragraph</p>
-//                             <p className="d-inline-block float-right mr-2">Paragraph</p>
-//                         </div>
-//                         <hr className="my-3"/>
-//                     </div>
-//
-//                 </div>
-//             </div>
-//         </section>
-//         <Footer/>
-//     </React.Fragment>
-// }
 
 export default CheckoutPage;
 

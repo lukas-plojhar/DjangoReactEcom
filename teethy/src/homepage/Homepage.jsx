@@ -103,7 +103,7 @@ const Homepage = () => {
                                     onClose={() => setOpen(false)}/>
                         <img src={`/assets/img/lovelyhair.png`} className="mb-2 bg-rounded"
                              onClick={() => setOpen(true)}/>
-                        <button className="btn-sm btn-primary d-block d-md-none" onClick={() => setOpen(true)}>Přehrát video</button>
+                        <button className="btn-sm btn-primary d-md-none" onClick={() => setOpen(true)}>Přehrát video</button>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,7 @@ b, strong {
 
 .btn {
     padding: 1.25rem 3.5rem !important;
+    border: 0px !important;
 }
 
 /*Nutno dodat do SCSS templatu*/
@@ -39,6 +40,11 @@ img {
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 1.5px;
+}
+
+.btn-sm {
+    font-family: "Nunito" !important;
+    font-size: 80%;
 }
 
 .btn-primary {

@@ -53,9 +53,9 @@ export const BigFooter = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h2 className="text-center text-sm-left mb-2 d-block">Ostatní také vyzkouseli</h2>
+                        <h2 className="text-center text-sm-left mb-2 d-block">Ostatní také vyzkoušeli</h2>
                     </div>
-                    <ProductCarousel items={null}/>
+                    <ProductCarousel/>
                 </div>
             </div>
         </section>
@@ -67,7 +67,7 @@ export const BigFooter = () => {
                     <div className="col-12 text-center text-sm-left">
                         <h2 className="mb-0 font-white">Ohlasy ze sociálních sítí</h2>
                         <p className="mb-2 font-white">Neprodáváme zajíce v pytli. Na českém trhu jsme už od roku
-                            2018.</p>
+                            2017.</p>
                     </div>
                     <ReviewCarousel items={null}/>
                 </div>
