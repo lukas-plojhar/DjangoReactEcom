@@ -3,7 +3,7 @@ from django.db import models
 class CartItem(models.Model):
     cart = models.ForeignKey('carts.cart', on_delete=models.PROTECT, null=False)
     product = models.ForeignKey('products.product', on_delete=models.PROTECT, null=False)
-    variation = models.ForeignKey('products.productvariation', on_delete=models.PROTECT, null=False)
+    variation = models.IntegerField()
     quantity = models.IntegerField()
 
     # @property
@@ -21,8 +21,8 @@ class Cart(models.Model):
         SLOVENSKA_POSTA = '2', 'Slovenská pošta'
 
     class PaymentOptions(models.TextChoices):
-        COD = '1', 'Na dobirku'
-        CC = '2', 'Platba kartou'
+        COD = '1', 'Dobírka'
+        CC = '2', 'Platební karta'
 
     shipping = models.CharField(max_length=1, choices=ShippingOptions.choices, default=ShippingOptions.CESKA_POSTA)
     payment = models.CharField(max_length=1, choices=PaymentOptions.choices, default=PaymentOptions.COD)

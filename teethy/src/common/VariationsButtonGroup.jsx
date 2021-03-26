@@ -20,7 +20,7 @@ const VariationsButtonGroup = ({id, variations}) => {
             <div className="text-center">
                 {/*Add to cart button*/}
                 <Link to={`/pokladna/?productId=${id}`}>
-                    <button className="btn-lg btn-primary bg-shadow mb-1" type="button">Přidat do košíku
+                    <button className="btn btn-primary bg-shadow mb-1" type="button">Přidat do košíku
                     </button>
                 </Link>
             </div>

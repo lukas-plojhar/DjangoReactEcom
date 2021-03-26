@@ -12,7 +12,7 @@ const ShopPage = () => {
         const data = await axios.get(`${process.env.REACT_APP_URL}/products/`).then(response => response.data);
         setProducts(data);
         setIsLoading(false);
-    });
+    }, []);
 
     if (isLoading) return <p> Loading ... </p>
     return <React.Fragment>
@@ -22,33 +22,39 @@ const ShopPage = () => {
                 return <section className={"py-2 my-2 py-md-2 my-md-2 " + (index % 2 === 1 ? "bg-light" : "")}>
                     <div className="container">
                         <div className="row">
-
-                            <div className={"col-12 col-md-6 text-center text-md-left align-self-center " + (index % 2 === 1 ? "order-md-1" : "")}>
-                                <h2>{name}</h2>
+                            <div
+                                className={"col-12 col-md-6 text-center text-md-left align-self-center " + (index % 2 === 1 ? "order-md-1" : "")}>
+                                <Link to={`/produkt/${id}`}>
+                                    <h2 className="mb-0">{name}</h2>
+                                </Link>
                                 <Stars/>
                                 <p>{shortDescription}</p>
                                 <div className="d-block mt-2 mb-2 mb-md-3">
                                     <h4>již od {variations[0].salePrice}{process.env.REACT_APP_CURRENCY}</h4>
-                                    <Link to={`/produkt/${id}`}>
-                                        <button className="btn btn-primary mr-md-1" type="button">přidat do košíku</button>
+                                    <Link to={`/pokladna/?productId=${id}`}>
+                                        <button className="btn btn-primary mr-md-1" type="button">přidat do košíku
+                                        </button>
                                     </Link>
                                     <Link to={`/produkt/${id}`}>
-                                        <button className="btn btn-link" type="button">více informací</button>
+                                        <button className="btn btn-outline-primary" type="button">více informací
+                                        </button>
                                     </Link>
                                 </div>
                             </div>
 
                             <div className="col-12 col-md-6">
-                                <img src={process.env.REACT_APP_URL + featuredImage}/>
+                                <Link to={`/produkt/${id}`}>
+                                    <img src={process.env.REACT_APP_URL + featuredImage}/>
+                                </Link>
                             </div>
 
                         </div>
                     </div>
                 </section>
             })
-            }
-            <Footer/>
-            </React.Fragment>
         }
+        <Footer/>
+    </React.Fragment>
+}
 
-        export default ShopPage;
+export default ShopPage;

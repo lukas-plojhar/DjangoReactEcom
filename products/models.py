@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Product(models.Model):
     # Text
     name = models.CharField(max_length=255)
@@ -21,6 +22,7 @@ class Product(models.Model):
     def __str__(self):
         return f'# {self.id} - {self.name}'
 
+
 class ProductVariation(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, null=False)
     internal_name = models.CharField(max_length=255, null=False, blank=False)
@@ -34,6 +36,12 @@ class ProductVariation(models.Model):
     def __str__(self):
         return f'# {self.id} {self.product.name} - {self.name}'
 
+    @staticmethod
+    def get_variation(product, number):
+        variations = list(ProductVariation.objects.filter(product=product).order_by('sale_price'))
+        return variations[number]
+
+
 class ProductTab(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, null=False)
     internal_name = models.CharField(max_length=255, null=False, blank=False)
@@ -43,6 +51,7 @@ class ProductTab(models.Model):
     def __str__(self):
         return f'# {self.id} - {self.internal_name}'
 
+
 class ProductImage(models.Model):
     product = models.ForeignKey('products.product', on_delete=models.CASCADE, null=False)
     image = models.ImageField(upload_to='', null=True, blank=True, default=None)
@@ -50,4 +59,3 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f'# {self.id} - {self.product.name}'
-

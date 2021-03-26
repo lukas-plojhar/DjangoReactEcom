@@ -5,6 +5,7 @@ import Homepage from "./homepage/Homepage";
 import ShopPage from "./shop/Shop";
 import SingleProductPage from "./product/SingleProductPage";
 import CheckoutPage from "./checkout/CheckoutPage";
+import ThankyouPage from "./checkout/ThankyouPage";
 import TermsOfUsePage from "./common/TermsOfUsePage";
 import RefundPolicyPage from "./common/RefundPolicyPage";
 import ContactPage from "./common/ContactPage";
@@ -24,6 +25,7 @@ class Router extends Component {
                         <Route path="/reklamacni-rad" component={RefundPolicyPage}/>
                         <Route path="/kontakt" component={ContactPage}/>
 
+                        <Route path="/dekujeme/:id?" component={ThankyouPage}/>
                         <Route path="/pokladna" component={CheckoutPage}/>
                         <Route path="/produkt/:id" component={SingleProductPage}/>
                         <Route path="/obchod" component={ShopPage}/>

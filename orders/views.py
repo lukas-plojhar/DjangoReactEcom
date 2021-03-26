@@ -31,18 +31,23 @@ class OrderCreateAPIView(views.APIView):
         customer = Customer.objects.last()
 
         # Save cart
+        cart = data['cart']
         cart = Cart(
-            payment=data['payment'],
-            shipping=data['shipping']
+            payment=cart['payment'],
+            shipping=1
         )
         cart.save()
 
         # Save cart items
-        items = data['items']
+        items = data['cart']['items']
+        # print(data['cart']['items'])
+        # return HttpResponse(HTTP_200_OK)
+
         for item in items:
             cart_item = CartItem(
                 cart=cart,
                 product=Product.objects.get(id=item['product']['id']),
+                variation=int(item['variationId']),
                 quantity=item['quantity']
             )
             cart_item.save()

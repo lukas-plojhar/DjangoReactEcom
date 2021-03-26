@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import qs from 'query-string';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {Footer} from "../common/Footer";
 import {Collapse} from 'react-bootstrap';
 import axios from "axios";
@@ -38,7 +38,7 @@ let fields = ['email', 'phone', 'firstName', 'lastName', 'address', 'city', 'pos
 const emptyTemplate = {
     cart: {
         items: [],
-        shipping: "cod",
+        payment: "cod",
     },
     customer: {},
 }
@@ -59,7 +59,7 @@ class CheckoutPage extends Component {
         this.handleDecrease = this.handleDecrease.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleOrder = this.handleOrder.bind(this);
-        this.handleShippingChange = this.handleShippingChange.bind(this);
+        this.handlePaymentChange = this.handlePaymentChange.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handleFormBlur = this.handleFormBlur.bind(this);
 
@@ -141,9 +141,9 @@ class CheckoutPage extends Component {
         this.setState(state);
     }
 
-    handleShippingChange(e) {
+    handlePaymentChange(e) {
         const state = this.state;
-        state.data.cart.shipping = e.target.id;
+        state.data.cart.payment = e.target.id;
         this.setState(state);
     }
 
@@ -178,18 +178,33 @@ class CheckoutPage extends Component {
         e.preventDefault();
         const {errors, data} = this.state;
         const {customer, cart} = data;
-        const {shipping} = cart;
 
-        console.log('make order');
+        // Parsing enums
+        if (cart.payment == 'cod') cart.payment = 1;
+        if (cart.payment == 'cc') cart.payment = 2;
+
+        const url = `${process.env.REACT_APP_URL}/orders/create/`;
+        const config = {
+            headers: {'Content-Type': 'application/json'},
+        };
+        const body = {
+            customer: customer,
+            cart: cart
+        };
+
+        const response = await axios.post(url, JSON.stringify(body), config);
+        if (response.status === 201) {
+            this.props.history.push(`/dekujeme/${response.data}`)
+        }
     }
 
     // Functions
     getTotal() {
-        const {shipping} = this.state.data.cart;
+        const {payment} = this.state.data.cart;
         let total = this.getSubTotal();
 
         total += parseInt(process.env.REACT_APP_WEBSITE_SHIPPING);
-        if (shipping == "cod") total += parseInt(process.env.REACT_APP_WEBSITE_COD);
+        if (payment == "cod") total += parseInt(process.env.REACT_APP_WEBSITE_COD);
 
         return total;
     }
@@ -213,7 +228,7 @@ class CheckoutPage extends Component {
         // Destructualization of cart
         const {data, errors} = this.state;
         const {cart, customer} = data;
-        const {items, shipping} = cart;
+        const {items, payment} = cart;
 
         const isDisabled = !(Object.keys(errors).length === 0 && Object.keys(data.customer).length === 7);
 
@@ -337,8 +352,8 @@ class CheckoutPage extends Component {
                                                type="radio"
                                                className="input-radio mr-2"
                                                name="payment_method"
-                                               checked={shipping == 'cod'}
-                                               onChange={(e) => this.handleShippingChange(e)}
+                                               checked={payment == 'cod'}
+                                               onChange={(e) => this.handlePaymentChange(e)}
                                         />
                                         <label htmlFor="cod">Dobírku</label>
                                     </p>
@@ -354,8 +369,8 @@ class CheckoutPage extends Component {
                                                type="radio"
                                                className="input-radio mr-2"
                                                name="payment_method"
-                                               checked={shipping == 'cc'}
-                                               onChange={(e) => this.handleShippingChange(e)}
+                                               checked={payment == 'cc'}
+                                               onChange={(e) => this.handlePaymentChange(e)}
                                         />
                                         <label htmlFor="cc">Platba kartou</label>
                                     </p>
@@ -363,7 +378,7 @@ class CheckoutPage extends Component {
                                 </div>
 
                                 {/* Collapsibles for payments */}
-                                <Collapse in={shipping == 'cod'}>
+                                <Collapse in={payment == 'cod'}>
                                     <div id="cod">
                                         <div className="d-block text-center">
                                             <h3 className="mt-2">Celkem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.getTotal()}{process.env.REACT_APP_CURRENCY}</h3>
@@ -376,7 +391,7 @@ class CheckoutPage extends Component {
                                     </div>
                                 </Collapse>
 
-                                <Collapse in={shipping == 'cc'}>
+                                <Collapse in={payment == 'cc'}>
                                     <div id="cc">
                                         <InjectedStripeGatewayForm total={this.getTotal()}
                                                                    isDisabled={isDisabled}/>
@@ -421,7 +436,7 @@ const
     };
 
 // Component for summary
-const
+export const
     SummaryRow = ({left, right, icon, boldText}) => {
         return <div className={`d-block my-1 clearfix ` + (boldText && 'font-weight-bold')}>
             <p className="d-inline-block float-left">{left}</p>

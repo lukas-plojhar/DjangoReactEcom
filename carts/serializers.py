@@ -1,4 +1,5 @@
-from .models import CartItem
+from .models import Cart, CartItem
+from products.models import ProductVariation
 from products.serializers import ProductSerializer
 from rest_framework import serializers
 
@@ -7,6 +8,7 @@ from rest_framework import serializers
 class CartItemSerializer(serializers.Serializer):
     product = ProductSerializer()
     quantity = serializers.IntegerField()
+    variationId = serializers.IntegerField(source='variation')
 
 
 # Cart serializer
@@ -25,8 +27,19 @@ class CartSerializer(serializers.Serializer):
     def get_total(self, instance):
         total = 0
         items = CartItem.objects.filter(cart__id=instance.id)
-        # for item in items:
-        #     total += item.product.sale_price
+
+        # Adding items
+        for item in items:
+            variation = ProductVariation.get_variation(item.product, item.variation)
+            total += variation.sale_price * item.quantity
+
+        # Adding payment fee
+        if instance.payment == Cart.PaymentOptions.COD:
+            total += 49
+
+        # Adding shipping fee
+        # if instance.shipping == Cart.ShippingOptions.CESKA_POSTA:
+        #     total += 49
 
         return total
 
