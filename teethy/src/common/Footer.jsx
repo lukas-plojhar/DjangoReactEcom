@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 // Footer
 export const Footer = () => {
-    return <footer className="footer-clean mt-2 bg-light">
+    return <footer className="footer-clean pt-2 bg-light">
         <div className="container">
             <div className="row text-left">
                 <div className="col-6 col-md-4">

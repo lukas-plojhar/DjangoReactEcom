@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useRef} from "react";
 import qs from 'query-string';
 import {Link, useHistory} from 'react-router-dom';
 import {Footer} from "../common/Footer";
@@ -183,6 +183,7 @@ class CheckoutPage extends Component {
         if (cart.payment == 'cod') cart.payment = 1;
         if (cart.payment == 'cc') cart.payment = 2;
 
+        // Creating order
         const url = `${process.env.REACT_APP_URL}/orders/create/`;
         const config = {
             headers: {'Content-Type': 'application/json'},
@@ -273,12 +274,12 @@ class CheckoutPage extends Component {
                                     <div className="my-1">
                                         <img src="/assets/img/icon_minus.svg" style={{maxWidth: '1.25rem'}}
                                              onClick={() => this.handleDecrease(index)}/>
-                                        <p className="d-inline-block font-weight-bold"
+                                        <p className="d-inline-block"
                                            style={{margin: '5px'}}>{quantity} ks</p>
                                         <img src="/assets/img/icon_plus.svg" style={{maxWidth: '1.25rem'}}
                                              onClick={() => this.handleIncrease(index)}/>
                                     </div>
-                                    <p>Cena: {variation.salePrice * quantity}{process.env.REACT_APP_CURRENCY}</p>
+                                    <p className="font-weight-bold">Cena: {variation.salePrice * quantity}{process.env.REACT_APP_CURRENCY}</p>
                                 </div>
                             </div>
                         })
@@ -394,7 +395,9 @@ class CheckoutPage extends Component {
                                 <Collapse in={payment == 'cc'}>
                                     <div id="cc">
                                         <InjectedStripeGatewayForm total={this.getTotal()}
-                                                                   isDisabled={isDisabled}/>
+                                                                   isDisabled={isDisabled}
+                                                                   handleOrder={this.handleOrder}
+                                        />
                                     </div>
                                 </Collapse>w
                             </React.Fragment>

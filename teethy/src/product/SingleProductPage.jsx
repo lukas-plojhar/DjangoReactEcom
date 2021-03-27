@@ -8,6 +8,7 @@ import {Tab, Nav} from "react-bootstrap";
 import Stars from "../common/Stars";
 import HeurekaBadge from "../common/HeurekaBadge";
 import {BigFooter} from "../common/Footer";
+import Loading from "../common/Loader";
 
 
 const SingleProductPage = () => {
@@ -39,8 +40,7 @@ const SingleProductPage = () => {
     // Data from state
     const {id, name, shortDescription, numberOfReviews, variations, tab, headline, rating} = product;
 
-    if (isLoading) return <p>loading...</p>;
-    return <React.Fragment>
+    return !isLoading && <React.Fragment>
         <section>
             <div className="container">
                 <div className="row pt-1 mt-1 py-md-2 my-md-2">

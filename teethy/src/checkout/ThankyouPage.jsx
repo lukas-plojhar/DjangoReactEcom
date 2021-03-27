@@ -80,7 +80,7 @@ const ThankyouPage = () => {
 
                 <div className="col-12 my-2 py-2 text-center">
                     <Link to={'/'}>
-                        <button className="btn btn-primary d-inline-block mb-2 mr-md-2">Zpět na úvod</button>
+                        <button className="btn btn-primary d-inline-block mb-2 mb-md-0 mr-md-2">Zpět na úvod</button>
                     </Link>
                     <Link to={'/obchod'}>
                         <button className="btn btn-primary d-inline-block ml-md-2">Katalog produktů</button>
